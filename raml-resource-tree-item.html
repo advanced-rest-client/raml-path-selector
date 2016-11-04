@@ -66,7 +66,7 @@ Custom property | Description | Default
     <iron-collapse id="collapse" opened="[[opened]]">
       <div class="children">
         <template is="dom-repeat" items="[[resource.methods]]">
-          <paper-item data-path$="[[path]].methods.[[index]]" on-tap="_selectPath" class$="[[_computeItemSelectableClass(selectedPath, path, index)]]" title$="[[item.method]] §[[item.description]]">[[_getName(item)]]</paper-item>
+          <paper-item data-path$="[[path]].methods.[[index]]" on-tap="_selectPath" class$="[[_computeItemSelectableClass(selectedPath, path, index)]]" title$="[[item.method]] [[item.description]]">[[_getMethodName(item)]]</paper-item>
         </template>
         <template is="dom-repeat" items="[[resource.resources]]">
           <raml-resource-tree-item selected-path="[[selectedPath]]" resource="[[item]]" path="[[path]].resources.[[index]]"></raml-resource-tree-item>
