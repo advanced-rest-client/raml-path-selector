@@ -1,0 +1,138 @@
+<!--
+@license
+Copyright 2016 The Advanced REST client authors <arc@mulesoft.com>
+Licensed under the Apache License, Version 2.0 (the "License"); you may not
+use this file except in compliance with the License. You may obtain a copy of
+the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations under
+the License.
+-->
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-styles/paper-styles.html">
+<link rel="import" href="../raml-behaviors/raml-behavior.html">
+<link rel="import" href="raml-resource-tree-item.html">
+<link rel="import" href="raml-documentation-tree-item.html">
+<!--
+`<raml-path-selector>`
+Element to select a path in the RAML resources structure. It displays RAML
+API's structure in the tree view and allow to select a node and signal path
+selected by the user.
+
+The `selectedPath` can be then used to get a definition for a particular node
+of the RAML documentation.
+Example path values:
+- documentation.0 - First document in the documentation array
+- resources.0.methods.0 - First method in the first resource
+- resources.0.resources.0 - First sub resource in the first resource array.
+
+See demo for working example.
+
+### Usage
+```
+<raml-path-selector raml="[[raml]]" selected-path="{{path}}"></raml-path-selector>
+```
+
+Inside a Polymer powered web component you can use `get` function to access
+the data:
+```
+var def = this.get('raml.' + selectedPath);
+```
+This assumes that you keep the RAML's JSON structure in the `raml` property.
+
+In other cases you can use libraries like
+<a href="https://lodash.com/" target="_blank">lodash</a> to use it methods to
+access structured data using path notation.
+
+### Styling
+`<raml-path-selector>` provides the following custom properties and mixins for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--raml-path-selector` | Mixin applied to the element | `{}`
+`--raml-path-selector-headers` | Mixin applied to the headers in the tree view | `{}`
+`--raml-path-selector-no-structure` | Mixin applied to the paragraph when the structure wasn't recognized in the RAML source | `{}`
+
+See also `raml-documentation-tree-item` and `raml-resource-tree-item` for
+more styling options.
+
+@group UI Elements
+@element raml-path-selector
+@demo demo/index.html
+-->
+<dom-module id="raml-path-selector">
+  <template>
+    <style>
+    :host {
+      display: block;
+      @apply(--raml-path-selector);
+    }
+
+    h3 {
+      @apply(--paper-font-subhead);
+      color: rgba(0, 0, 0, 0.54);
+      padding-left: 14px;
+      @apply(--raml-path-selector-headers);
+    }
+
+    .no-structure {
+      @apply(--paper-font-body2);
+      color: rgba(0, 0, 0, 0.54);
+      padding-left: 14px;
+      @apply(--raml-path-selector-no-structure);
+    }
+    </style>
+    <h3 hidden$="[[!hasDocumentation]]">Documentation</h3>
+    <template is="dom-repeat" items="[[raml.documentation]]">
+      <raml-documentation-tree-item selected-path="[[selectedPath]]" doc="[[item]]" path="documentation.[[index]]"></raml-documentation-tree-item>
+    </template>
+    <h3>Resources</h3>
+    <template is="dom-repeat" items="[[raml.resources]]">
+      <raml-resource-tree-item selected-path="[[selectedPath]]" resource="[[item]]" path="resources.[[index]]" opened="{{opened}}"></raml-resource-tree-item>
+    </template>
+    <p class="no-structure" hidden$="[[hasResources]]">No structure detected</p>
+  </template>
+  <script>
+  Polymer({
+    is: 'raml-path-selector',
+    behaviors: [Polymer.RamlBehavior],
+    properties: {
+      // Currently selected by the user path.
+      selectedPath: {
+        type: String,
+        notify: true
+      },
+      // If true then the first level of resources will be opened by default.
+      opened: {
+        type: Boolean,
+        value: false
+      },
+      // Is set to true when the RAML's `resources` array is not empty
+      hasDocumentation: {
+        value: false,
+        computed: '_computeHasInArray(raml.documentation.length)'
+      },
+      // Is set to true when the RAML's  `documentation` array is not empty
+      hasResources: {
+        value: false,
+        computed: '_computeHasInArray(raml.resources.length)'
+      }
+    },
+
+    listeners: {
+      'raml-path-selected': '_onPathSelected'
+    },
+    // Sets the `selectedPath` value form the `raml-path-selected` event.
+    _onPathSelected: function(e) {
+      this.set('selectedPath', e.detail.path);
+    },
+    // Computes if given array has values.
+    _computeHasInArray: function(length) {
+      return !!length;
+    }
+  });
+  </script>
+</dom-module>
