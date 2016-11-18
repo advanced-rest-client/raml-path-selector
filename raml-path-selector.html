@@ -16,6 +16,7 @@ the License.
 <link rel="import" href="../raml-behaviors/raml-behavior.html">
 <link rel="import" href="raml-resource-tree-item.html">
 <link rel="import" href="raml-documentation-tree-item.html">
+<link rel="import" href="../raml-aware/raml-aware.html">
 <!--
 `<raml-path-selector>`
 Element to select a path in the RAML resources structure. It displays RAML
@@ -95,11 +96,20 @@ more styling options.
       <raml-resource-tree-item selected-path="[[selectedPath]]" resource="[[item]]" path="resources.[[index]]" opened="{{opened}}"></raml-resource-tree-item>
     </template>
     <p class="no-structure" hidden$="[[hasResources]]">No structure detected</p>
+    <template is="dom-if" if="[[aware]]" restamp="true">
+      <raml-aware raml="{{raml}}" scope="[[aware]]"></raml-aware>
+    </template>
   </template>
   <script>
   Polymer({
     is: 'raml-path-selector',
     behaviors: [Polymer.RamlBehavior],
+    /**
+     * Fired when the path change.
+     *
+     * @event raml-selected-path-changed
+     * @param {String} path The selected path
+     */
     properties: {
       // Currently selected by the user path.
       selectedPath: {
@@ -116,11 +126,13 @@ more styling options.
         value: false,
         computed: '_computeHasInArray(raml.documentation.length)'
       },
-      // Is set to true when the RAML's  `documentation` array is not empty
+      // Is set to true when the RAML's `documentation` array is not empty
       hasResources: {
         value: false,
         computed: '_computeHasInArray(raml.resources.length)'
-      }
+      },
+      // Name of the `<raml-aware>` scope, so it will fill the raml property.
+      aware: String
     },
 
     listeners: {
@@ -129,6 +141,9 @@ more styling options.
     // Sets the `selectedPath` value form the `raml-path-selected` event.
     _onPathSelected: function(e) {
       this.set('selectedPath', e.detail.path);
+      this.fire('raml-selected-path-changed', {
+        path: e.detail.path
+      });
     },
     // Computes if given array has values.
     _computeHasInArray: function(length) {
