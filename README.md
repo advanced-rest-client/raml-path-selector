@@ -42,6 +42,12 @@ Custom property | Description | Default
 See also `raml-documentation-tree-item` and `raml-resource-tree-item` for
 more styling options.
 
+
+
+### Events
+| Name | Description | Params |
+| --- | --- | --- |
+| raml-selected-path-changed | Fired when the path change. | path **String** - The selected path |
 # raml-resource-tree-item
 
 The `<raml-resource-tree-item>` is an element that displays a resource
