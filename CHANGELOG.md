@@ -1,3 +1,13 @@
+<a name="1.0.4"></a>
+## [1.0.4](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.3...v1.0.4) (2016-12-09)
+
+
+### Fix
+
+* Fixed styles, added the  attribute ([77c870acd44b515be4c718a8fe48f26680974c61](https://github.com/advanced-rest-client/raml-path-selector/commit/77c870acd44b515be4c718a8fe48f26680974c61))
+
+
+
 <a name="1.0.3"></a>
 ## [1.0.3](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.2...v1.0.3) (2016-11-18)
 
