@@ -63,6 +63,7 @@ more styling options.
 @group RAML Elements
 @element raml-path-selector
 @demo demo/index.html
+@demo demo/resources-only.html
 @hero hero.svg
 -->
 <dom-module id="raml-path-selector">
@@ -70,6 +71,7 @@ more styling options.
     <style>
     :host {
       display: block;
+      overflow: auto;
       @apply(--raml-path-selector);
     }
 
@@ -86,12 +88,17 @@ more styling options.
       padding-left: 14px;
       @apply(--raml-path-selector-no-structure);
     }
+
+    :host([resources-only]) .hidable {
+      display: none;
+    }
+
     </style>
-    <h3 hidden$="[[!hasDocumentation]]">Documentation</h3>
+    <h3 class="hidable" hidden$="[[!hasDocumentation]]">Documentation</h3>
     <template is="dom-repeat" items="[[raml.documentation]]">
-      <raml-documentation-tree-item selected-path="[[selectedPath]]" doc="[[item]]" path="documentation.[[index]]"></raml-documentation-tree-item>
+      <raml-documentation-tree-item class="hidable" selected-path="[[selectedPath]]" doc="[[item]]" path="documentation.[[index]]"></raml-documentation-tree-item>
     </template>
-    <h3>Resources</h3>
+    <h3 class="hidable">Resources</h3>
     <template is="dom-repeat" items="[[raml.resources]]">
       <raml-resource-tree-item selected-path="[[selectedPath]]" resource="[[item]]" path="resources.[[index]]" opened="{{opened}}"></raml-resource-tree-item>
     </template>
@@ -132,7 +139,17 @@ more styling options.
         computed: '_computeHasInArray(raml.resources.length)'
       },
       // Name of the `<raml-aware>` scope, so it will fill the raml property.
-      aware: String
+      aware: String,
+      /**
+       * If set the element will render the resources / methods tree.
+       * It can be used in views when only resources are relevant giving the
+       * context.
+       */
+      resourcesOnly: {
+        type: Boolean,
+        value: false,
+        reflectToAttribute: true
+      }
     },
 
     listeners: {
