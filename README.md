@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/advanced-rest-client/raml-path-selector.svg?branch=master)](https://travis-ci.org/advanced-rest-client/raml-path-selector)  [![Dependency Status](https://dependencyci.com/github/advanced-rest-client/raml-path-selector/badge)](https://dependencyci.com/github/advanced-rest-client/raml-path-selector)  
+
 # raml-path-selector
 
 `<raml-path-selector>`
