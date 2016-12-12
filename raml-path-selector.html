@@ -18,6 +18,8 @@ the License.
 <link rel="import" href="raml-documentation-tree-item.html">
 <link rel="import" href="../raml-aware/raml-aware.html">
 <link rel="import" href="../iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
+<link rel="import" href="../paper-menu-button/paper-menu-button.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <!--
 `<raml-path-selector>`
 Element to select a path in the RAML resources structure. It displays RAML
@@ -93,6 +95,13 @@ more styling options.
       @apply(--raml-path-selector-no-structure);
     }
     </style>
+    <!-- <paper-menu-button>
+      <paper-icon-button icon="menu" class="dropdown-trigger"></paper-icon-button>
+      <div class="dropdown-content">
+
+      </div>
+    </paper-menu-button> -->
+
     <h3 hidden$="[[!hasDocumentation]]">Documentation</h3>
     <template is="dom-repeat" items="[[raml.documentation]]">
       <raml-documentation-tree-item selected-path="[[selectedPath]]" doc="[[item]]" path="documentation.[[index]]"></raml-documentation-tree-item>
