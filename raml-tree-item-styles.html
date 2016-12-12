@@ -9,6 +9,10 @@
         background-color: transparent;
       }
     }
+    :host(:focus),
+    :focus {
+      outline: var(--raml-docs-tree-outline, none);
+    }
 
     paper-item {
       min-height: 48px;

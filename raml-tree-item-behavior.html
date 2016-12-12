@@ -26,7 +26,12 @@ Polymer.RamlTreeItemBehavior = {
       value: ''
     },
     // Currently selected path.
-    selectedPath: String
+    selectedPath: String,
+    // True if the item is selected
+    isSelected: {
+      type: Boolean,
+      computed: '_computeIsSelected(selectedPath, path)'
+    }
   },
   /**
    * Event handler for the click on an tree item.
@@ -62,6 +67,14 @@ Polymer.RamlTreeItemBehavior = {
       return 'selected';
     }
     return '';
-  }
+  },
+
+  // Computes if selected path equals current item path.
+  _computeIsSelected: function(selectedPath, path) {
+    if (!selectedPath || !path) {
+      return false;
+    }
+    return selectedPath === path;
+  },
 };
 </script>

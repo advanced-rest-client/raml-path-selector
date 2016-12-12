@@ -30,6 +30,7 @@ Custom property | Description | Default
 `--raml-docs-tree-item-background` | Background color of the tree item.  | `transparent`
 `--raml-docs-tree-item-hover-background` | Background color of hovered tree item  | `#F5F5F5`
 `--raml-docs-tree-item-selected-background` | Background color of the selected item | `rgba(3, 169, 244, 0.24)`
+`--raml-docs-tree-outline` | An outline of focused item | `none`
 
 @element raml-resource-tree-item
 @demo demo/index.html
@@ -49,8 +50,30 @@ Custom property | Description | Default
 
     properties: {
       // A documentation item from the RAML's documentation node.
-      doc: Object
-    }
+      doc: Object,
+      // True if the resource is currently selected.
+      docIsSelected: {
+        type: Boolean,
+        computed: '_computeIsSelected(selectedPath, path)'
+      },
+    },
+
+    observers: [
+      '_isSelectedChanged(isSelected)'
+    ],
+
+    /**
+     * Sets the `tabindex` property if the selection changes.
+     */
+    _isSelectedChanged: function(isSelected) {
+      if (isSelected) {
+        this.setAttribute('tabindex', '0');
+        this.scrollIntoViewIfNeeded();
+        this.focus();
+      } else {
+        this.setAttribute('tabindex', '-1');
+      }
+    },
   });
   </script>
 </dom-module>

@@ -49,7 +49,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   $('#pathManual').addEventListener('input', function(e) {
     $('raml-path-selector').selectedPath = e.target.value;
   });
-  window.addEventListener('raml-path-selected', function(e) {
+  window.addEventListener('raml-selected-path-changed', function(e) {
     $('#pathManual').value = e.detail.path;
   });
   </script>
