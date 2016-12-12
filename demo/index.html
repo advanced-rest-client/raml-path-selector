@@ -17,13 +17,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <title>raml-path-selector demo</title>
   <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
   <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
-  <link rel="import" href="../../paper-input/paper-input.html">
+  <link rel="import" href="../../paper-checkbox/paper-checkbox.html">
+  <link rel="import" href="../../raml-docs-helpers/raml-docs-parser.html">
   <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
   <link rel="import" href="../../raml-docs-helpers/raml-docs-parser.html">
+
   <link rel="import" href="../raml-path-selector.html">
   <style is="custom-style" include="demo-pages-shared-styles">
   .vertical-section-container {
     max-width: 600px;
+  }
+
+  raml-path-selector {
+    margin-top: 40px;
   }
   </style>
 </head>
@@ -35,6 +41,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <section>
       <paper-input id="pathManual" label="Selected path"></paper-input>
     </section>
+    <div class="action">
+      <paper-checkbox>Render narrow view</paper-checkbox>
+    </div>
     <raml-path-selector opened></raml-path-selector>
   </div>
   <script>
@@ -46,6 +55,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   });
   $('#pathManual').addEventListener('input', function(e) {
     $('raml-path-selector').selectedPath = e.target.value;
+  });
+  $('paper-checkbox').addEventListener('change', function(e) {
+    $('raml-path-selector').narrow = e.target.checked;
   });
   window.addEventListener('raml-selected-path-changed', function(e) {
     $('#pathManual').value = e.detail.path;

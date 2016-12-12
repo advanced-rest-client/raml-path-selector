@@ -16,9 +16,10 @@ the License.
 <link rel="import" href="../iron-collapse/iron-collapse.html">
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../arc-icons/arc-icons.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
 <link rel="import" href="raml-tree-item-behavior.html">
 <link rel="import" href="raml-tree-item-styles.html">
-<link rel="import" href="../iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
 <!--
 The `<raml-resource-tree-item>` is an element that displays a resource
 part of the API structure tree. It contains the resource, it's methods and
@@ -68,6 +69,10 @@ Custom property | Description | Default
 
     .resource-name {
       @apply(--layout-flex);
+    }
+
+    paper-item {
+      white-space: nowrap;
     }
     </style>
     <paper-item data-path$="[[path]]" on-tap="_selectPath" class$="[[_computeItemSelectableClass(selectedPath, path)]]" title$="[[resourceTitle]]" id="resource">

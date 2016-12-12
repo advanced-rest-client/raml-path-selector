@@ -12,14 +12,16 @@ License for the specific language governing permissions and limitations under
 the License.
 -->
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../paper-styles/paper-styles.html">
-<link rel="import" href="../raml-behaviors/raml-behavior.html">
-<link rel="import" href="raml-resource-tree-item.html">
-<link rel="import" href="raml-documentation-tree-item.html">
-<link rel="import" href="../raml-aware/raml-aware.html">
-<link rel="import" href="../iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
 <link rel="import" href="../paper-menu-button/paper-menu-button.html">
-<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../paper-ripple/paper-ripple.html">
+<link rel="import" href="../raml-aware/raml-aware.html">
+<link rel="import" href="../raml-behaviors/raml-behavior.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../iron-media-query/iron-media-query.html">
+
+<link rel="import" href="../arc-icons/arc-icons.html">
+<link rel="import" href="raml-structure-tree.html">
 <!--
 `<raml-path-selector>`
 Element to select a path in the RAML resources structure. It displays RAML
@@ -83,41 +85,66 @@ more styling options.
       @apply(--raml-path-selector);
     }
 
-    h3 {
-      @apply(--paper-font-subhead);
-      color: rgba(0, 0, 0, 0.54);
-      padding-left: 14px;
-      @apply(--raml-path-selector-headers);
+    .dropdown-trigger {
+      @apply(--layout-horizontal);
+      @apply(--layout-relative);
+      @apply(--layout-center);
     }
 
-    .no-structure {
-      @apply(--paper-font-body2);
-      color: rgba(0, 0, 0, 0.54);
-      padding-left: 14px;
-      @apply(--no-info-message);
-      @apply(--raml-path-selector-no-structure);
+    .selected-value {
+      @apply(--layout-flex);
+      @apply(--paper-font-common-nowrap);
+      margin-right: 16px;
+      padding: 4px;
     }
 
-    :host([resources-only]) .hidable {
-      display: none;
+    iron-icon {
+      min-width: 24px;
+      min-height: 24px;
+    }
+
+    :host([narrow]) raml-structure-tree {
+      margin-right: 16px;
     }
 
     </style>
-    <!-- <paper-menu-button>
-      <paper-icon-button icon="menu" class="dropdown-trigger"></paper-icon-button>
-      <div class="dropdown-content">
+    <iron-media-query query="(max-width: [[narrowWidth]])" query-matches="{{narrow}}"></iron-media-query>
 
-      </div>
-    </paper-menu-button> -->
-    <h3 class="hidable" hidden$="[[!hasDocumentation]]">Documentation</h3>
-    <template is="dom-repeat" items="[[raml.documentation]]">
-      <raml-documentation-tree-item class="hidable" selected-path="[[selectedPath]]" doc="[[item]]" path="documentation.[[index]]"></raml-documentation-tree-item>
+    <template is="dom-if" if="[[narrow]]" restamp="true">
+      <paper-menu-button hidden="[[!hasResources]]">
+        <div class="dropdown-trigger">
+          <paper-ripple></paper-ripple>
+          <div class="selected-value">
+            <span hidden$="[[selectedLabel]]">Select RAML object</span>
+            <span hidden$="[[!selectedLabel]]">[[selectedLabel]]</span>
+          </div>
+          <iron-icon icon="arc:arrow-drop-down"></iron-icon>
+        </div>
+        <div class="dropdown-content">
+          <raml-structure-tree
+            raml="[[raml]]"
+            has-documentation="[[hasDocumentation]]"
+            has-resources="[[hasResources]]"
+            selected-path="{{selectedPath}}"
+            opened
+            narrow="{{narrow}}"
+            narrowWidth="[[narrowWidth]]"
+            resourcesOnly="[[resourcesOnly]]"></raml-structure-tree>
+        </div>
+      </paper-menu-button>
     </template>
-    <h3 class="hidable">Resources</h3>
-    <template is="dom-repeat" items="[[raml.resources]]">
-      <raml-resource-tree-item selected-path="[[selectedPath]]" resource="[[item]]" path="resources.[[index]]" opened="[[opened]]"></raml-resource-tree-item>
+    <template is="dom-if" if="[[!narrow]]" restamp="true">
+      <raml-structure-tree
+        raml="[[raml]]"
+        has-documentation="[[hasDocumentation]]"
+        has-resources="[[hasResources]]"
+        selected-path="{{selectedPath}}"
+        opened="[[opened]]"
+        narrow="{{narrow}}"
+        narrowWidth="[[narrowWidth]]"
+        resourcesOnly="[[resourcesOnly]]"></raml-structure-tree>
+      <p class="no-structure" hidden$="[[hasResources]]">No structure detected</p>
     </template>
-    <p class="no-structure" hidden$="[[hasResources]]">No structure detected</p>
     <template is="dom-if" if="[[aware]]" restamp="true">
       <raml-aware raml="{{raml}}" scope="[[aware]]"></raml-aware>
     </template>
@@ -125,13 +152,8 @@ more styling options.
   <script>
   Polymer({
     is: 'raml-path-selector',
-    behaviors: [Polymer.RamlBehavior, Polymer.IronA11yKeysBehavior],
-    /**
-     * Fired when the path change.
-     *
-     * @event raml-selected-path-changed
-     * @param {String} path The selected path
-     */
+    behaviors: [Polymer.RamlBehavior],
+
     properties: {
       // Currently selected by the user path.
       selectedPath: {
@@ -145,11 +167,13 @@ more styling options.
       },
       // Is set to true when the RAML's `resources` array is not empty
       hasDocumentation: {
+        type: Boolean,
         value: false,
         computed: '_computeHasInArray(raml.documentation.length)'
       },
       // Is set to true when the RAML's `documentation` array is not empty
       hasResources: {
+        type: Boolean,
         value: false,
         computed: '_computeHasInArray(raml.resources.length)'
       },
@@ -176,38 +200,13 @@ more styling options.
        */
       resourcesOnly: {
         type: Boolean,
-        value: false,
-        reflectToAttribute: true
+        value: false
+      },
+
+      selectedLabel: {
+        type: String,
+        computed: '_computeSelectedLabel(narrow, selectedPath)'
       }
-    },
-
-    hostAttributes: {
-      role: 'listbox',
-      tabindex: '0'
-    },
-
-    listeners: {
-      'raml-path-selected': '_onPathSelected'
-    },
-
-    keyBindings: {
-      'up': '_onUpKey',
-      'down': '_onDownKey'
-    },
-
-    observers: ['_patchChanged(selectedPath)'],
-
-    // Sets the `selectedPath` value form the `raml-path-selected` event.
-    _onPathSelected: function(e) {
-      e.stopPropagation();
-      this.set('selectedPath', e.detail.path);
-    },
-
-    // Fires the `raml-selected-path-changed` event when the path changes.
-    _patchChanged: function(selectedPath) {
-      this.fire('raml-selected-path-changed', {
-        path: selectedPath
-      });
     },
 
     // Computes if given array has values.
@@ -215,390 +214,28 @@ more styling options.
       return !!length;
     },
 
-    /**
-     * Handler that is called when the up key is pressed.
-     *
-     * @param {CustomEvent} event A key combination event.
-     */
-    _onUpKey: function(event) {
-      // up and down arrows moves the focus
-      this.selectPrevious();
-      event.detail.keyboardEvent.preventDefault();
-    },
-
-    /**
-     * Handler that is called when the down key is pressed.
-     *
-     * @param {CustomEvent} event A key combination event.
-     */
-    _onDownKey: function(event) {
-      this.selectNext();
-      event.detail.keyboardEvent.preventDefault();
-    },
-    /**
-     * Selects next item on the list.
-     *
-     * It changes a path and the selection is changed by the child elements.
-     */
-    selectNext: function() {
-      // first we need to recognize selection area (docs/resources)
-      var path = this.selectedPath;
-      if (!path) {
-        return this._selectFirstItem();
+    _computeSelectedLabel: function(narrow, selectedPath) {
+      if (!narrow || !selectedPath) {
+        return '';
       }
-      var moved;
-      var isDocs = path.indexOf('documentation') === 0;
-      if (isDocs) {
-        moved = this._selectNextDoc();
-        if (moved) {
-          return;
-        } else {
-          return this._selectFirstResource();
-        }
+      var object = this.get('raml.' + selectedPath);
+      if (!object) {
+        return '';
       }
-      var isResources = path.indexOf('resources') === 0;
-      if (isResources) {
-        moved = this._selectNextResource();
-        if (moved) {
-          return;
-        } else {
-          return this._selectFirstItem();
-        }
+      if (selectedPath.indexOf('documentation') === 0) {
+        return object.title || 'Documentation';
       }
-    },
-    /**
-     * Selects previous item on the list.
-     *
-     * It changes a path and the selection is changed by the child elements.
-     */
-    selectPrevious: function() {
-      // first we need to recognize selection area (docs/resources)
-      var path = this.selectedPath;
-      if (!path) {
-        return this._selectFirstItem();
-      }
-      var moved;
-      var isDocs = path.indexOf('documentation') === 0;
-      if (isDocs) {
-        moved = this._selectPreviousDoc();
-        if (moved) {
-          return;
-        } else {
-          return this._selectLastMethod();
-        }
-      }
-      var isResources = path.indexOf('resources') === 0;
-      if (isResources) {
-        moved = this._selectPreviousResource();
-        if (moved) {
-          return;
-        } else {
-          return this._selectLastDoc();
-        }
-      }
-    },
-    /**
-     * Sets the path to the first available item.
-     */
-    _selectFirstItem: function() {
-      if (this.hasDocumentation) {
-        this.set('selectedPath', 'documentation.0');
-      } else if (this.hasResources) {
-        this.set('selectedPath', 'resources.0');
-      }
-    },
-
-    /**
-     * Sets the path to the first available resource item.
-     */
-    _selectFirstResource: function() {
-      if (this.hasResources) {
-        this.set('selectedPath', 'resources.0');
-      }
-    },
-    // Selects the last method in the last resource.
-    _selectLastMethod: function() {
-      if (!this.hasResources) {
-        return this._selectFirstItem();
-      }
-      var res = this.raml.resources;
-      var current = res[res.length - 1];
-      if (!current) {
-        return;
-      }
-      var path = 'resources.' + (res.length - 1);
-      while (true) {
-        if (!current.resources) {
-          if ('methods' in current) {
-            path += '.methods.' + String(current.methods.length - 1);
-          }
-          break;
-        }
-        var i = current.resources.length - 1;
-        path += '.resources.' + i;
-        current = current.resources[i];
-      }
-      this.set('selectedPath', path);
-    },
-
-    /**
-     * Selects a next documentation item.
-     *
-     * @return {Boolean} True if moved and false otherwise.
-     * Note that this will return try on error so the caller won't try to select another section.
-     */
-    _selectNextDoc: function() {
-      if (!this.selectedPath) {
-        return true;
-      }
-      var index = Number(this.selectedPath.substr(14));
-      if (index !== index) {
-        return true;
-      }
-      var docs = this.raml.documentation;
-      index++;
-      if (docs.length <= index) {
-        return false;
-      }
-
-      this.set('selectedPath', 'documentation.' + index);
-      return true;
-    },
-    /**
-     * Selectes the last documentation item.
-     */
-    _selectLastDoc: function() {
-      if (this.hasDocumentation) {
-        var index = this.raml.documentation.length - 1;
-        this.set('selectedPath', 'documentation.' + index);
-      }
-    },
-    /**
-     * Selects a previous documentation item.
-     *
-     * @return {Boolean} True if moved and false otherwise.
-     * Note that this will return try on error so the caller won't try to select another section.
-     */
-    _selectPreviousDoc: function() {
-      if (!this.selectedPath) {
-        return true;
-      }
-      var index = Number(this.selectedPath.substr(14));
-      if (index !== index) {
-        return true;
-      }
-      if (index === 0) {
-        return false;
-      }
-      index--;
-      this.set('selectedPath', 'documentation.' + index);
-      return true;
-    },
-    /**
-     * Selects the next method or sub-sresource in the selected resource.
-     *
-     * @return {Boolean} True if moved and false otherwise.
-     * Note that this will return try on error so the caller won't try to select another section.
-     */
-    _selectNextResource: function() {
-      var path = this.selectedPath;
-      if (!path) {
-        return true;
-      }
-      var def = this.get('raml.' + path);
-      if (!def) {
-        return true;
-      }
-      var matches = path.match(/\d+/g);
-      var newPath;
-      if (!('methods' in def) && !('resources' in def)) {
-        // it is a method.
-        var methodIndex = Number(matches.pop());
-        if (methodIndex !== methodIndex) {
-          return true;
-        }
-        methodIndex++;
-        newPath = this._getMethodPath(matches, methodIndex);
-        if (this.get('raml.' + newPath)) {
-          this.set('selectedPath', newPath);
-          return true;
-        }
-        return this._selectNextResourceItem(matches);
-      } else {
-        if (!('methods' in def)) {
-          return this._selectNextResourceItem(matches);
-        } else {
-          // select first method
-          newPath = this._getMethodPath(matches, 0);
-          if (this.get('raml.' + newPath)) {
-            this.set('selectedPath', newPath);
-            return true;
-          }
-          return this._selectNextResourceItem(matches);
-        }
-      }
-    },
-    /**
-     * Selects the previous method or sub-sresource in the selected resource. Or previous resource
-     * if exists and there's no sub-resources available.
-     *
-     * @return {Boolean} True if moved and false otherwise.
-     * Note that this will return try on error so the caller won't try to select another section.
-     */
-    _selectPreviousResource: function() {
-      var path = this.selectedPath;
-      if (!path) {
-        return true;
-      }
-      var def = this.get('raml.' + path);
-      if (!def) {
-        return true;
-      }
-      var matches = path.match(/\d+/g);
-      var newPath;
-      if (!('methods' in def) && !('resources' in def)) {
-        var methodIndex = Number(matches.pop());
-        if (methodIndex !== methodIndex) {
-          return true;
-        }
-        if (methodIndex === 0) {
-          methodIndex = Number(matches.pop());
-          if (methodIndex !== methodIndex) {
-            return true;
-          }
-          newPath = this._getResourcePath(matches, methodIndex);
-          this.set('selectedPath', newPath);
-          return true;
-        }
-        methodIndex--;
-        newPath = this._getMethodPath(matches, methodIndex);
-        this.set('selectedPath', newPath);
-        return true;
-      } else {
-        return this._selectPreviousResourceItem(matches, matches.pop());
-      }
-    },
-    /**
-     * Gets the path for the method.
-     *
-     * @param {Array<Number|String>} indexes Array of resource indexes
-     * @param {Number|String} methodIndex Index of the method
-     * @return {String} Path to the method.
-     */
-    _getMethodPath: function(indexes, methodIndex) {
-      var path = '';
-      indexes.forEach(function(item) {
-        path += 'resources.' + item + '.';
+      var str = ''; //object.displayName || object.method || object.name;
+      var matches = selectedPath.match(/\d+/g);
+      var current = this.raml;
+      matches.pop();
+      matches.forEach(function(item) {
+        item = Number(item);
+        current = current.resources[item];
+        str += (current.displayName || current.name) + ' > ';
       });
-      path += 'methods.' + methodIndex;
-      return path;
-    },
-
-    /**
-     * Gets the path for the resource.
-     *
-     * @param {Array<Number|String>} indexes Array of resource indexes
-     * @param {Number|String} resourceIndex Index of the resource
-     * @return {String} Path to the resource.
-     */
-    _getResourcePath: function(indexes, resourceIndex) {
-      var path = '';
-      indexes.forEach(function(item) {
-        path += 'resources.' + item + '.';
-      });
-      path += 'resources.' + resourceIndex;
-      return path;
-    },
-    /**
-     * This will go up on the resource tree to find any tree item that has next (sub) resource.
-     * If found it will set current path to the resource and return true. Otherwise it returns
-     * false.
-     *
-     * @param {Array<String|Number>} matches A list of current resource indexes.
-     * @return {Boolean} .
-     */
-    _selectNextResourceItem: function(matches, nextResourceIndex) {
-      nextResourceIndex = nextResourceIndex || 0;
-      // select next sub-resource
-      var newPath = this._getResourcePath(matches, nextResourceIndex);
-      if (this.get('raml.' + newPath)) {
-        this.set('selectedPath', newPath);
-        return true;
-      }
-
-      if (!matches.length) {
-        return false;
-      }
-
-      // select next resource
-      var resourceIndex = Number(matches.pop());
-      if (resourceIndex !== resourceIndex) {
-        return true;
-      }
-      resourceIndex++;
-      newPath = this._getResourcePath(matches, resourceIndex);
-      if (this.get('raml.' + newPath)) {
-        this.set('selectedPath', newPath);
-        return true;
-      }
-
-      if (!matches.length) {
-        return false;
-      }
-
-      return this._selectNextResourceItem(matches, ++nextResourceIndex);
-    },
-    /**
-     * This will go up on the resource tree to find any tree item that has previous (sub) resource
-     * or method.
-     * If found it will set current path to the resource and return true. Otherwise it returns
-     * false.
-     *
-     * @param {Array<String|Number>} matches A list of current resource indexes.
-     * @return {Boolean} .
-     */
-    _selectPreviousResourceItem: function(matches, prevSelectedResource) {
-      var currentResource;
-      if (matches.length === 0) {
-        currentResource = Number(prevSelectedResource);
-        currentResource--;
-        if (currentResource < 0) {
-          return false;
-        }
-      } else {
-        currentResource = Number(matches.pop());
-      }
-      if ((!currentResource && currentResource !== 0) || currentResource !== currentResource) {
-        return false;
-      }
-      var newPath = this._getResourcePath(matches, currentResource);
-      var resource = this.get('raml.' + newPath);
-      if (resource) {
-        if ('resources' in resource) {
-          while (true) {
-            if (!('resources' in resource)) {
-              break;
-            }
-            var i = resource.resources.length - 1;
-            if (String(i) === prevSelectedResource) {
-              if (i === 0) {
-                break;
-              } else {
-                i--;
-              }
-            }
-            newPath += '.resources.' + i;
-            resource = resource.resources[i];
-          }
-        }
-        if ('methods' in resource) {
-          newPath += '.methods.' + String(resource.methods.length - 1);
-        }
-        this.set('selectedPath', newPath);
-        return true;
-      }
-      // heare means we are in the top of the tree and there's no previous method / resource
-      return false;
+      str += object.displayName || object.name || object.method;
+      return str;
     }
   });
   </script>
