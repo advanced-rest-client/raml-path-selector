@@ -37,7 +37,7 @@ Example path values:
 
 See demo for working example.
 
-### Usage
+## Usage
 ```
 <raml-path-selector raml="[[raml]]" selected-path="{{path}}"></raml-path-selector>
 ```
@@ -53,7 +53,14 @@ In other cases you can use libraries like
 <a href="https://lodash.com/" target="_blank">lodash</a> to use it methods to
 access structured data using path notation.
 
-### Styling
+## Responsive view
+This is a navigational element. Therefore in narrow view it hides itself from the view.
+When media queries are lower than `narrowWidth` or the `narrow` attribute is set then the path
+selector render itself as a dropdown list.
+Views that using this element should keep that in mind and set layout accordingly. For example
+it may require to switch from the column to row layout.
+
+## Styling
 `<raml-path-selector>` provides the following custom properties and mixins for styling:
 
 Custom property | Description | Default
