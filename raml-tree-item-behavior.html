@@ -42,11 +42,24 @@ Polymer.RamlTreeItemBehavior = {
    * data-path attribute with its correct path.
    */
   _selectPath: function(e) {
-    if (!e.target.dataset.path) {
+    var target = e.target;
+    while (true) {
+      if (!target || target === document.body) {
+        return;
+      }
+      if (target.nodeName && target.nodeName === 'PAPER-ITEM') {
+        break;
+      }
+      if (!target.parentNode) {
+        return;
+      }
+      target = target.parentNode;
+    }
+    if (!target.dataset.path) {
       return;
     }
     this.fire('raml-path-selected', {
-      path: e.target.dataset.path
+      path: target.dataset.path
     });
   },
   /**

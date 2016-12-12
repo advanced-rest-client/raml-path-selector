@@ -58,16 +58,21 @@ Custom property | Description | Default
       padding: 0;
       width: 24px;
       height: 24px;
+      min-width: 24px;
     }
     /* In shaggy DOM there must be an exact path for recursive elements */
 
      :host([opened])>paper-item>paper-icon-button {
       transform: rotate(90deg);
     }
+
+    .resource-name {
+      @apply(--layout-flex);
+    }
     </style>
     <paper-item data-path$="[[path]]" on-tap="_selectPath" class$="[[_computeItemSelectableClass(selectedPath, path)]]" title$="[[resourceTitle]]" id="resource">
       <paper-icon-button icon="arc:chevron-right" on-tap="toggle"></paper-icon-button>
-      [[_getName(resource)]]
+      <span class="resource-name">[[_getName(resource)]]</span>
     </paper-item>
     <iron-collapse id="collapse" opened="[[opened]]">
       <div class="children">

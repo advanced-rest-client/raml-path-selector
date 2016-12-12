@@ -67,6 +67,7 @@ more styling options.
 @group RAML Elements
 @element raml-path-selector
 @demo demo/index.html
+@demo demo/resources-only.html
 @hero hero.svg
 -->
 <dom-module id="raml-path-selector">
@@ -78,6 +79,7 @@ more styling options.
       background: var(--raml-path-selector-background-color, --primary-background-color);
       color: var(--raml-path-selector-color, --primary-text-color);
 
+      overflow: auto;
       @apply(--raml-path-selector);
     }
 
@@ -92,8 +94,14 @@ more styling options.
       @apply(--paper-font-body2);
       color: rgba(0, 0, 0, 0.54);
       padding-left: 14px;
+      @apply(--no-info-message);
       @apply(--raml-path-selector-no-structure);
     }
+
+    :host([resources-only]) .hidable {
+      display: none;
+    }
+
     </style>
     <!-- <paper-menu-button>
       <paper-icon-button icon="menu" class="dropdown-trigger"></paper-icon-button>
@@ -101,12 +109,11 @@ more styling options.
 
       </div>
     </paper-menu-button> -->
-
-    <h3 hidden$="[[!hasDocumentation]]">Documentation</h3>
+    <h3 class="hidable" hidden$="[[!hasDocumentation]]">Documentation</h3>
     <template is="dom-repeat" items="[[raml.documentation]]">
-      <raml-documentation-tree-item selected-path="[[selectedPath]]" doc="[[item]]" path="documentation.[[index]]"></raml-documentation-tree-item>
+      <raml-documentation-tree-item class="hidable" selected-path="[[selectedPath]]" doc="[[item]]" path="documentation.[[index]]"></raml-documentation-tree-item>
     </template>
-    <h3>Resources</h3>
+    <h3 class="hidable">Resources</h3>
     <template is="dom-repeat" items="[[raml.resources]]">
       <raml-resource-tree-item selected-path="[[selectedPath]]" resource="[[item]]" path="resources.[[index]]" opened="[[opened]]"></raml-resource-tree-item>
     </template>
@@ -161,6 +168,16 @@ more styling options.
       narrowWidth: {
         type: String,
         value: '768px'
+      },
+      /**
+       * If set the element will render the resources / methods tree.
+       * It can be used in views when only resources are relevant giving the
+       * context.
+       */
+      resourcesOnly: {
+        type: Boolean,
+        value: false,
+        reflectToAttribute: true
       }
     },
 
