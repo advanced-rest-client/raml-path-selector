@@ -1,3 +1,21 @@
+<a name="1.0.5"></a>
+## [1.0.5](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.4...v1.0.5) (2016-12-12)
+
+
+### Docs
+
+* Updated documentation for the element ([d6bcc4971da9933e5be83884af531edf9d5eb190](https://github.com/advanced-rest-client/raml-path-selector/commit/d6bcc4971da9933e5be83884af531edf9d5eb190))
+
+### New
+
+* Added responsive view ([82fa457d28bf1b3692830805f49b1481c4db196f](https://github.com/advanced-rest-client/raml-path-selector/commit/82fa457d28bf1b3692830805f49b1481c4db196f))
+
+### Update
+
+* Added accessibility options, added keyboard control ([94ff7de57cff4212670973035eb19c767f4f0d7d](https://github.com/advanced-rest-client/raml-path-selector/commit/94ff7de57cff4212670973035eb19c767f4f0d7d))
+
+
+
 <a name="1.0.4"></a>
 ## [1.0.4](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.3...v1.0.4) (2016-12-09)
 

@@ -16,7 +16,7 @@ Example path values:
 
 See demo for working example.
 
-### Usage
+## Usage
 ```
 <raml-path-selector raml="[[raml]]" selected-path="{{path}}"></raml-path-selector>
 ```
@@ -32,7 +32,14 @@ In other cases you can use libraries like
 <a href="https://lodash.com/" target="_blank">lodash</a> to use it methods to
 access structured data using path notation.
 
-### Styling
+## Responsive view
+This is a navigational element. Therefore in narrow view it hides itself from the view.
+When media queries are lower than `narrowWidth` or the `narrow` attribute is set then the path
+selector render itself as a dropdown list.
+Views that using this element should keep that in mind and set layout accordingly. For example
+it may require to switch from the column to row layout.
+
+## Styling
 `<raml-path-selector>` provides the following custom properties and mixins for styling:
 
 Custom property | Description | Default
@@ -40,16 +47,11 @@ Custom property | Description | Default
 `--raml-path-selector` | Mixin applied to the element | `{}`
 `--raml-path-selector-headers` | Mixin applied to the headers in the tree view | `{}`
 `--raml-path-selector-no-structure` | Mixin applied to the paragraph when the structure wasn't recognized in the RAML source | `{}`
+`--raml-docs-tree-outline` | An outline of focused item | `none`
 
 See also `raml-documentation-tree-item` and `raml-resource-tree-item` for
 more styling options.
 
-
-
-### Events
-| Name | Description | Params |
-| --- | --- | --- |
-| raml-selected-path-changed | Fired when the path change. | path **String** - The selected path |
 # raml-resource-tree-item
 
 The `<raml-resource-tree-item>` is an element that displays a resource
@@ -67,4 +69,5 @@ Custom property | Description | Default
 `--raml-docs-tree-item-background` | Background color of the tree item.  | `transparent`
 `--raml-docs-tree-item-hover-background` | Background color of hovered tree item  | `#F5F5F5`
 `--raml-docs-tree-item-selected-background` | Background color of the selected item | `rgba(3, 169, 244, 0.24)`
+`--raml-docs-tree-outline` | An outline of focused item | `none`
 
