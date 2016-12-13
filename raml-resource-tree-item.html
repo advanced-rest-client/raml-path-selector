@@ -161,7 +161,7 @@ Custom property | Description | Default
     _isSelectedChanged: function(isSelected) {
       if (isSelected) {
         this.setAttribute('tabindex', '0');
-        this.scrollIntoViewIfNeeded();
+        this.scrollElementIntoView();
         if (!this.opened) {
           this.set('opened', true);
         }

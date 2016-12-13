@@ -89,5 +89,15 @@ Polymer.RamlTreeItemBehavior = {
     }
     return selectedPath === path;
   },
+  /**
+   * Scrolls to the element if the element is not in view.
+   */
+  scrollElementIntoView: function() {
+    if (this.scrollIntoViewIfNeeded) {
+      this.scrollIntoViewIfNeeded();
+    } else if (this.scrollIntoView) {
+      this.scrollIntoView();
+    }
+  }
 };
 </script>
