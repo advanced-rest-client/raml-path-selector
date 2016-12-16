@@ -57,8 +57,8 @@ access structured data using path notation.
 This is a navigational element. Therefore in narrow view it hides itself from the view.
 When media queries are lower than `narrowWidth` or the `narrow` attribute is set then the path
 selector render itself as a dropdown list.
-Views that using this element should keep that in mind and set layout accordingly. For example
-it may require to switch from the column to row layout.
+Views that are using this element should keep that in mind and set the layout accordingly.
+For example it may require to switch from `column` to `row` layout.
 
 ## Styling
 `<raml-path-selector>` provides the following custom properties and mixins for styling:
@@ -69,6 +69,7 @@ Custom property | Description | Default
 `--raml-path-selector-headers` | Mixin applied to the headers in the tree view | `{}`
 `--raml-path-selector-no-structure` | Mixin applied to the paragraph when the structure wasn't recognized in the RAML source | `{}`
 `--raml-docs-tree-outline` | An outline of focused item | `none`
+`--raml-path-selector-narrow-selected-label` | Mixin applied in narrow layout to the control's label | `{}`
 
 See also `raml-documentation-tree-item` and `raml-resource-tree-item` for
 more styling options.
@@ -103,6 +104,7 @@ more styling options.
       @apply(--paper-font-common-nowrap);
       margin-right: 16px;
       padding: 4px;
+      @apply(--raml-path-selector-narrow-selected-label);
     }
 
     iron-icon {
@@ -135,8 +137,9 @@ more styling options.
             selected-path="{{selectedPath}}"
             opened
             narrow="{{narrow}}"
-            narrowWidth="[[narrowWidth]]"
-            resourcesOnly="[[resourcesOnly]]"></raml-structure-tree>
+            narrow-width="[[narrowWidth]]"
+            resources-only="[[resourcesOnly]]"
+            no-resource-selection="[[noResourceSelection]]"></raml-structure-tree>
         </div>
       </paper-menu-button>
     </template>
@@ -148,8 +151,9 @@ more styling options.
         selected-path="{{selectedPath}}"
         opened="[[opened]]"
         narrow="{{narrow}}"
-        narrowWidth="[[narrowWidth]]"
-        resourcesOnly="[[resourcesOnly]]"></raml-structure-tree>
+        narrow-width="[[narrowWidth]]"
+        resources-only="[[resourcesOnly]]"
+        no-resource-selection="[[noResourceSelection]]"></raml-structure-tree>
       <p class="no-structure" hidden$="[[hasResources]]">No structure detected</p>
     </template>
     <template is="dom-if" if="[[aware]]" restamp="true">
@@ -213,12 +217,28 @@ more styling options.
       selectedLabel: {
         type: String,
         computed: '_computeSelectedLabel(narrow, raml, selectedPath)'
+      },
+      /**
+       * If set then the selection of the resource node will be not possible.
+       * It will opens / closes child elements.
+       */
+      noResourceSelection: {
+        type: Boolean
       }
     },
 
     // Computes if given array has values.
     _computeHasInArray: function(length) {
       return !!length;
+    },
+
+    ready: function() {
+      var path = this.selectedPath;
+      this.selectedPath = '';
+      this.async(function() {
+        console.log('RESELECTING PATH', path);
+        this.set('selectedPath', path);
+      }, 100);
     },
 
     _computeSelectedLabel: function(narrow, raml, selectedPath) {

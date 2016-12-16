@@ -31,6 +31,12 @@ Polymer.RamlTreeItemBehavior = {
     isSelected: {
       type: Boolean,
       computed: '_computeIsSelected(selectedPath, path)'
+    },
+    /**
+     * Prohibits the selection of the resource and only allow selection of methods.
+     */
+    noResourceSelection: {
+      type: Boolean
     }
   },
   /**
@@ -55,11 +61,19 @@ Polymer.RamlTreeItemBehavior = {
       }
       target = target.parentNode;
     }
-    if (!target.dataset.path) {
+    var path = target.dataset ? target.dataset.path : null;
+    if (!path) {
       return;
     }
+    if (this.noResourceSelection) {
+      if (/resources.\d+$/.test(path)) {
+        this.opened = !this.opened;
+        return;
+      }
+    }
+
     this.fire('raml-path-selected', {
-      path: target.dataset.path
+      path: path
     });
   },
   /**

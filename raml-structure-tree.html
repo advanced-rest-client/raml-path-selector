@@ -53,11 +53,16 @@ See docs for `<raml-path-selector>` for element's documentation.
     </style>
     <h3 class="hidable" hidden$="[[!hasDocumentation]]">Documentation</h3>
     <template is="dom-repeat" items="[[raml.documentation]]">
-      <raml-documentation-tree-item class="hidable" selected-path="[[selectedPath]]" doc="[[item]]" path="documentation.[[index]]"></raml-documentation-tree-item>
+      <raml-documentation-tree-item class="hidable" selected-path="[[selectedPath]]" doc="[[item]]" path="documentation.[[index]]" no-resource-selection="[[noResourceSelection]]"></raml-documentation-tree-item>
     </template>
     <h3 class="hidable" hidden$="[[!hasResources]]">Resources</h3>
-    <template is="dom-repeat" items="[[raml.resources]]">
-      <raml-resource-tree-item selected-path="[[selectedPath]]" resource="[[item]]" path="resources.[[index]]" opened="[[opened]]"></raml-resource-tree-item>
+    <template is="dom-repeat" items="[[raml.resources]]" resources>
+      <raml-resource-tree-item
+        selected-path="[[selectedPath]]"
+        resource="[[item]]"
+        path="resources.[[index]]"
+        opened="[[opened]]"
+        no-resource-selection="[[noResourceSelection]]"></raml-resource-tree-item>
     </template>
   </template>
   <script>
@@ -111,6 +116,13 @@ See docs for `<raml-path-selector>` for element's documentation.
         type: Boolean,
         value: false,
         reflectToAttribute: true
+      },
+      /**
+       * If set then the selection of the resource node will be not possible.
+       * It will opens / closes child elements.
+       */
+      noResourceSelection: {
+        type: Boolean
       }
     },
 
