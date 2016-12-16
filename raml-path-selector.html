@@ -209,10 +209,10 @@ more styling options.
         type: Boolean,
         value: false
       },
-
+      // In narrow view it is showing the path of the raml.
       selectedLabel: {
         type: String,
-        computed: '_computeSelectedLabel(narrow, selectedPath)'
+        computed: '_computeSelectedLabel(narrow, raml, selectedPath)'
       }
     },
 
@@ -221,8 +221,8 @@ more styling options.
       return !!length;
     },
 
-    _computeSelectedLabel: function(narrow, selectedPath) {
-      if (!narrow || !selectedPath) {
+    _computeSelectedLabel: function(narrow, raml, selectedPath) {
+      if (!narrow || !selectedPath || !raml) {
         return '';
       }
       var object = this.get('raml.' + selectedPath);
