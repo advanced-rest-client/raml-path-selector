@@ -1,3 +1,21 @@
+<a name="1.0.6"></a>
+## [1.0.6](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.5...v1.0.6) (2016-12-16)
+
+
+### Docs
+
+* updated docs for the property ([7bc2ad776ec96b85b0d5f334a6dd676c78bd0a94](https://github.com/advanced-rest-client/raml-path-selector/commit/7bc2ad776ec96b85b0d5f334a6dd676c78bd0a94))
+
+### Fix
+
+* Fixed error thrown by the scrollIntoViewIfNeeded function. Replaces it with a function that checks if appropiate function is available ([593892f09d593665304330c891ce50157ecf2f1d](https://github.com/advanced-rest-client/raml-path-selector/commit/593892f09d593665304330c891ce50157ecf2f1d))
+
+### New
+
+* Added noResourceSelection property ([50f3ea9750e9874c6304a9980f40d2a83c1c5d73](https://github.com/advanced-rest-client/raml-path-selector/commit/50f3ea9750e9874c6304a9980f40d2a83c1c5d73))
+
+
+
 <a name="1.0.5"></a>
 ## [1.0.5](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.4...v1.0.5) (2016-12-12)
 
