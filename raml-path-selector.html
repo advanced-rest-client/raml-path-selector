@@ -232,15 +232,6 @@ more styling options.
       return !!length;
     },
 
-    ready: function() {
-      var path = this.selectedPath;
-      this.selectedPath = '';
-      this.async(function() {
-        console.log('RESELECTING PATH', path);
-        this.set('selectedPath', path);
-      }, 100);
-    },
-
     _computeSelectedLabel: function(narrow, raml, selectedPath) {
       if (!narrow || !selectedPath || !raml) {
         return '';
