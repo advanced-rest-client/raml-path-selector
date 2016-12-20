@@ -36,8 +36,8 @@ access structured data using path notation.
 This is a navigational element. Therefore in narrow view it hides itself from the view.
 When media queries are lower than `narrowWidth` or the `narrow` attribute is set then the path
 selector render itself as a dropdown list.
-Views that using this element should keep that in mind and set layout accordingly. For example
-it may require to switch from the column to row layout.
+Views that are using this element should keep that in mind and set the layout accordingly.
+For example it may require to switch from `column` to `row` layout.
 
 ## Styling
 `<raml-path-selector>` provides the following custom properties and mixins for styling:
@@ -48,6 +48,7 @@ Custom property | Description | Default
 `--raml-path-selector-headers` | Mixin applied to the headers in the tree view | `{}`
 `--raml-path-selector-no-structure` | Mixin applied to the paragraph when the structure wasn't recognized in the RAML source | `{}`
 `--raml-docs-tree-outline` | An outline of focused item | `none`
+`--raml-path-selector-narrow-selected-label` | Mixin applied in narrow layout to the control's label | `{}`
 
 See also `raml-documentation-tree-item` and `raml-resource-tree-item` for
 more styling options.
