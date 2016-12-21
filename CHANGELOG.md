@@ -1,3 +1,9 @@
+<a name="1.0.8"></a>
+## [1.0.8](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.7...v1.0.8) (2016-12-21)
+
+
+
+
 <a name="1.0.7"></a>
 ## [1.0.7](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.5...v1.0.7) (2016-12-20)
 
