@@ -1,3 +1,13 @@
+<a name="1.0.9"></a>
+## [1.0.9](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.8...v1.0.9) (2016-12-21)
+
+
+### Update
+
+* Updated styles definition ([a30c8d62209210f93d19d621c97d2f7cd5c9b9e1](https://github.com/advanced-rest-client/raml-path-selector/commit/a30c8d62209210f93d19d621c97d2f7cd5c9b9e1))
+
+
+
 <a name="1.0.8"></a>
 ## [1.0.8](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.7...v1.0.8) (2016-12-21)
 
