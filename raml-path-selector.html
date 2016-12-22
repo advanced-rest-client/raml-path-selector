@@ -112,14 +112,14 @@ more styling options.
       min-height: 24px;
     }
 
-    :host([narrow]) raml-structure-tree {
+    :host([narrow]:not([force-wide-layout])) raml-structure-tree {
       margin-right: 16px;
     }
 
     </style>
     <iron-media-query query="(max-width: [[narrowWidth]])" query-matches="{{narrow}}"></iron-media-query>
 
-    <template is="dom-if" if="[[narrow]]" restamp="true">
+    <template is="dom-if" if="[[_narrowValue]]" restamp="true">
       <paper-menu-button hidden="[[!hasResources]]">
         <div class="dropdown-trigger">
           <paper-ripple></paper-ripple>
@@ -136,21 +136,21 @@ more styling options.
             has-resources="[[hasResources]]"
             selected-path="{{selectedPath}}"
             opened
-            narrow="{{narrow}}"
+            narrow
             narrow-width="[[narrowWidth]]"
             resources-only="[[resourcesOnly]]"
             no-resource-selection="[[noResourceSelection]]"></raml-structure-tree>
         </div>
       </paper-menu-button>
     </template>
-    <template is="dom-if" if="[[!narrow]]" restamp="true">
+    <template is="dom-if" if="[[!_narrowValue]]" restamp="true">
       <raml-structure-tree
         raml="[[raml]]"
         has-documentation="[[hasDocumentation]]"
         has-resources="[[hasResources]]"
         selected-path="{{selectedPath}}"
         opened="[[opened]]"
-        narrow="{{narrow}}"
+        narrow="{{_narrowValue}}"
         narrow-width="[[narrowWidth]]"
         resources-only="[[resourcesOnly]]"
         no-resource-selection="[[noResourceSelection]]"></raml-structure-tree>
@@ -224,6 +224,21 @@ more styling options.
        */
       noResourceSelection: {
         type: Boolean
+      },
+      /**
+       * If set it will override the narrow layout property and force
+       * wide layout. Then it will also ignore the media queries settings.
+       */
+      forceWideLayout: {
+        type: Boolean,
+        value: false,
+        reflectToAttribute: true
+      },
+
+      _narrowValue: {
+        type: Boolean,
+        value: false,
+        computed: '_computeNarrowValue(forceWideLayout, narrow)'
       }
     },
 
@@ -254,6 +269,17 @@ more styling options.
       });
       str += object.displayName || object.name || object.method;
       return str;
+    },
+    /**
+     * Computes the `narrowValue` property.
+     * If `forceWideLayout` is set then it will always return `false`.
+     * Otherwise it depends on the `narrow` value.
+     */
+    _computeNarrowValue: function(forceWideLayout, narrow) {
+      if (forceWideLayout) {
+        return false;
+      }
+      return narrow;
     }
   });
   </script>

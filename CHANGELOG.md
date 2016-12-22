@@ -1,3 +1,13 @@
+<a name="1.0.10"></a>
+## [1.0.10](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.8...v1.0.10) (2016-12-22)
+
+
+### Update
+
+* Added the forceWideLayout property ([64b3b5c1b1c7e3c755d17556a601006212b7b8ed](https://github.com/advanced-rest-client/raml-path-selector/commit/64b3b5c1b1c7e3c755d17556a601006212b7b8ed))
+
+
+
 <a name="1.0.9"></a>
 ## [1.0.9](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.8...v1.0.9) (2016-12-21)
 
