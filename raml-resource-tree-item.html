@@ -86,7 +86,7 @@ Custom property | Description | Default
           <paper-item data-path$="[[path]].methods.[[index]]" on-tap="_selectPath" class$="[[_computeItemSelectableClass(selectedPath, path, index)]]" title$="[[item.method]] [[item.description]]">[[_getMethodName(item)]]</paper-item>
         </template>
         <template is="dom-repeat" items="[[resource.resources]]">
-          <raml-resource-tree-item selected-path="[[selectedPath]]" resource="[[item]]" path="[[path]].resources.[[index]]"></raml-resource-tree-item>
+          <raml-resource-tree-item selected-path="[[selectedPath]]" resource="[[item]]" path="[[path]].resources.[[index]]" no-resource-selection="[[noResourceSelection]]"></raml-resource-tree-item>
         </template>
       </div>
     </iron-collapse>
