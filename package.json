@@ -16,7 +16,7 @@
   "author": "The Advanced REST client authors <arc@mulesoft.com>",
   "scripts": {
     "serve": "node_modules/.bin/polymer serve",
-    "lint": "node_modules/.bin/polymer lint raml-path-selector.html raml-structure-tree.html raml-resource-tree-item.html raml-documentation-tree-item.html raml-tree-item-behavior.html",
+    "lint": "node_modules/.bin/polymer lint raml-path-selector.html raml-structure-tree.html raml-resource-tree-item.html raml-documentation-tree-item.html raml-type-tree-item.html raml-tree-item-behavior.html",
     "test": "node_modules/.bin/polymer test",
     "deps": "npm install --quiet && bower install --quiet",
     "update-deps": "npm update --quiet && bower update --quiet"
