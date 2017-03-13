@@ -32,13 +32,27 @@ Polymer.RamlTreeItemBehavior = {
       type: Boolean,
       computed: '_computeIsSelected(selectedPath, path)'
     },
-    /**
-     * Prohibits the selection of the resource and only allow selection of methods.
-     */
-    noResourceSelection: {
-      type: Boolean
-    }
+    // Indent index in the structure. 1 if this is first level of indent.
+    indent: Number,
+    // Number of pixels to indent the content.
+    indentSize: Number,
+    // Computed value of indent in pixels (with `px` suffix)
+    _indentPixels: String
   },
+
+  observers: [
+    '_computeIndent(indent, indentSize)',
+    '__indentPixelsChanged(_indentPixels)'
+  ],
+
+  _computeIndent: function(indent, indentSize) {
+    if (!indent || !indentSize) {
+      return this.set('_indentPixels', undefined);
+    }
+    var size = indent * indentSize;
+    this.set('_indentPixels', size + 'px');
+  },
+
   /**
    * Event handler for the click on an tree item.
    * It sends the `raml-path-selected` event so the tree selected can set
@@ -65,13 +79,6 @@ Polymer.RamlTreeItemBehavior = {
     if (!path) {
       return;
     }
-    if (this.noResourceSelection) {
-      if (/resources.\d+$/.test(path)) {
-        this.opened = !this.opened;
-        return;
-      }
-    }
-
     this.fire('raml-path-selected', {
       path: path
     });
@@ -112,6 +119,14 @@ Polymer.RamlTreeItemBehavior = {
     } else if (this.scrollIntoView) {
       this.scrollIntoView();
     }
+  },
+
+  __indentPixelsChanged(_indentPixels) {
+    if (!_indentPixels) {
+      _indentPixels = '0px';
+    }
+    this.customStyle['--indent-size-padding'] = _indentPixels;
+    this.updateStyles();
   }
 };
 </script>
