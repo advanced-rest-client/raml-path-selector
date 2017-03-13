@@ -77,7 +77,6 @@ more styling options.
 @group RAML Elements
 @element raml-path-selector
 @demo demo/index.html
-@demo demo/resources-only.html
 @hero hero.svg
 -->
 <dom-module id="raml-path-selector">
@@ -115,7 +114,6 @@ more styling options.
     :host([narrow]:not([force-wide-layout])) raml-structure-tree {
       margin-right: 16px;
     }
-
     </style>
     <iron-media-query query="(max-width: [[narrowWidth]])" query-matches="{{narrow}}"></iron-media-query>
 
@@ -134,11 +132,11 @@ more styling options.
             raml="[[raml]]"
             has-documentation="[[hasDocumentation]]"
             has-resources="[[hasResources]]"
+            has-types="[[hasTypes]]"
             selected-path="{{selectedPath}}"
             opened
             narrow
             narrow-width="[[narrowWidth]]"
-            resources-only="[[resourcesOnly]]"
             no-resource-selection="[[noResourceSelection]]"></raml-structure-tree>
         </div>
       </paper-menu-button>
@@ -148,11 +146,11 @@ more styling options.
         raml="[[raml]]"
         has-documentation="[[hasDocumentation]]"
         has-resources="[[hasResources]]"
+        has-types="[[hasTypes]]"
         selected-path="{{selectedPath}}"
         opened="[[opened]]"
         narrow="{{_narrowValue}}"
         narrow-width="[[narrowWidth]]"
-        resources-only="[[resourcesOnly]]"
         no-resource-selection="[[noResourceSelection]]"></raml-structure-tree>
       <p class="no-structure" hidden$="[[hasResources]]">No structure detected</p>
     </template>
@@ -188,6 +186,12 @@ more styling options.
         value: false,
         computed: '_computeHasInArray(raml.resources.length)'
       },
+      // Is set to true when the RAML's `documentation` array is not empty
+      hasTypes: {
+        type: Boolean,
+        value: false,
+        computed: '_computeHasInObject(raml.types)'
+      },
       // Name of the `<raml-aware>` scope, so it will fill the raml property.
       aware: String,
       /**
@@ -203,15 +207,6 @@ more styling options.
       narrowWidth: {
         type: String,
         value: '768px'
-      },
-      /**
-       * If set the element will render the resources / methods tree.
-       * It can be used in views when only resources are relevant giving the
-       * context.
-       */
-      resourcesOnly: {
-        type: Boolean,
-        value: false
       },
       // In narrow view it is showing the path of the raml.
       selectedLabel: {
@@ -245,6 +240,10 @@ more styling options.
     // Computes if given array has values.
     _computeHasInArray: function(length) {
       return !!length;
+    },
+
+    _computeHasInObject: function(types) {
+      return !!(types && Object.keys(types).length);
     },
 
     _computeSelectedLabel: function(narrow, raml, selectedPath) {

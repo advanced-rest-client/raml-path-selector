@@ -51,7 +51,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     return document.querySelector(selector);
   };
   $('raml-docs-parser').addEventListener('raml-ready', function(e) {
-    $('raml-path-selector').raml = e.detail.raml.specification;
+    $('raml-path-selector').raml = e.detail.raml;
   });
   $('#pathManual').addEventListener('input', function(e) {
     $('raml-path-selector').selectedPath = e.target.value;
