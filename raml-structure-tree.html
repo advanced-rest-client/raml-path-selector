@@ -12,15 +12,17 @@ License for the specific language governing permissions and limitations under
 the License.
 -->
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../paper-styles/paper-styles.html">
 <link rel="import" href="../raml-behaviors/raml-behavior.html">
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../arc-icons/arc-icons.html">
 <link rel="import" href="../iron-collapse/iron-collapse.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="raml-resource-tree-item.html">
 <link rel="import" href="raml-documentation-tree-item.html">
 <link rel="import" href="raml-type-tree-item.html">
 <link rel="import" href="raml-tree-item-styles.html">
+<link rel="import" href="path-selector-documentation.html">
+<link rel="import" href="path-selector-types.html">
 <!--
 The `<raml-structure-tree>` renders a list view for the `<raml-path-selector>`.
 See docs for `<raml-path-selector>` for element's documentation.
@@ -33,11 +35,12 @@ See docs for `<raml-path-selector>` for element's documentation.
       background: var(--raml-path-selector-background-color, --primary-background-color);
       color: var(--raml-path-selector-color, --primary-text-color);
       overflow: auto;
+      position: relative;
       @apply(--raml-path-selector);
     }
 
     h3 {
-      @apply(--paper-font-subhead);
+      @apply(--arc-font-subhead);
       color: rgba(0, 0, 0, 0.54);
       padding-left: 14px;
       @apply(--raml-path-selector-headers);
@@ -60,16 +63,16 @@ See docs for `<raml-path-selector>` for element's documentation.
 
     .toggle-button {
       color: var(--raml-path-selector-toggle-icon-color, rgba(0, 0, 0, 0.54));
-      transition: color 0.25s linear;
-    }
-
-    .toggle-button {
       transform: rotateZ(-90deg);
-      transition: transform 0.3s linear;
+      transition: color 0.25s linear, transform 0.3s linear;
     }
 
     .toggle-button.opened {
       transform: rotateZ(0deg)
+    }
+
+    .enter-button {
+      color: var(--raml-path-selector-toggle-icon-color, rgba(0, 0, 0, 0.54));
     }
 
     .toggle-button:hover {
@@ -81,7 +84,7 @@ See docs for `<raml-path-selector>` for element's documentation.
       <div class="section-title">
         <paper-icon-button data-section="documentation" on-tap="_toggleSection" class$="toggle-button[[_computeToggleIconClass(documentationOpened)]]" icon="arc:arrow-drop-down"></paper-icon-button>
         <h3 data-section="documentation" on-tap="_toggleSection">Documentation</h3>
-        <paper-icon-button class="toggle-button" icon="arc:chevron-right" hidden$="[[!narrow]]" data-section="documentation" on-tap="_enterSection"></paper-icon-button>
+        <paper-icon-button class="enter-button" icon="arc:chevron-right" hidden$="[[!narrow]]" data-section="documentation" on-tap="_enterSection"></paper-icon-button>
       </div>
       <iron-collapse opened="[[documentationOpened]]">
         <div>
@@ -101,7 +104,7 @@ See docs for `<raml-path-selector>` for element's documentation.
       <div class="section-title">
         <paper-icon-button data-section="types" on-tap="_toggleSection" class$="toggle-button[[_computeToggleIconClass(typesOpened)]]" icon="arc:arrow-drop-down"></paper-icon-button>
         <h3 data-section="types" on-tap="_toggleSection">Types</h3>
-        <paper-icon-button class="toggle-button" icon="arc:chevron-right" hidden$="[[!narrow]]" data-section="documentation" on-tap="_enterSection"></paper-icon-button>
+        <paper-icon-button class="enter-button" icon="arc:chevron-right" hidden$="[[!narrow]]" data-section="types" on-tap="_enterSection"></paper-icon-button>
       </div>
       <iron-collapse opened="[[typesOpened]]">
         <div>
@@ -121,7 +124,7 @@ See docs for `<raml-path-selector>` for element's documentation.
       <div class="section-title">
         <paper-icon-button data-section="resources" on-tap="_toggleSection" class$="toggle-button[[_computeToggleIconClass(resourcesOpened)]]" icon="arc:arrow-drop-down"></paper-icon-button>
         <h3 data-section="resources" on-tap="_toggleSection">Resources</h3>
-        <paper-icon-button class="toggle-button" icon="arc:chevron-right" hidden$="[[!narrow]]" data-section="resources" on-tap="_enterSection"></paper-icon-button>
+        <!-- <paper-icon-button class="enter-button" icon="arc:chevron-right" hidden$="[[!narrow]]" data-section="resources" on-tap="_enterSection"></paper-icon-button> -->
       </div>
       <iron-collapse opened="[[resourcesOpened]]">
         <div>
@@ -137,6 +140,9 @@ See docs for `<raml-path-selector>` for element's documentation.
         </div>
       </iron-collapse>
     </section>
+
+    <path-selector-documentation documentation="[[raml.documentation]]" selected-path="[[selectedPath]]"></path-selector-documentation>
+    <path-selector-types types="[[_objectToArray(raml.types)]]" selected-path="[[selectedPath]]"></path-selector-types>
   </template>
   <script>
   Polymer({
@@ -208,7 +214,8 @@ See docs for `<raml-path-selector>` for element's documentation.
     },
 
     listeners: {
-      'raml-path-selected': '_onPathSelected'
+      'raml-path-selected': '_onPathSelected',
+      'raml-path-selector-nav-back': '_onNarrowPageBack'
     },
 
     observers: [
@@ -282,6 +289,24 @@ See docs for `<raml-path-selector>` for element's documentation.
     },
     // Toggles visibility of navigation sections.
     _toggleSection: function(e) {
+      var section = this._getEventSection(e);
+      var varName = section + 'Opened';
+      this[varName] = !this[varName];
+    },
+    /**
+     * Gets the value nof the `data-section` propery of the first
+     * element that contain this property in even't path.
+     *
+     * This function throws an error if event's path is not defined or when
+     * `data-section` wasn't found in any element in the path.
+     *
+     * @param {Event} e An event object associated with user action
+     * @return {String} section name associated with click target
+     * @throws It throws an arror if event's path is not defined or
+     * if section is not set in any element in the path.
+     */
+    _getEventSection: function(e) {
+      e = Polymer.dom(e);
       var path = e.path;
       if (!path || !path.length) {
         throw new Error('Event path not defined.');
@@ -298,8 +323,32 @@ See docs for `<raml-path-selector>` for element's documentation.
           break;
         }
       }
-      var varName = section + 'Opened';
-      this[varName] = !this[varName];
+      return section;
+    },
+
+    _getNavElementForSection: function(section) {
+      var elm;
+      switch (section) {
+        case 'documentation':
+          elm = this.$$('path-selector-documentation');
+          break;
+        case 'types':
+          elm = this.$$('path-selector-types');
+          break;
+      }
+      return elm;
+    },
+
+    _enterSection: function(e) {
+      var section = this._getEventSection(e);
+      var elm = this._getNavElementForSection(section);
+      elm.opened = true;
+      this._subpageSection = section;
+    },
+
+    _onNarrowPageBack: function() {
+      var elm = this._getNavElementForSection(this._subpageSection);
+      elm.opened = false;
     }
   });
   </script>
