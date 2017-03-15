@@ -14,6 +14,9 @@ the License.
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../paper-styles/paper-styles.html">
 <link rel="import" href="../raml-behaviors/raml-behavior.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../arc-icons/arc-icons.html">
+<link rel="import" href="../iron-collapse/iron-collapse.html">
 <link rel="import" href="raml-resource-tree-item.html">
 <link rel="import" href="raml-documentation-tree-item.html">
 <link rel="import" href="raml-type-tree-item.html">
@@ -39,24 +42,91 @@ See docs for `<raml-path-selector>` for element's documentation.
       padding-left: 14px;
       @apply(--raml-path-selector-headers);
     }
+
+    *[hidden] {
+      display: none;
+    }
+
+    .section-title {
+      @apply(--layout-horizontal);
+      @apply(--layout-center);
+      cursor: pointer;
+    }
+
+    .section-title h3 {
+      @apply(--layout-flex);
+      padding-left: 0;
+    }
+
+    .toggle-button {
+      color: var(--raml-path-selector-toggle-icon-color, rgba(0, 0, 0, 0.54));
+      transition: color 0.25s linear;
+    }
+
+    .toggle-button {
+      transform: rotateZ(-90deg);
+      transition: transform 0.3s linear;
+    }
+
+    .toggle-button.opened {
+      transform: rotateZ(0deg)
+    }
+
+    .toggle-button:hover {
+      color: var(--raml-path-selector-toggle-icon-hover-color, rgba(0, 0, 0, 0.78));
+    }
     </style>
     <paper-item on-tap="_selectSummary" class$="[[_computeItemSelectedClass(selectedPath, 'summary')]]" title="API sumamry">Summary</paper-item>
-    <h3 hidden$="[[!hasDocumentation]]">Documentation</h3>
-    <template is="dom-repeat" items="[[raml.documentation]]">
-      <raml-documentation-tree-item indent="1" indent-size="12" selected-path="[[selectedPath]]" doc="[[item]]" path="documentation.[[index]]"></raml-documentation-tree-item>
-    </template>
-    <h3 hidden$="[[!hasTypes]]">Types</h3>
-    <template is="dom-repeat" items="[[_objectToArray(raml.types)]]">
-      <raml-type-tree-item indent="1" indent-size="12" selected-path="[[selectedPath]]" type="[[item]]" path="types.[[index]]"></raml-type-tree-item>
-    </template>
-    <h3 hidden$="[[!hasResources]]">Resources</h3>
-    <template is="dom-repeat" items="[[raml.resources]]" resources>
-      <raml-resource-tree-item
-        selected-path="[[selectedPath]]"
-        resource="[[item]]"
-        path="resources.[[index]]"
-        opened="[[opened]]"></raml-resource-tree-item>
-    </template>
+    <section class="documentation" hidden$="[[!hasDocumentation]]">
+      <div class="section-title">
+        <paper-icon-button data-section="documentation" on-tap="_toggleSection" class$="toggle-button[[_computeToggleIconClass(documentationOpened)]]" icon="arc:arrow-drop-down"></paper-icon-button>
+        <h3 data-section="documentation" on-tap="_toggleSection">Documentation</h3>
+        <paper-icon-button class="toggle-button" icon="arc:chevron-right" hidden$="[[!narrow]]" data-section="documentation" on-tap="_enterSection"></paper-icon-button>
+      </div>
+      <iron-collapse opened="[[documentationOpened]]">
+        <div>
+          <template is="dom-repeat" items="[[raml.documentation]]">
+            <raml-documentation-tree-item indent="1" indent-size="24" selected-path="[[selectedPath]]" doc="[[item]]" path="documentation.[[index]]"></raml-documentation-tree-item>
+          </template>
+        </div>
+      </iron-collapse>
+    </section>
+
+    <section class="documentation" hidden$="[[!hasTypes]]">
+      <div class="section-title">
+        <paper-icon-button data-section="types" on-tap="_toggleSection" class$="toggle-button[[_computeToggleIconClass(typesOpened)]]" icon="arc:arrow-drop-down"></paper-icon-button>
+        <h3 data-section="types" on-tap="_toggleSection">Types</h3>
+        <paper-icon-button class="toggle-button" icon="arc:chevron-right" hidden$="[[!narrow]]" data-section="documentation" on-tap="_enterSection"></paper-icon-button>
+      </div>
+      <iron-collapse opened="[[typesOpened]]">
+        <div>
+          <template is="dom-repeat" items="[[_objectToArray(raml.types)]]">
+            <raml-type-tree-item indent="1" indent-size="24" selected-path="[[selectedPath]]" type="[[item]]" path="types.[[index]]"></raml-type-tree-item>
+          </template>
+        </div>
+      </iron-collapse>
+    </section>
+
+    <section class="documentation" hidden$="[[!hasResources]]">
+      <div class="section-title">
+        <paper-icon-button data-section="resources" on-tap="_toggleSection" class$="toggle-button[[_computeToggleIconClass(resourcesOpened)]]" icon="arc:arrow-drop-down"></paper-icon-button>
+        <h3 data-section="resources" on-tap="_toggleSection">Resources</h3>
+        <paper-icon-button class="toggle-button" icon="arc:chevron-right" hidden$="[[!narrow]]" data-section="resources" on-tap="_enterSection"></paper-icon-button>
+      </div>
+      <iron-collapse opened="[[resourcesOpened]]">
+        <div>
+          <template is="dom-repeat" items="[[raml.resources]]" resources>
+            <raml-resource-tree-item
+              indent="1"
+              indent-size="24"
+              selected-path="[[selectedPath]]"
+              resource="[[item]]"
+              path="resources.[[index]]"
+              opened="[[opened]]"></raml-resource-tree-item>
+          </template>
+        </div>
+      </iron-collapse>
+    </section>
   </template>
   <script>
   Polymer({
@@ -104,7 +174,22 @@ See docs for `<raml-path-selector>` for element's documentation.
       narrowWidth: {
         type: String,
         value: '768px'
-      }
+      },
+      /**
+       * If true then the documentation section will be exanded if the RAML
+       * contains documentation.
+       */
+      documentationOpened: Boolean,
+      /**
+       * If true then the types list section will be exanded if the RAML
+       * contains types.
+       */
+      typesOpened: Boolean,
+      /**
+       * If true then the resources list section will be exanded if the RAML
+       * contains resources.
+       */
+      resourcesOpened: Boolean
     },
 
     hostAttributes: {
@@ -170,6 +255,41 @@ See docs for `<raml-path-selector>` for element's documentation.
         value.key = key;
         return value;
       });
+    },
+    /**
+     * Computes toggle icon active CSS class name.
+     *
+     * @param {String} sectionOpened True if the correspoinding section is
+     * opened.
+     * @return {String} Toggle button active CSS class name.
+     */
+    _computeToggleIconClass: function(sectionOpened) {
+      var clazz = '';
+      if (sectionOpened) {
+        clazz += ' opened';
+      }
+      return clazz;
+    },
+    // Toggles visibility of navigation sections.
+    _toggleSection: function(e) {
+      var path = e.path;
+      if (!path || !path.length) {
+        throw new Error('Event path not defined.');
+      }
+      var section;
+      while (true) {
+        var _target = path.shift();
+        if (!_target) {
+          var msg = 'Invalid node selection. No data-section found in path.';
+          throw new Error(msg);
+        }
+        if (_target.dataset.section) {
+          section = _target.dataset.section;
+          break;
+        }
+      }
+      var varName = section + 'Opened';
+      this[varName] = !this[varName];
     }
   });
   </script>

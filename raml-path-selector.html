@@ -151,7 +151,10 @@ more styling options.
         opened="[[opened]]"
         narrow="{{_narrowValue}}"
         narrow-width="[[narrowWidth]]"
-        no-resource-selection="[[noResourceSelection]]"></raml-structure-tree>
+        no-resource-selection="[[noResourceSelection]]"
+        documentation-opened="[[documentationOpened]]"
+        types-opened="[[typesOpened]]"
+        resources-opened="[[resourcesOpened]]"></raml-structure-tree>
       <p class="no-structure" hidden$="[[hasResources]]">No structure detected</p>
     </template>
     <template is="dom-if" if="[[aware]]" restamp="true">
@@ -234,7 +237,22 @@ more styling options.
         type: Boolean,
         value: false,
         computed: '_computeNarrowValue(forceWideLayout, narrow)'
-      }
+      },
+      /**
+       * If true then the documentation section will be exanded if the RAML
+       * contains documentation.
+       */
+      documentationOpened: Boolean,
+      /**
+       * If true then the types list section will be exanded if the RAML
+       * contains types.
+       */
+      typesOpened: Boolean,
+      /**
+       * If true then the resources list section will be exanded if the RAML
+       * contains resources.
+       */
+      resourcesOpened: Boolean
     },
 
     // Computes if given array has values.
