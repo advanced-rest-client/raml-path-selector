@@ -41,11 +41,11 @@ Polymer.RamlTreeItemBehavior = {
   },
 
   observers: [
-    '_computeIndent(indent, indentSize)',
-    '__indentPixelsChanged(_indentPixels)'
+    '__indentPixelsChanged(_indentPixels)',
+    '_indentChnaged(indent, indentSize)'
   ],
 
-  _computeIndent: function(indent, indentSize) {
+  _indentChnaged: function(indent, indentSize) {
     if (!indent || !indentSize) {
       return this.set('_indentPixels', undefined);
     }

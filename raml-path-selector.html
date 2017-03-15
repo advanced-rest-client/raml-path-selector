@@ -13,7 +13,6 @@ the License.
 -->
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../paper-menu-button/paper-menu-button.html">
-<link rel="import" href="../iron-icon/iron-icon.html">
 <link rel="import" href="../paper-ripple/paper-ripple.html">
 <link rel="import" href="../raml-aware/raml-aware.html">
 <link rel="import" href="../raml-behaviors/raml-behavior.html">
@@ -105,55 +104,22 @@ more styling options.
       padding: 4px;
       @apply(--raml-path-selector-narrow-selected-label);
     }
-
-    iron-icon {
-      min-width: 24px;
-      min-height: 24px;
-    }
-
-    :host([narrow]:not([force-wide-layout])) raml-structure-tree {
-      margin-right: 16px;
-    }
     </style>
     <iron-media-query query="(max-width: [[narrowWidth]])" query-matches="{{narrow}}"></iron-media-query>
-
-    <template is="dom-if" if="[[_narrowValue]]" restamp="true">
-      <paper-menu-button hidden="[[!hasResources]]">
-        <div class="dropdown-trigger">
-          <paper-ripple></paper-ripple>
-          <div class="selected-value">
-            <span hidden$="[[selectedLabel]]">Select RAML object</span>
-            <span hidden$="[[!selectedLabel]]">[[selectedLabel]]</span>
-          </div>
-          <iron-icon icon="arc:arrow-drop-down"></iron-icon>
-        </div>
-        <div class="dropdown-content">
-          <raml-structure-tree
-            raml="[[raml]]"
-            has-documentation="[[hasDocumentation]]"
-            has-resources="[[hasResources]]"
-            has-types="[[hasTypes]]"
-            selected-path="{{selectedPath}}"
-            opened
-            narrow
-            narrow-width="[[narrowWidth]]"
-            no-resource-selection="[[noResourceSelection]]"></raml-structure-tree>
-        </div>
-      </paper-menu-button>
-    </template>
-    <template is="dom-if" if="[[!_narrowValue]]" restamp="true">
-      <raml-structure-tree
-        raml="[[raml]]"
-        has-documentation="[[hasDocumentation]]"
-        has-resources="[[hasResources]]"
-        has-types="[[hasTypes]]"
-        selected-path="{{selectedPath}}"
-        opened="[[opened]]"
-        narrow="{{_narrowValue}}"
-        narrow-width="[[narrowWidth]]"
-        no-resource-selection="[[noResourceSelection]]"></raml-structure-tree>
-      <p class="no-structure" hidden$="[[hasResources]]">No structure detected</p>
-    </template>
+    <raml-structure-tree
+      raml="[[raml]]"
+      has-documentation="[[hasDocumentation]]"
+      has-resources="[[hasResources]]"
+      has-types="[[hasTypes]]"
+      selected-path="{{selectedPath}}"
+      opened="[[firstLevelOpened]]"
+      narrow="{{_narrowValue}}"
+      narrow-width="[[narrowWidth]]"
+      no-resource-selection="[[noResourceSelection]]"
+      documentation-opened="[[documentationOpened]]"
+      types-opened="[[typesOpened]]"
+      resources-opened="[[resourcesOpened]]"></raml-structure-tree>
+    <p class="no-structure" hidden$="[[hasResources]]">No structure detected</p>
     <template is="dom-if" if="[[aware]]" restamp="true">
       <raml-aware raml="{{raml}}" scope="[[aware]]"></raml-aware>
     </template>
@@ -170,7 +136,7 @@ more styling options.
         notify: true
       },
       // If true then the first level of resources will be opened by default.
-      opened: {
+      firstLevelOpened: {
         type: Boolean,
         value: false
       },
@@ -234,7 +200,22 @@ more styling options.
         type: Boolean,
         value: false,
         computed: '_computeNarrowValue(forceWideLayout, narrow)'
-      }
+      },
+      /**
+       * If true then the documentation section will be exanded if the RAML
+       * contains documentation.
+       */
+      documentationOpened: Boolean,
+      /**
+       * If true then the types list section will be exanded if the RAML
+       * contains types.
+       */
+      typesOpened: Boolean,
+      /**
+       * If true then the resources list section will be exanded if the RAML
+       * contains resources.
+       */
+      resourcesOpened: Boolean
     },
 
     // Computes if given array has values.
