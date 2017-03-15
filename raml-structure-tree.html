@@ -23,6 +23,8 @@ the License.
 <link rel="import" href="raml-tree-item-styles.html">
 <link rel="import" href="path-selector-documentation.html">
 <link rel="import" href="path-selector-types.html">
+<link rel="import" href="path-selector-resource.html">
+
 <!--
 The `<raml-structure-tree>` renders a list view for the `<raml-path-selector>`.
 See docs for `<raml-path-selector>` for element's documentation.
@@ -59,6 +61,7 @@ See docs for `<raml-path-selector>` for element's documentation.
     .section-title h3 {
       @apply(--layout-flex);
       padding-left: 0;
+      font-weight: 400;
     }
 
     .toggle-button {
@@ -124,7 +127,7 @@ See docs for `<raml-path-selector>` for element's documentation.
       <div class="section-title">
         <paper-icon-button data-section="resources" on-tap="_toggleSection" class$="toggle-button[[_computeToggleIconClass(resourcesOpened)]]" icon="arc:arrow-drop-down"></paper-icon-button>
         <h3 data-section="resources" on-tap="_toggleSection">Resources</h3>
-        <!-- <paper-icon-button class="enter-button" icon="arc:chevron-right" hidden$="[[!narrow]]" data-section="resources" on-tap="_enterSection"></paper-icon-button> -->
+        <paper-icon-button class="enter-button" icon="arc:chevron-right" hidden$="[[!narrow]]" data-section="resources" on-tap="_enterSection"></paper-icon-button>
       </div>
       <iron-collapse opened="[[resourcesOpened]]">
         <div>
@@ -135,7 +138,8 @@ See docs for `<raml-path-selector>` for element's documentation.
               selected-path="[[selectedPath]]"
               resource="[[item]]"
               path="resources.[[index]]"
-              opened="[[opened]]"></raml-resource-tree-item>
+              opened="[[opened]]"
+              narrow="[[narrow]]"></raml-resource-tree-item>
           </template>
         </div>
       </iron-collapse>
@@ -143,6 +147,7 @@ See docs for `<raml-path-selector>` for element's documentation.
 
     <path-selector-documentation documentation="[[raml.documentation]]" selected-path="[[selectedPath]]"></path-selector-documentation>
     <path-selector-types types="[[_objectToArray(raml.types)]]" selected-path="[[selectedPath]]"></path-selector-types>
+    <path-selector-resource resources="[[raml.resources]]" selected-path="[[selectedPath]]" items-opened="[[opened]]"></path-selector-resource>
   </template>
   <script>
   Polymer({
@@ -334,6 +339,9 @@ See docs for `<raml-path-selector>` for element's documentation.
           break;
         case 'types':
           elm = this.$$('path-selector-types');
+          break;
+        case 'resources':
+          elm = this.$$('path-selector-resource');
           break;
       }
       return elm;
