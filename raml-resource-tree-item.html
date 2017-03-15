@@ -75,6 +75,39 @@ Custom property | Description | Default
     .method-name-item {
       padding-left: 24px;
     }
+
+    .method {
+      @apply(--method-display-box);
+    }
+
+    .method.get {
+      @apply(--method-display-box-get);
+    }
+
+    .method.post {
+      @apply(--method-display-box-post);
+    }
+
+    .method.put {
+      @apply(--method-display-box-put);
+    }
+
+    .method.delete {
+      @apply(--method-display-box-delete);
+    }
+
+    .method.patch {
+      @apply(--method-display-box-patch);
+    }
+
+    .method-description {
+      @apply(--layout-horizontal);
+      @apply(--layout-center);
+    }
+
+    .method-display {
+      @apply(--layout-flex);
+    }
     </style>
     <paper-item data-path$="[[path]]" on-tap="_selectPath" class$="indentable-content [[_computeItemSelectableClass(selectedPath, path)]]" title$="[[resourceTitle]]" id="resource">
       <paper-icon-button class="toggle-button" icon="arc:arrow-drop-down" on-tap="toggle"></paper-icon-button>
@@ -89,7 +122,10 @@ Custom property | Description | Default
             on-tap="_selectPath"
             class$="method-name-item [[_computeItemSelectableClass(selectedPath, path, index)]]"
             title$="[[item.method]] [[item.description]]">
-            <span class="indentable-content">[[_getMethodName(item)]]</span>
+            <span class="indentable-content method-description">
+              <span class$="[[_computeMethodClass(item.method)]]">[[item.method]]</span>
+              <span class="method-display">[[item.displayName]]</span>
+            </span>
           </paper-item>
         </template>
         <template is="dom-repeat" items="[[resource.resources]]">
@@ -263,6 +299,30 @@ Custom property | Description | Default
         indent = 0;
       }
       return ++indent;
+    },
+
+    /**
+     * Computes CSS class name for the HTTP method label.
+     *
+     * @param {String} method an HTTP method name.
+     * @return {String} CSS class name always starting with the `method` class.
+     */
+    _computeMethodClass: function(method) {
+      if (!method) {
+        return;
+      }
+      method = method.toLowerCase();
+      var clazz = 'method ';
+      switch (method) {
+        case 'get':
+        case 'post':
+        case 'put':
+        case 'delete':
+        case 'patch':
+          clazz += method;
+          break;
+      }
+      return clazz;
     }
   });
   </script>
