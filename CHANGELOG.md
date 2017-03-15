@@ -1,3 +1,24 @@
+<a name="1.0.13"></a>
+## [1.0.13](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.11...v1.0.13) (2017-03-15)
+
+
+### Breaking
+
+* Created new mobile view that takes full screen. Now application has to listen for path change and when it does it should close the navigation to display the content ([93ebd6f6a8382296076685d8d5462a282ce18d96](https://github.com/advanced-rest-client/raml-path-selector/commit/93ebd6f6a8382296076685d8d5462a282ce18d96))
+
+### New
+
+* Added types browser. Added indentation of a tree item ([3b5e6f682423f3fdb21bb0b8ef31279e25dfee7a](https://github.com/advanced-rest-client/raml-path-selector/commit/3b5e6f682423f3fdb21bb0b8ef31279e25dfee7a))
+
+### Update
+
+* Added indentation support for the resource tree items ([f7482127dfa6ccd4640d34d8ced3eef7f0138912](https://github.com/advanced-rest-client/raml-path-selector/commit/f7482127dfa6ccd4640d34d8ced3eef7f0138912))
+* Added toggle button to nav sections. Now toggle sections can be collapsed to hide unused content ([9c73bf54b02ce7ae3498b87534f903a14325dfba](https://github.com/advanced-rest-client/raml-path-selector/commit/9c73bf54b02ce7ae3498b87534f903a14325dfba))
+* Removed sauce connection because tests are not ready ([9776ae25c1ec9c6eebd3c14a437f44298725d2f8](https://github.com/advanced-rest-client/raml-path-selector/commit/9776ae25c1ec9c6eebd3c14a437f44298725d2f8))
+* Updated lint command to match elements list ([17aee469af40b9c93244233d8b7e1921665ea5f9](https://github.com/advanced-rest-client/raml-path-selector/commit/17aee469af40b9c93244233d8b7e1921665ea5f9))
+
+
+
 <a name="1.0.12"></a>
 ## [1.0.12](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.11...v1.0.12) (2017-03-13)
 
