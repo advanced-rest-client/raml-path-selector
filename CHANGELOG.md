@@ -1,3 +1,18 @@
+<a name="1.0.12"></a>
+## [1.0.12](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.11...v1.0.12) (2017-03-13)
+
+
+### New
+
+* Added types browser. Added indentation of a tree item ([3b5e6f682423f3fdb21bb0b8ef31279e25dfee7a](https://github.com/advanced-rest-client/raml-path-selector/commit/3b5e6f682423f3fdb21bb0b8ef31279e25dfee7a))
+
+### Update
+
+* Removed sauce connection because tests are not ready ([9776ae25c1ec9c6eebd3c14a437f44298725d2f8](https://github.com/advanced-rest-client/raml-path-selector/commit/9776ae25c1ec9c6eebd3c14a437f44298725d2f8))
+* Updated lint command to match elements list ([17aee469af40b9c93244233d8b7e1921665ea5f9](https://github.com/advanced-rest-client/raml-path-selector/commit/17aee469af40b9c93244233d8b7e1921665ea5f9))
+
+
+
 <a name="1.0.11"></a>
 ## [1.0.11](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.8...v1.0.11) (2016-12-22)
 
