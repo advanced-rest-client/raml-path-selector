@@ -20,6 +20,8 @@ the License.
 <link rel="import" href="../iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
 <link rel="import" href="raml-tree-item-behavior.html">
 <link rel="import" href="raml-tree-item-styles.html">
+<link rel="import" href="path-selector-resource.html">
+
 <!--
 The `<raml-resource-tree-item>` is an element that displays a resource
 part of the API structure tree. It contains the resource, it's methods and
@@ -108,10 +110,19 @@ Custom property | Description | Default
     .method-display {
       @apply(--layout-flex);
     }
+
+    :host([narrow]) .resource-details-item {
+      padding-right: 0;
+    }
+
+    .enter-button {
+      color: var(--raml-path-selector-toggle-icon-color, rgba(0, 0, 0, 0.54));
+    }
     </style>
-    <paper-item data-path$="[[path]]" on-tap="_selectPath" class$="indentable-content [[_computeItemSelectableClass(selectedPath, path)]]" title$="[[resourceTitle]]" id="resource">
+    <paper-item data-path$="[[path]]" on-tap="_selectPath" class$="indentable-content resource-details-item [[_computeItemSelectableClass(selectedPath, path)]]" title$="[[resourceTitle]]" id="resource">
       <paper-icon-button class="toggle-button" icon="arc:arrow-drop-down" on-tap="toggle"></paper-icon-button>
       <span class="resource-name">[[_getName(resource)]]</span>
+      <paper-icon-button class="enter-button" icon="arc:chevron-right" hidden$="[[!narrow]]" on-tap="_enterResource"></paper-icon-button>
     </paper-item>
 
     <iron-collapse id="collapse" opened="[[opened]]">
@@ -134,11 +145,18 @@ Custom property | Description | Default
            indent-size="24"
            selected-path="[[selectedPath]]"
            resource="[[item]]"
-           path="[[path]].resources.[[index]]"></raml-resource-tree-item>
+           path="[[path]].resources.[[index]]"
+           narrow="[[narrow]]"></raml-resource-tree-item>
         </template>
       </div>
     </iron-collapse>
-
+    <path-selector-resource
+      resource-name="[[_getName(resource)]]"
+      resources="[[resource.resources]]"
+      methods="[[resource.methods]]"
+      selected-path="[[selectedPath]]"
+      items-opened="[[opened]]"
+      path="[[path]]"></path-selector-resource>
   </template>
   <script>
   Polymer({
@@ -168,6 +186,12 @@ Custom property | Description | Default
       _isReady: {
         type: Boolean,
         value: false
+      },
+      // True if rendered in narrow layout.
+      narrow: {
+        type: Boolean,
+        reflectToAttribute: true,
+        value: false
       }
     },
 
@@ -177,7 +201,8 @@ Custom property | Description | Default
     ],
 
     listeners: {
-      'opened-changed': '_openedHandler'
+      'opened-changed': '_openedHandler',
+      'raml-path-selector-nav-back': '_onNarrowPageBack'
     },
 
     keyBindings: {
@@ -323,6 +348,20 @@ Custom property | Description | Default
           break;
       }
       return clazz;
+    },
+
+    _enterResource: function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      var elm = this.$$('path-selector-resource');
+      elm.opened = true;
+    },
+
+    _onNarrowPageBack: function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      var elm = this.$$('path-selector-resource');
+      elm.opened = false;
     }
   });
   </script>
