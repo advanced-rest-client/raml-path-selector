@@ -46,26 +46,22 @@ Custom property | Description | Default
   <template>
     <style include="raml-tree-item-styles">
 
-    .children {
-      /* Never use margin/padding (top-bottom) with this selector */
-      margin-left: var(--raml-docs-tree-children-margin, 24px);
-    }
-
-    :focus {
+    *:focus {
       outline: none;
     }
 
-    paper-icon-button {
+    paper-icon-button.toggle-button {
       transition: all 0.4s ease;
       padding: 0;
       width: 24px;
       height: 24px;
       min-width: 24px;
+      transform: rotateZ(-90deg);
     }
-    /* In shaggy DOM there must be an exact path for recursive elements */
 
-    :host([opened])>paper-item>paper-icon-button {
-      transform: rotate(90deg);
+    /* In shaggy DOM there must be an exact path for recursive elements */
+    :host([opened])>paper-item>paper-icon-button.toggle-button {
+      transform: rotateZ(0deg)
     }
 
     .resource-name {
@@ -75,21 +71,38 @@ Custom property | Description | Default
     paper-item {
       white-space: nowrap;
     }
+
+    .method-name-item {
+      padding-left: 24px;
+    }
     </style>
-    <paper-item data-path$="[[path]]" on-tap="_selectPath" class$="[[_computeItemSelectableClass(selectedPath, path)]]" title$="[[resourceTitle]]" id="resource">
-      <paper-icon-button icon="arc:chevron-right" on-tap="toggle"></paper-icon-button>
+    <paper-item data-path$="[[path]]" on-tap="_selectPath" class$="indentable-content [[_computeItemSelectableClass(selectedPath, path)]]" title$="[[resourceTitle]]" id="resource">
+      <paper-icon-button class="toggle-button" icon="arc:arrow-drop-down" on-tap="toggle"></paper-icon-button>
       <span class="resource-name">[[_getName(resource)]]</span>
     </paper-item>
+
     <iron-collapse id="collapse" opened="[[opened]]">
       <div class="children">
         <template is="dom-repeat" items="[[resource.methods]]">
-          <paper-item data-path$="[[path]].methods.[[index]]" on-tap="_selectPath" class$="[[_computeItemSelectableClass(selectedPath, path, index)]]" title$="[[item.method]] [[item.description]]">[[_getMethodName(item)]]</paper-item>
+          <paper-item
+            data-path$="[[path]].methods.[[index]]"
+            on-tap="_selectPath"
+            class$="method-name-item [[_computeItemSelectableClass(selectedPath, path, index)]]"
+            title$="[[item.method]] [[item.description]]">
+            <span class="indentable-content">[[_getMethodName(item)]]</span>
+          </paper-item>
         </template>
         <template is="dom-repeat" items="[[resource.resources]]">
-          <raml-resource-tree-item selected-path="[[selectedPath]]" resource="[[item]]" path="[[path]].resources.[[index]]" no-resource-selection="[[noResourceSelection]]"></raml-resource-tree-item>
+          <raml-resource-tree-item
+           indent="[[_computeIndent(indent)]]"
+           indent-size="24"
+           selected-path="[[selectedPath]]"
+           resource="[[item]]"
+           path="[[path]].resources.[[index]]"></raml-resource-tree-item>
         </template>
       </div>
     </iron-collapse>
+
   </template>
   <script>
   Polymer({
@@ -237,6 +250,19 @@ Custom property | Description | Default
       }
       this.opened = true;
       event.detail.keyboardEvent.preventDefault();
+    },
+    /**
+     * Computes child resource indent leve.
+     *
+     * @param {Number} indent Current indent level
+     * @return {Number} Child indent level.
+     */
+    _computeIndent: function(indent) {
+      indent = Number(indent);
+      if (indent !== indent) {
+        indent = 0;
+      }
+      return ++indent;
     }
   });
   </script>

@@ -86,7 +86,12 @@ See docs for `<raml-path-selector>` for element's documentation.
       <iron-collapse opened="[[documentationOpened]]">
         <div>
           <template is="dom-repeat" items="[[raml.documentation]]">
-            <raml-documentation-tree-item indent="1" indent-size="24" selected-path="[[selectedPath]]" doc="[[item]]" path="documentation.[[index]]"></raml-documentation-tree-item>
+            <raml-documentation-tree-item
+              indent="1"
+              indent-size="24"
+              selected-path="[[selectedPath]]"
+              doc="[[item]]"
+              path="documentation.[[index]]"></raml-documentation-tree-item>
           </template>
         </div>
       </iron-collapse>
@@ -101,7 +106,12 @@ See docs for `<raml-path-selector>` for element's documentation.
       <iron-collapse opened="[[typesOpened]]">
         <div>
           <template is="dom-repeat" items="[[_objectToArray(raml.types)]]">
-            <raml-type-tree-item indent="1" indent-size="24" selected-path="[[selectedPath]]" type="[[item]]" path="types.[[index]]"></raml-type-tree-item>
+            <raml-type-tree-item
+              indent="1"
+              indent-size="24"
+              selected-path="[[selectedPath]]"
+              type="[[item]]"
+              path="types.[[index]]"></raml-type-tree-item>
           </template>
         </div>
       </iron-collapse>
@@ -283,7 +293,7 @@ See docs for `<raml-path-selector>` for element's documentation.
           var msg = 'Invalid node selection. No data-section found in path.';
           throw new Error(msg);
         }
-        if (_target.dataset.section) {
+        if (_target.dataset && _target.dataset.section) {
           section = _target.dataset.section;
           break;
         }
