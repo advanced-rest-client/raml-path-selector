@@ -1,3 +1,14 @@
+<a name="1.0.15"></a>
+## [1.0.15](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.13...v1.0.15) (2017-03-15)
+
+
+### Update
+
+* HTTP method will be always displayed (with color code) and if displayName is defined then it will displayed next to method name ([a70406d0d8c389cc62f7b87ee6cf699acf3da4a5](https://github.com/advanced-rest-client/raml-path-selector/commit/a70406d0d8c389cc62f7b87ee6cf699acf3da4a5))
+* Updated headers style ([ab8d65ff3b080c4440052c1b972e0cc7459680b7](https://github.com/advanced-rest-client/raml-path-selector/commit/ab8d65ff3b080c4440052c1b972e0cc7459680b7))
+
+
+
 <a name="1.0.14"></a>
 ## [1.0.14](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.13...v1.0.14) (2017-03-15)
 
