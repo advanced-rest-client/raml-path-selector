@@ -17,9 +17,11 @@ the License.
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../arc-icons/arc-icons.html">
 <link rel="import" href="raml-tree-item-behavior.html">
+<link rel="import" href="path-selector-behavior.html">
 <link rel="import" href="raml-tree-item-styles.html">
 <link rel="import" href="raml-resource-tree-item.html">
 <link rel="import" href="raml-type-tree-item.html">
+<link rel="import" href="path-selector-styles.html">
 <!--
 The `path-selector-resource` is a full screen display for the resources selector.
 
@@ -38,43 +40,8 @@ Custom property | Description | Default
 <dom-module id="path-selector-resource">
   <template>
     <style include="raml-tree-item-styles"></style>
+    <style include="path-selector-styles"></style>
     <style>
-    :host {
-      display: none;
-      @apply(--layout-fit);
-      background-color: #fff;
-      z-index: 1;
-
-      transition-property: -webkit-transform;
-      transition-property: transform;
-
-      -webkit-transition-duration: 0.3s;
-      transition-duration: 0.3s;
-
-      -webkit-transform: translate3d(100%, 0, 0);
-      transform: translate3d(100%, 0, 0);
-    }
-
-    .section-title {
-      @apply(--layout-horizontal);
-      @apply(--layout-center);
-      cursor: pointer;
-    }
-
-    .section-title h3 {
-      @apply(--layout-flex);
-      padding-left: 0;
-    }
-
-    .back-button {
-      color: var(--raml-path-selector-back-icon-color, rgba(0, 0, 0, 0.54));
-      transition: color 0.25s linear;
-    }
-
-    .back-button:hover {
-      color: var(--raml-path-selector-back-icon-color-hover, rgba(0, 0, 0, 0.87));
-    }
-
     paper-item {
       white-space: nowrap;
     }
@@ -131,122 +98,82 @@ Custom property | Description | Default
         <h3>[[resourceName]]</h3>
       </div>
       <template is="dom-repeat" items="[[methods]]">
-        <paper-item
-          data-path$="[[path]].methods.[[index]]"
-          on-tap="_selectPath"
-          class$="method-name-item [[_computeItemSelectableClass(selectedPath, path, index)]]"
-          title$="[[item.method]] [[item.description]]">
+        <paper-item data-path$="[[path]].methods.[[index]]" on-tap="_selectPath" class$="method-name-item [[_computeItemSelectableClass(selectedPath, path, index)]]" title$="[[item.method]] [[item.description]]">
           <span class="indentable-content method-description">
             <span class$="[[_computeMethodClass(item.method)]]">[[item.method]]</span>
-            <span class="method-display">[[item.displayName]]</span>
+          <span class="method-display">[[item.displayName]]</span>
           </span>
         </paper-item>
       </template>
       <template is="dom-repeat" items="[[resources]]">
-        <raml-resource-tree-item
-          indent="1"
-          indent-size="12"
-          selected-path="[[selectedPath]]"
-          resource="[[item]]"
-          path="[[_computeSubresourcePath(path, index)]]"
-          path=""
-          opened="[[itemsOpened]]"
-          narrow></raml-resource-tree-item>
+        <raml-resource-tree-item indent="1" indent-size="12" selected-path="[[selectedPath]]" resource="[[item]]" path="[[_computeSubresourcePath(path, index)]]" path="" opened="[[itemsOpened]]" narrow></raml-resource-tree-item>
       </template>
     </template>
   </template>
   <script>
-    Polymer({
-      is: 'path-selector-resource',
+  Polymer({
+    is: 'path-selector-resource',
 
-      behaviors: [Polymer.RamlTreeItemBehavior],
+    behaviors: [RamlBehaviors.RamlTreeItemBehavior, RamlBehaviors.PathSelectorBehavior],
 
-      properties: {
-        selectedPath: String,
-        /**
-         * List of types nodes.
-         */
-        resources: Array,
-        // List of methods in this resource
-        methods: Array,
-        // If set this view is being displayed.
-        opened: {
-          type: Boolean,
-          observer: '_openedChanged'
-        },
-
-        itemsOpened: Boolean,
-        // Title to display.
-        resourceName: {
-          type: String,
-          value: function() {
-            return 'Resources';
-          }
-        },
-        // Item's path in the recursive structure
-        path: {
-          type: String,
-          value: function() {
-            return '';
-          }
-        }
-      },
-
-      back: function() {
-        this.fire('raml-path-selector-nav-back');
-      },
-
-      _openedChanged: function(opened) {
-        if (opened) {
-          this.style.display = 'block';
-          if (this.__closeTimer) {
-            this.cancelAsync(this.__closeTimer);
-            this.__closeTimer = undefined;
-          }
-          Polymer.RenderStatus.afterNextRender(this, function() {
-            this.transform('translate3d(0, 0, 0)');
-          });
-        } else {
-          this.transform('translate3d(100%, 0, 0)');
-          this.__closeTimer = this.async(function() {
-            this.style.display = 'none';
-          }, 300);
-        }
-      },
-
+    properties: {
       /**
-       * Computes CSS class name for the HTTP method label.
-       *
-       * @param {String} method an HTTP method name.
-       * @return {String} CSS class name always starting with the `method` class.
+       * List of types nodes.
        */
-      _computeMethodClass: function(method) {
-        if (!method) {
-          return;
-        }
-        method = method.toLowerCase();
-        var clazz = 'method ';
-        switch (method) {
-          case 'get':
-          case 'post':
-          case 'put':
-          case 'delete':
-          case 'patch':
-            clazz += method;
-            break;
-        }
-        return clazz;
-      },
+      resources: Array,
+      // List of methods in this resource
+      methods: Array,
 
-      // Computes a path for sub resource.
-      _computeSubresourcePath: function(path, index) {
-        var result = '';
-        if (path) {
-          result += path + '.';
+      itemsOpened: Boolean,
+      // Title to display.
+      resourceName: {
+        type: String,
+        value: function() {
+          return 'Resources';
         }
-        result += path + 'resources.' + index;
-        return result;
+      },
+      // Item's path in the recursive structure
+      path: {
+        type: String,
+        value: function() {
+          return '';
+        }
       }
-    });
+    },
+
+    /**
+     * Computes CSS class name for the HTTP method label.
+     *
+     * @param {String} method an HTTP method name.
+     * @return {String} CSS class name always starting with the `method` class.
+     */
+    _computeMethodClass: function(method) {
+      if (!method) {
+        return;
+      }
+      method = method.toLowerCase();
+      var clazz = 'method ';
+      switch (method) {
+        case 'get':
+        case 'post':
+        case 'put':
+        case 'delete':
+        case 'patch':
+          clazz += method;
+          break;
+      }
+      return clazz;
+    },
+
+    // Computes a path for sub resource.
+    _computeSubresourcePath: function(path, index) {
+      var result = '';
+      if (path) {
+        result += path + '.';
+      }
+      result += path + 'resources.' + index;
+      return result;
+    }
+  });
   </script>
 </dom-module>

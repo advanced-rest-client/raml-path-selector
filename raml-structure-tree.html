@@ -24,26 +24,39 @@ the License.
 <link rel="import" href="path-selector-documentation.html">
 <link rel="import" href="path-selector-types.html">
 <link rel="import" href="path-selector-resource.html">
-
 <!--
 The `<raml-structure-tree>` renders a list view for the `<raml-path-selector>`.
 See docs for `<raml-path-selector>` for element's documentation.
+
+## Styling
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--raml-structure-tree` | Mixin applied to this element | `{}`
+`--arc-font-subhead` | Theme element, mixin applied to the tree section headers. The color will be overritten by the `--raml-path-selector-header-color` variable.  | ``
+`--raml-path-selector-header-color` | Color of the section headers | `rgba(0, 0, 0, 0.54)`
+`--raml-path-selector-headers` | Mixin applied to the tree section headers. This will ovveride all other values. | `{}`
+`--raml-path-selector-toggle-icon-color` | Color of the toggle icon. | `rgba(0, 0, 0, 0.54)`
+`--raml-path-selector-toggle-icon-hover-color` | Color of the toggle icon when hovered. | `rgba(0, 0, 0, 0.78)`
+
+@element raml-structure-tree
+@demo demo/index.html
 -->
 <dom-module id="raml-structure-tree">
   <template>
     <style include="raml-tree-item-styles">
      :host {
       display: block;
-      background: var(--raml-path-selector-background-color, --primary-background-color);
-      color: var(--raml-path-selector-color, --primary-text-color);
+      background-color: inherit;
+      color: inherit;
       overflow: auto;
       position: relative;
-      @apply(--raml-path-selector);
+      @apply(--raml-structure-tree);
     }
 
     h3 {
       @apply(--arc-font-subhead);
-      color: rgba(0, 0, 0, 0.54);
+      color: var(--raml-path-selector-header-color, rgba(0, 0, 0, 0.54));
       padding-left: 14px;
       @apply(--raml-path-selector-headers);
     }
@@ -92,17 +105,11 @@ See docs for `<raml-path-selector>` for element's documentation.
       <iron-collapse opened="[[documentationOpened]]">
         <div>
           <template is="dom-repeat" items="[[raml.documentation]]">
-            <raml-documentation-tree-item
-              indent="1"
-              indent-size="24"
-              selected-path="[[selectedPath]]"
-              doc="[[item]]"
-              path="documentation.[[index]]"></raml-documentation-tree-item>
+            <raml-documentation-tree-item indent="1" indent-size="24" selected-path="[[selectedPath]]" doc="[[item]]" path="documentation.[[index]]"></raml-documentation-tree-item>
           </template>
         </div>
       </iron-collapse>
     </section>
-
     <section class="documentation" hidden$="[[!hasTypes]]">
       <div class="section-title">
         <paper-icon-button data-section="types" on-tap="_toggleSection" class$="toggle-button[[_computeToggleIconClass(typesOpened)]]" icon="arc:arrow-drop-down"></paper-icon-button>
@@ -112,17 +119,11 @@ See docs for `<raml-path-selector>` for element's documentation.
       <iron-collapse opened="[[typesOpened]]">
         <div>
           <template is="dom-repeat" items="[[_objectToArray(raml.types)]]">
-            <raml-type-tree-item
-              indent="1"
-              indent-size="24"
-              selected-path="[[selectedPath]]"
-              type="[[item]]"
-              path="types.[[index]]"></raml-type-tree-item>
+            <raml-type-tree-item indent="1" indent-size="24" selected-path="[[selectedPath]]" type="[[item]]" path="types.[[index]]"></raml-type-tree-item>
           </template>
         </div>
       </iron-collapse>
     </section>
-
     <section class="documentation" hidden$="[[!hasResources]]">
       <div class="section-title">
         <paper-icon-button data-section="resources" on-tap="_toggleSection" class$="toggle-button[[_computeToggleIconClass(resourcesOpened)]]" icon="arc:arrow-drop-down"></paper-icon-button>
@@ -132,19 +133,11 @@ See docs for `<raml-path-selector>` for element's documentation.
       <iron-collapse opened="[[resourcesOpened]]">
         <div>
           <template is="dom-repeat" items="[[raml.resources]]" resources>
-            <raml-resource-tree-item
-              indent="1"
-              indent-size="24"
-              selected-path="[[selectedPath]]"
-              resource="[[item]]"
-              path="resources.[[index]]"
-              opened="[[opened]]"
-              narrow="[[narrow]]"></raml-resource-tree-item>
+            <raml-resource-tree-item indent="1" indent-size="24" selected-path="[[selectedPath]]" resource="[[item]]" path="resources.[[index]]" opened="[[opened]]" narrow="[[narrow]]"></raml-resource-tree-item>
           </template>
         </div>
       </iron-collapse>
     </section>
-
     <path-selector-documentation documentation="[[raml.documentation]]" selected-path="[[selectedPath]]"></path-selector-documentation>
     <path-selector-types types="[[_objectToArray(raml.types)]]" selected-path="[[selectedPath]]"></path-selector-types>
     <path-selector-resource resources="[[raml.resources]]" selected-path="[[selectedPath]]" items-opened="[[opened]]"></path-selector-resource>

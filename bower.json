@@ -12,7 +12,15 @@
   "private": true,
   "main": [
     "raml-path-selector.html",
-    "raml-resource-tree-item.html"
+    "raml-structure-tree.html"
+    "raml-resource-tree-item.html",
+    "raml-type-tree-item.html",
+    "raml-documentation-tree-item.html",
+    "path-selector-types.html",
+    "path-selector-documentation.html",
+    "path-selector-resource.html",
+    "path-selector-behavior.html",
+    "raml-tree-item-behavior.html"
   ],
   "repository": {
     "type": "git",
