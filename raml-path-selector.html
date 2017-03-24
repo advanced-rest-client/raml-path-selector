@@ -53,11 +53,10 @@ In other cases you can use libraries like
 access structured data using path notation.
 
 ## Responsive view
-This is a navigational element. Therefore in narrow view it hides itself from the view.
-When media queries are lower than `narrowWidth` or the `narrow` attribute is set then the path
-selector render itself as a dropdown list.
-Views that are using this element should keep that in mind and set the layout accordingly.
-For example it may require to switch from `column` to `row` layout.
+The element support `narrow` property to render additional controls for small screen.
+In narrow layout the user can walk through the structure using separate screen for
+each resource. In regular view only tree view is available. See demo for more
+details.
 
 ## Styling
 `<raml-path-selector>` provides the following custom properties and mixins for styling:
@@ -90,20 +89,6 @@ more styling options.
       overflow: auto;
       @apply(--raml-path-selector);
     }
-
-    .dropdown-trigger {
-      @apply(--layout-horizontal);
-      @apply(--layout-relative);
-      @apply(--layout-center);
-    }
-
-    .selected-value {
-      @apply(--layout-flex);
-      @apply(--paper-font-common-nowrap);
-      margin-right: 16px;
-      padding: 4px;
-      @apply(--raml-path-selector-narrow-selected-label);
-    }
     </style>
     <iron-media-query query="(max-width: [[narrowWidth]])" query-matches="{{narrow}}"></iron-media-query>
     <raml-structure-tree
@@ -115,7 +100,6 @@ more styling options.
       opened="[[firstLevelOpened]]"
       narrow="{{_narrowValue}}"
       narrow-width="[[narrowWidth]]"
-      no-resource-selection="[[noResourceSelection]]"
       documentation-opened="[[documentationOpened]]"
       types-opened="[[typesOpened]]"
       resources-opened="[[resourcesOpened]]"></raml-structure-tree>
@@ -174,18 +158,6 @@ more styling options.
         type: String,
         value: '768px'
       },
-      // In narrow view it is showing the path of the raml.
-      selectedLabel: {
-        type: String,
-        computed: '_computeSelectedLabel(narrow, raml, selectedPath)'
-      },
-      /**
-       * If set then the selection of the resource node will be not possible.
-       * It will opens / closes child elements.
-       */
-      noResourceSelection: {
-        type: Boolean
-      },
       /**
        * If set it will override the narrow layout property and force
        * wide layout. Then it will also ignore the media queries settings.
@@ -225,30 +197,6 @@ more styling options.
 
     _computeHasInObject: function(types) {
       return !!(types && Object.keys(types).length);
-    },
-
-    _computeSelectedLabel: function(narrow, raml, selectedPath) {
-      if (!narrow || !selectedPath || !raml) {
-        return '';
-      }
-      var object = this.get('raml.' + selectedPath);
-      if (!object) {
-        return '';
-      }
-      if (selectedPath.indexOf('documentation') === 0) {
-        return object.title || 'Documentation';
-      }
-      var str = ''; //object.displayName || object.method || object.name;
-      var matches = selectedPath.match(/\d+/g);
-      var current = this.raml;
-      matches.pop();
-      matches.forEach(function(item) {
-        item = Number(item);
-        current = current.resources[item];
-        str += (current.displayName || current.name) + ' > ';
-      });
-      str += object.displayName || object.name || object.method;
-      return str;
     },
     /**
      * Computes the `narrowValue` property.
