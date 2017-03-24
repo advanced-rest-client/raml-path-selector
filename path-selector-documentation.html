@@ -14,97 +14,46 @@ the License.
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="raml-documentation-tree-item.html">
+<link rel="import" href="path-selector-styles.html">
+<link rel="import" href="path-selector-behavior.html">
+<!--
+The `path-selector-documentation` is a full screen display for the documentation list.
 
+See demo (with narrow layout enabled) for an example.
+
+## Styling
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--raml-path-selector-back-icon-color` | Color of the "back" icon | `rgba(0, 0, 0, 0.54)`
+`--raml-path-selector-back-icon-color-hover` | Color of the "back" icon when hovered | `rgba(0, 0, 0, 0.87)`
+
+@element path-selector-documentation
+@demo demo/index.html
+-->
 <dom-module id="path-selector-documentation">
   <template>
-    <style>
-    :host {
-      display: none;
-      @apply(--layout-fit);
-      background-color: #fff;
-
-      transition-property: -webkit-transform;
-      transition-property: transform;
-
-      -webkit-transition-duration: 0.3s;
-      transition-duration: 0.3s;
-
-      -webkit-transform: translate3d(100%, 0, 0);
-      transform: translate3d(100%, 0, 0);
-    }
-
-    .section-title {
-      @apply(--layout-horizontal);
-      @apply(--layout-center);
-      cursor: pointer;
-    }
-
-    .section-title h3 {
-      @apply(--layout-flex);
-      padding-left: 0;
-    }
-
-    .back-button {
-      color: var(--raml-path-selector-back-icon-color, rgba(0, 0, 0, 0.54));
-      transition: color 0.25s linear;
-    }
-
-    .back-button:hover {
-      color: var(--raml-path-selector-back-icon-color-hover, rgba(0, 0, 0, 0.87));
-    }
-    </style>
+    <style include="path-selector-styles"></style>
     <template is="dom-if" if="[[opened]]">
       <div class="section-title">
         <paper-icon-button on-tap="back" class="back-button" icon="arc:arrow-back"></paper-icon-button>
         <h3>Documentation</h3>
       </div>
       <template is="dom-repeat" items="[[documentation]]">
-        <raml-documentation-tree-item
-          indent="1"
-          indent-size="24"
-          selected-path="[[selectedPath]]"
-          doc="[[item]]"
-          path="documentation.[[index]]"></raml-documentation-tree-item>
+        <raml-documentation-tree-item indent="1" indent-size="24" selected-path="[[selectedPath]]" doc="[[item]]" path="documentation.[[index]]"></raml-documentation-tree-item>
       </template>
     </template>
   </template>
   <script>
-    Polymer({
-      is: 'path-selector-documentation',
-      properties: {
-        selectedPath: String,
-        /**
-         * List of documentation nodes.
-         */
-        documentation: Array,
-        // If set this view is being displayed.
-        opened: {
-          type: Boolean,
-          observer: '_openedChanged'
-        }
-      },
-
-      back: function() {
-        this.fire('raml-path-selector-nav-back');
-      },
-
-      _openedChanged: function(opened) {
-        if (opened) {
-          this.style.display = 'block';
-          if (this.__closeTimer) {
-            this.cancelAsync(this.__closeTimer);
-            this.__closeTimer = undefined;
-          }
-          Polymer.RenderStatus.afterNextRender(this, function() {
-            this.transform('translate3d(0, 0, 0)');
-          });
-        } else {
-          this.transform('translate3d(100%, 0, 0)');
-          this.__closeTimer = this.async(function() {
-            this.style.display = 'none';
-          }, 300);
-        }
-      }
-    });
+  Polymer({
+    is: 'path-selector-documentation',
+    properties: {
+      /**
+       * List of documentation nodes.
+       */
+      documentation: Array
+    },
+    behaviors: [RamlBehaviors.PathSelectorBehavior]
+  });
   </script>
 </dom-module>

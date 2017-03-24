@@ -1,3 +1,27 @@
+<a name="1.0.17"></a>
+## [1.0.17](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.15...v1.0.17) (2017-03-24)
+
+
+### Docs
+
+* Updated documentation for the main element ([d636c593107b223d8b6693911fae128b6ab6536b](https://github.com/advanced-rest-client/raml-path-selector/commit/d636c593107b223d8b6693911fae128b6ab6536b))
+
+### Fix
+
+* Fixed bower.json file ([19b98c9f565359e7a10f4d3f861d45fef31efebf](https://github.com/advanced-rest-client/raml-path-selector/commit/19b98c9f565359e7a10f4d3f861d45fef31efebf))
+
+### New
+
+* Added CSS variables for HTTP method label in selected item ([9001b70ef806aa0ecb00ca2d42c6479f2a7c4972](https://github.com/advanced-rest-client/raml-path-selector/commit/9001b70ef806aa0ecb00ca2d42c6479f2a7c4972))
+
+### Update
+
+* Added HTTP method label selected state CSS styling ([a0ea3ce967276382a07d0e549e4b16981764c58d](https://github.com/advanced-rest-client/raml-path-selector/commit/a0ea3ce967276382a07d0e549e4b16981764c58d))
+* Cleaned the code, optymized elements, added new behaviors and shared styles for new pages, updated documentation ([a96d478b98e6f6bb66049e7601b5eac8472fa7f0](https://github.com/advanced-rest-client/raml-path-selector/commit/a96d478b98e6f6bb66049e7601b5eac8472fa7f0))
+* Removed unused code ([8a8ee29c5f158daf4676bd5f8712b16cffc10116](https://github.com/advanced-rest-client/raml-path-selector/commit/8a8ee29c5f158daf4676bd5f8712b16cffc10116))
+
+
+
 <a name="1.0.16"></a>
 ## [1.0.16](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.15...v1.0.16) (2017-03-15)
 

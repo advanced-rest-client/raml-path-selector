@@ -1,6 +1,6 @@
 {
   "name": "raml-path-selector",
-  "description": "Element to select a path in the RAML resources structure. It displays RAML's API structure in the tree view and allow to select a node and signal path selected by the user",
+  "description": "Displays RAML's API structure in the tree view and allows to select a node and signal path selected by the user",
   "license": "Apache-2.0 OR CC-BY-4.0",
   "authors": [
     "The Advanced REST client authors <arc@mulesoft.com>"
@@ -12,7 +12,15 @@
   "private": true,
   "main": [
     "raml-path-selector.html",
-    "raml-resource-tree-item.html"
+    "raml-structure-tree.html",
+    "raml-resource-tree-item.html",
+    "raml-type-tree-item.html",
+    "raml-documentation-tree-item.html",
+    "path-selector-types.html",
+    "path-selector-documentation.html",
+    "path-selector-resource.html",
+    "path-selector-behavior.html",
+    "raml-tree-item-behavior.html"
   ],
   "repository": {
     "type": "git",
@@ -53,5 +61,5 @@
     "test",
     "tasks"
   ],
-  "version": "1.0.16"
+  "version": "1.0.17"
 }

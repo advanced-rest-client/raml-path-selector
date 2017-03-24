@@ -30,7 +30,7 @@ Custom property | Description | Default
 `--raml-docs-tree-item-selected-background` | Background color of the selected item | `rgba(3, 169, 244, 0.24)`
 `--raml-docs-tree-outline` | An outline of focused item | `none`
 
-@element raml-resource-tree-item
+@element raml-type-tree-item
 @demo demo/index.html
 -->
 <dom-module id="raml-type-tree-item">
@@ -44,7 +44,7 @@ Custom property | Description | Default
   Polymer({
     is: 'raml-type-tree-item',
 
-    behaviors: [Polymer.RamlTreeItemBehavior],
+    behaviors: [RamlBehaviors.RamlTreeItemBehavior],
 
     properties: {
       // A documentation item from the RAML's documentation node.
