@@ -22,35 +22,123 @@ the License.
 <link rel="import" href="../arc-icons/arc-icons.html">
 <link rel="import" href="raml-structure-tree.html">
 <!--
-`<raml-path-selector>`
-Element to select a path in the RAML resources structure. It displays RAML
+Navigation element to select a path in the RAML structure. It displays RAML
 API's structure in the tree view and allow to select a node and signal path
 selected by the user.
 
-The `selectedPath` can be then used to get a definition for a particular node
-of the RAML documentation.
-Example path values:
-- documentation.0 - First document in the documentation array
-- resources.0.methods.0 - First method in the first resource
-- resources.0.resources.0 - First sub resource in the first resource array.
+The **selectedPath** is a property that is recognizable by most of the ARC
+elements. It tells elements which view to render.
+The path (or JSON path) is a string representing a path to the object in the
+JSON structure. For example if selected view is to display a documentation for
+the first method in the first resource in the RAML structure the path will
+look like the following:
+```
+resources.0.methods.0
+```
+
+To better understand paths consider following RAML example
+```yaml
+#%RAML 1.0
+title: Google Drive
+
+types:
+  type1: ...
+  type2: ...
+documentation:
+  - title: Doc
+    content: Documentation
+/files:
+  post: ...
+  get: ...
+  /{fileId}:
+    path: ...
+    get: ...
+/apps:
+  post: ...
+  get: ...
+```
+
+##### The `summary` path
+Represents a summary view of the RAML file. It's not a path in the JSON
+structure (don't exists in RAML) but it's a virtual path to signal to display
+the summary docs view.
+
+##### The `resources` path
+
+Path representing a resource documentation. Valid path requires presence of a
+resource index in the RAML structure according to regexp:
+```
+(resource\.(\d+)-?)+
+```
+It can be recursive.
+
+Examples:
+- `resources.1` - second resource in the RAML structure, the `/apps` in example
+- `resources.0.resources.0` - First sub-resource of the first resource, the `/files/{fileId}` in the example
+
+##### The resources-methods path
+Represents method documentation in the RAML. Valid path requires presence of a
+mathod index in the resource structure according to regexp:
+```
+(resource\.(\d+)\.?)\.(method(\d+)\.?)
+```
+Examples:
+- `resources.0.resources.0.methods.0` - First method in the first sub-resource of the first resource, the `PATCH /files/{fileId}` in the example
+- `resources.1.methods.1` - Second method of the second resource, the `GET /apps` in the example
+
+
+##### The `types` path
+Represents a type documentation. Valid path requires presence of a
+type index in the RAML structure according to regexp:
+```
+type\.(\d+)
+```
+Examples:
+- `types.0` - First type in RAML structure, the `type1` in the example
+- `types.1` - Second type in RAML structure, the `type2` in the example
+
+
+##### The `documentation` path
+Links to the documentation object in the RAML structure
+```
+documentation\.(\d+)
+```
+Examples:
+- `documentation.0` - First element in the documentation list, the `Doc` documentation in the example.
 
 See demo for working example.
 
 ## Usage
-```
-<raml-path-selector raml="[[raml]]" selected-path="{{path}}"></raml-path-selector>
-```
+```html
+<raml-path-selector first-level-opened resources-opened documentation-opened></raml-path-selector>
+<raml-path-to-object></raml-path-to-object>
 
-Inside a Polymer powered web component you can use `get` function to access
-the data:
-```
-var def = this.get('raml.' + selectedPath);
-```
-This assumes that you keep the RAML's JSON structure in the `raml` property.
+<script>
+var selector = document.querySelector('raml-path-selector');
+// This element is meant to work together with path selector.
+var object = document.querySelector('raml-path-to-object');
 
-In other cases you can use libraries like
-<a href="https://lodash.com/" target="_blank">lodash</a> to use it methods to
-access structured data using path notation.
+// Sets the (enhanced) RAML object on the element
+// See https://elements.advancedrestclient.com/elements/raml-json-enhance
+window.addEventListener('raml-json-enhance-ready', function(e) {
+  selector.raml = e.detail.json;
+  object.raml =  e.detail.json;
+});
+
+// Fired when path selection changes
+selector.addEventListener('selected-path-changed', function(e) {
+  object.selectedPath = e.detail.value;
+});
+
+// Fired when the object for the path is computed.
+// Though, it's a synchronous operation so the `selectedObject` can be read
+// from the `object` element right after assigning the path value.
+window.addEventListener('raml-selected-object-changed', function(e) {
+  var selectedObject = e.detail.selectedObject;
+  // Assign to request or documentation panel.
+});
+</script>
+```
 
 The tree items are collapsed by default. Use `first-level-opened`, `resources-opened`,
 `documentation-opened` and `types-opened` attributes to control this behavior.
