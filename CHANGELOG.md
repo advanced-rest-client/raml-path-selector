@@ -1,3 +1,13 @@
+<a name="1.0.19"></a>
+## [1.0.19](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.17...v1.0.19) (2017-04-10)
+
+
+### Docs
+
+* Updated element documentation ([ba4bcb7eba50e9a5137c4f2e071a52b4c02d2ec0](https://github.com/advanced-rest-client/raml-path-selector/commit/ba4bcb7eba50e9a5137c4f2e071a52b4c02d2ec0))
+
+
+
 <a name="1.0.18"></a>
 ## [1.0.18](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.17...v1.0.18) (2017-04-10)
 
