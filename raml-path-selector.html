@@ -195,8 +195,8 @@ See other elemets documentation more styling options.
       narrow-width="[[narrowWidth]]"
       documentation-opened="[[documentationOpened]]"
       types-opened="[[typesOpened]]"
-      resources-opened="[[resourcesOpened]]"></raml-structure-tree>
-    <p class="no-structure" hidden$="[[hasResources]]">No structure detected</p>
+      resources-opened="[[resourcesOpened]]"
+      hidden$="[[!hasResources]]"></raml-structure-tree>
     <template is="dom-if" if="[[aware]]" restamp="true">
       <raml-aware raml="{{raml}}" scope="[[aware]]"></raml-aware>
     </template>
