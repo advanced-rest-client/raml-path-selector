@@ -1,3 +1,13 @@
+<a name="1.0.22"></a>
+## [1.0.22](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.20...v1.0.22) (2017-04-12)
+
+
+### Update
+
+* Removed empty info message ([fb12d36c40f0d8370941f3dc5314433192252675](https://github.com/advanced-rest-client/raml-path-selector/commit/fb12d36c40f0d8370941f3dc5314433192252675))
+
+
+
 <a name="1.0.21"></a>
 ## [1.0.21](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.20...v1.0.21) (2017-04-12)
 
