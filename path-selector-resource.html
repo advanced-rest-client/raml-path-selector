@@ -54,15 +54,6 @@ Custom property | Description | Default
       @apply(--method-display-box);
     }
 
-    .selected .method,
-    .selected .method.get,
-    .selected .method.post,
-    .selected .method.put,
-    .selected .method.delete,
-    .selected .method.patch {
-      @apply(--method-display-box-selected);
-    }
-
     .method.get {
       @apply(--method-display-box-get);
     }
@@ -94,7 +85,7 @@ Custom property | Description | Default
     </style>
     <template is="dom-if" if="[[opened]]">
       <div class="section-title">
-        <paper-icon-button on-tap="back" class="back-button" icon="arc:arrow-back"></paper-icon-button>
+        <paper-icon-button on-tap="back" class="back-button" icon="arc:arrow-back" noink="[[noink]]"></paper-icon-button>
         <h3>[[resourceName]]</h3>
       </div>
       <template is="dom-repeat" items="[[methods]]">
@@ -138,7 +129,11 @@ Custom property | Description | Default
         value: function() {
           return '';
         }
-      }
+      },
+      /**
+       * If true, the element will not produce a ripple effect when interacted with via the pointer.
+       */
+      noink: Boolean
     },
 
     /**

@@ -38,7 +38,7 @@ Custom property | Description | Default
     <style include="path-selector-styles"></style>
     <template is="dom-if" if="[[opened]]">
       <div class="section-title">
-        <paper-icon-button on-tap="back" class="back-button" icon="arc:arrow-back"></paper-icon-button>
+        <paper-icon-button on-tap="back" class="back-button" icon="arc:arrow-back" noink="[[noink]]"></paper-icon-button>
         <h3>Types</h3>
       </div>
       <template is="dom-repeat" items="[[types]]">
@@ -56,7 +56,11 @@ Custom property | Description | Default
       /**
        * List of types nodes.
        */
-      types: Array
+      types: Array,
+      /**
+       * If true, the element will not produce a ripple effect when interacted with via the pointer.
+       */
+      noink: Boolean
     }
   });
   </script>
