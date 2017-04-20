@@ -15,7 +15,7 @@ the License.
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../paper-item/paper-item.html">
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../arc-icons/arc-icons.html">
+<link rel="import" href="../anypoint-icons/anypoint-icons.html">
 <link rel="import" href="raml-tree-item-behavior.html">
 <link rel="import" href="path-selector-behavior.html">
 <link rel="import" href="raml-tree-item-styles.html">
@@ -85,7 +85,7 @@ Custom property | Description | Default
     </style>
     <template is="dom-if" if="[[opened]]">
       <div class="section-title">
-        <paper-icon-button on-tap="back" class="back-button" icon="arc:arrow-back" noink="[[noink]]"></paper-icon-button>
+        <paper-icon-button on-tap="back" class="back-button" icon="anypoint:back" noink="[[noink]]"></paper-icon-button>
         <h3>[[resourceName]]</h3>
       </div>
       <template is="dom-repeat" items="[[methods]]">

@@ -78,6 +78,8 @@ Custom property | Description | Default
     }
 
     .toggle-button {
+      width: 32px;
+      height: 32px;
       color: var(--raml-path-selector-toggle-icon-color, rgba(0, 0, 0, 0.54));
       transform: rotateZ(-90deg);
       transition: color 0.25s linear, transform 0.3s linear;
@@ -87,10 +89,6 @@ Custom property | Description | Default
       transform: rotateZ(0deg)
     }
 
-    .enter-button {
-      color: var(--raml-path-selector-toggle-icon-color, rgba(0, 0, 0, 0.54));
-    }
-
     .toggle-button:hover {
       color: var(--raml-path-selector-toggle-icon-hover-color, rgba(0, 0, 0, 0.78));
     }
@@ -98,9 +96,9 @@ Custom property | Description | Default
     <paper-item on-tap="_selectSummary" class$="[[_computeItemSelectedClass(selectedPath, 'summary')]]" title="API sumamry">API summary</paper-item>
     <section class="documentation" hidden$="[[!hasDocumentation]]">
       <div class="section-title">
-        <paper-icon-button data-section="documentation" on-tap="_toggleSection" class$="toggle-button[[_computeToggleIconClass(documentationOpened)]]" icon="arc:arrow-drop-down" noink="[[noink]]"></paper-icon-button>
+        <paper-icon-button data-section="documentation" on-tap="_toggleSection" class$="toggle-button[[_computeToggleIconClass(documentationOpened)]]" icon="anypoint:arrow-down" noink="[[noink]]"></paper-icon-button>
         <h3 data-section="documentation" on-tap="_toggleSection">Documentation</h3>
-        <paper-icon-button class="enter-button" icon="arc:chevron-right" hidden$="[[!narrow]]" data-section="documentation" on-tap="_enterSection" noink="[[noink]]"></paper-icon-button>
+        <paper-icon-button class="enter-button" icon="anypoint:arrow-down" hidden$="[[!narrow]]" data-section="documentation" on-tap="_enterSection" noink="[[noink]]"></paper-icon-button>
       </div>
       <iron-collapse opened="[[documentationOpened]]">
         <div>
@@ -112,9 +110,9 @@ Custom property | Description | Default
     </section>
     <section class="documentation" hidden$="[[!hasTypes]]">
       <div class="section-title">
-        <paper-icon-button data-section="types" on-tap="_toggleSection" class$="toggle-button[[_computeToggleIconClass(typesOpened)]]" icon="arc:arrow-drop-down" noink="[[noink]]"></paper-icon-button>
+        <paper-icon-button data-section="types" on-tap="_toggleSection" class$="toggle-button[[_computeToggleIconClass(typesOpened)]]" icon="anypoint:arrow-down" noink="[[noink]]"></paper-icon-button>
         <h3 data-section="types" on-tap="_toggleSection">Types</h3>
-        <paper-icon-button class="enter-button" icon="arc:chevron-right" hidden$="[[!narrow]]" data-section="types" on-tap="_enterSection" noink="[[noink]]"></paper-icon-button>
+        <paper-icon-button class="enter-button" icon="anypoint:arrow-down" hidden$="[[!narrow]]" data-section="types" on-tap="_enterSection" noink="[[noink]]"></paper-icon-button>
       </div>
       <iron-collapse opened="[[typesOpened]]">
         <div>
@@ -126,9 +124,9 @@ Custom property | Description | Default
     </section>
     <section class="documentation" hidden$="[[!hasResources]]">
       <div class="section-title">
-        <paper-icon-button data-section="resources" on-tap="_toggleSection" class$="toggle-button[[_computeToggleIconClass(resourcesOpened)]]" icon="arc:arrow-drop-down" noink="[[noink]]"></paper-icon-button>
+        <paper-icon-button data-section="resources" on-tap="_toggleSection" class$="toggle-button[[_computeToggleIconClass(resourcesOpened)]]" icon="anypoint:arrow-down" noink="[[noink]]"></paper-icon-button>
         <h3 data-section="resources" on-tap="_toggleSection">Resources</h3>
-        <paper-icon-button class="enter-button" icon="arc:chevron-right" hidden$="[[!narrow]]" data-section="resources" on-tap="_enterSection" noink="[[noink]]"></paper-icon-button>
+        <paper-icon-button class="enter-button" icon="anypoint:arrow-down" hidden$="[[!narrow]]" data-section="resources" on-tap="_enterSection" noink="[[noink]]"></paper-icon-button>
       </div>
       <iron-collapse opened="[[resourcesOpened]]">
         <div>

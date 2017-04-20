@@ -15,7 +15,7 @@ the License.
 <link rel="import" href="../paper-item/paper-item.html">
 <link rel="import" href="../iron-collapse/iron-collapse.html">
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../arc-icons/arc-icons.html">
+<link rel="import" href="../anypoint-icons/anypoint-icons.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
 <link rel="import" href="raml-tree-item-behavior.html">
@@ -62,13 +62,13 @@ Custom property | Description | Default
       outline: none;
     }
 
-    paper-icon-button.toggle-button {
+    .toggle-button {
       transition: all 0.4s ease;
       padding: 0;
-      width: 24px;
-      height: 24px;
-      min-width: 24px;
+      width: 16px;
+      height: 16px;
       transform: rotateZ(-90deg);
+      margin-right: 12px;
     }
     /* In shaggy DOM there must be an exact path for recursive elements */
 
@@ -124,15 +124,11 @@ Custom property | Description | Default
     :host([narrow]) .resource-details-item {
       padding-right: 0;
     }
-
-    .enter-button {
-      color: var(--raml-path-selector-toggle-icon-color, rgba(0, 0, 0, 0.54));
-    }
     </style>
     <paper-item data-path$="[[path]]" on-tap="_selectPath" class$="indentable-content resource-details-item [[_computeItemSelectableClass(selectedPath, path)]]" title$="[[resourceTitle]]" id="resource">
-      <paper-icon-button class="toggle-button" icon="arc:arrow-drop-down" on-tap="toggle" noink="[[noink]]"></paper-icon-button>
+      <paper-icon-button class="toggle-button" icon="anypoint:arrow-down" on-tap="toggle" noink="[[noink]]"></paper-icon-button>
       <span class="resource-name">[[_getName(resource)]]</span>
-      <paper-icon-button class="enter-button" icon="arc:chevron-right" hidden$="[[!narrow]]" on-tap="_enterResource" noink="[[noink]]"></paper-icon-button>
+      <paper-icon-button class="enter-button" icon="anypoint:arrow-down" hidden$="[[!narrow]]" on-tap="_enterResource" noink="[[noink]]"></paper-icon-button>
     </paper-item>
     <iron-collapse id="collapse" opened="[[opened]]">
       <div class="children">
