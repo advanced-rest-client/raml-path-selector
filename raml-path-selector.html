@@ -191,12 +191,12 @@ See other elemets documentation more styling options.
       has-types="[[hasTypes]]"
       selected-path="{{selectedPath}}"
       opened="[[firstLevelOpened]]"
-      narrow="{{_narrowValue}}"
+      narrow="[[_narrowValue]]"
       narrow-width="[[narrowWidth]]"
       documentation-opened="[[documentationOpened]]"
       types-opened="[[typesOpened]]"
       resources-opened="[[resourcesOpened]]"
-      hidden$="[[!hasResources]]"></raml-structure-tree>
+      noink="[[noink]]"></raml-structure-tree>
     <template is="dom-if" if="[[aware]]" restamp="true">
       <raml-aware raml="{{raml}}" scope="[[aware]]"></raml-aware>
     </template>
@@ -286,7 +286,11 @@ See other elemets documentation more styling options.
        * If true then the resources list section will be exanded if the RAML
        * contains resources.
        */
-      resourcesOpened: Boolean
+      resourcesOpened: Boolean,
+      /**
+       * If true, the element will not produce a ripple effect when interacted with via the pointer.
+       */
+      noink: Boolean
     },
 
     // Computes if given array has values.
