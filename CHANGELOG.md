@@ -1,3 +1,14 @@
+<a name="1.0.24"></a>
+## [1.0.24](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.23...v1.0.24) (2017-04-20)
+
+
+### Update
+
+* Finished anypoint styling ([ecbaad7772f701e823e5617c20cf75cd8b138636](https://github.com/advanced-rest-client/raml-path-selector/commit/ecbaad7772f701e823e5617c20cf75cd8b138636))
+* Updated styles to match Anypoint styling. TODO: Sub-resources indentation ([f16f7bbc0a598532bb13fdd4f433c5c31edc076c](https://github.com/advanced-rest-client/raml-path-selector/commit/f16f7bbc0a598532bb13fdd4f433c5c31edc076c))
+
+
+
 <a name="1.0.23"></a>
 ## [1.0.23](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.22...v1.0.23) (2017-04-12)
 
