@@ -51,7 +51,9 @@
     "paper-input": "PolymerElements/paper-input#^1.1.20",
     "paper-checkbox": "PolymerElements/paper-checkbox#^1.4.2",
     "paper-ripple": "PolymerElements/paper-ripple#^1.0.10",
-    "iron-icon": "PolymerElements/iron-icon#^1.0.12"
+    "iron-icon": "PolymerElements/iron-icon#^1.0.12",
+    "raml-js-parser": "advanced-rest-client/raml-js-parser#^2.0.0",
+    "raml-json-enhance": "advanced-rest-client/raml-json-enhance#^0.1.7"
   },
   "ignore": [
     "**/.*",
