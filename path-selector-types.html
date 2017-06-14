@@ -14,7 +14,7 @@ the License.
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../anypoint-icons/anypoint-icons.html">
+<link rel="import" href="../arc-icons/arc-icons.html">
 <link rel="import" href="raml-type-tree-item.html">
 <link rel="import" href="path-selector-styles.html">
 <link rel="import" href="path-selector-behavior.html">
@@ -38,7 +38,7 @@ Custom property | Description | Default
     <style include="path-selector-styles"></style>
     <template is="dom-if" if="[[opened]]">
       <div class="section-title">
-        <paper-icon-button on-tap="back" class="back-button" icon="anypoint:back" noink="[[noink]]"></paper-icon-button>
+        <paper-icon-button on-tap="back" class="back-button" icon="arc:chevron-left" noink="[[noink]]"></paper-icon-button>
         <h3>Types</h3>
       </div>
       <template is="dom-repeat" items="[[types]]">
