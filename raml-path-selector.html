@@ -214,8 +214,7 @@ See other elemets documentation more styling options.
       },
       // If true then the first level of resources will be opened by default.
       firstLevelOpened: {
-        type: Boolean,
-        value: false
+        type: Boolean
       },
       /**
        * Computed value, true if the `documentation` array is not empty
@@ -245,7 +244,6 @@ See other elemets documentation more styling options.
        */
       narrow: {
         type: Boolean,
-        value: false,
         notify: true,
         reflectToAttribute: true
       },
@@ -318,15 +316,6 @@ See other elemets documentation more styling options.
       if (raml.resources && raml.resources.length) {
         this._setHasResources(true);
       }
-    },
-
-    // Computes if given array has values.
-    _computeHasInArray: function(length) {
-      return !!length;
-    },
-
-    _computeHasInObject: function(types) {
-      return !!(types && Object.keys(types).length);
     },
     /**
      * Computes the `narrowValue` property.
