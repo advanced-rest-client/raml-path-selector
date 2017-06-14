@@ -241,9 +241,7 @@ Custom property | Description | Default
      */
     _ramlChanged: function(raml) {
       if (!raml) {
-        this.set('selectedPath', '');
-      } else {
-        this._selectSummary();
+        this.set('selectedPath', undefined);
       }
     },
 
