@@ -214,32 +214,28 @@ See other elemets documentation more styling options.
       },
       // If true then the first level of resources will be opened by default.
       firstLevelOpened: {
-        type: Boolean,
-        value: false
+        type: Boolean
       },
       /**
        * Computed value, true if the `documentation` array is not empty
        */
       hasDocumentation: {
         type: Boolean,
-        value: false,
-        computed: '_computeHasInArray(raml.documentation.length)'
+        readOnly: true
       },
       /**
        * Computed value, true if the `resources` array is not empty
        */
       hasResources: {
         type: Boolean,
-        value: false,
-        computed: '_computeHasInArray(raml.resources.length)'
+        readOnly: true
       },
       /**
        * Computed value, true if the `types` object contains entries.
        */
       hasTypes: {
         type: Boolean,
-        value: false,
-        computed: '_computeHasInObject(raml.types)'
+        readOnly: true
       },
       // Name of the `<raml-aware>` scope, so it will fill the raml property.
       aware: String,
@@ -248,7 +244,6 @@ See other elemets documentation more styling options.
        */
       narrow: {
         type: Boolean,
-        value: false,
         notify: true,
         reflectToAttribute: true
       },
@@ -293,13 +288,34 @@ See other elemets documentation more styling options.
       noink: Boolean
     },
 
-    // Computes if given array has values.
-    _computeHasInArray: function(length) {
-      return !!length;
-    },
+    observers: [
+      '_ramlChanged(raml.*)'
+    ],
 
-    _computeHasInObject: function(types) {
-      return !!(types && Object.keys(types).length);
+    __resetVariables: function() {
+      this._setHasDocumentation(undefined);
+      this._setHasResources(undefined);
+      this._setHasTypes(undefined);
+    },
+    /**
+     * Instead of calling compute function for each property this
+     * will compute initial variables state when RAML changed.
+     */
+    _ramlChanged: function(record) {
+      this.__resetVariables();
+      if (!record || !record.base) {
+        return;
+      }
+      var raml = record.base;
+      if (raml.documentation && raml.documentation.length) {
+        this._setHasDocumentation(true);
+      }
+      if (raml.types && Object.keys(raml.types).length) {
+        this._setHasTypes(true);
+      }
+      if (raml.resources && raml.resources.length) {
+        this._setHasResources(true);
+      }
     },
     /**
      * Computes the `narrowValue` property.

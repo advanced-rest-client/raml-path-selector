@@ -20,7 +20,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <link rel="import" href="../../raml-js-parser/raml-js-parser.html">
     <link rel="import" href="../../raml-json-enhance/raml-json-enhance.html">
-    <link rel="import" href="../raml-path-selector.html">
+    <link rel="import" href="../raml-structure-tree.html">
   </head>
   <body>
 
@@ -38,15 +38,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <test-fixture id="basic">
       <template>
-        <raml-path-selector></raml-path-selector>
+        <raml-structure-tree has-resources></raml-structure-tree>
       </template>
     </test-fixture>
 
     <script>
     /* global suite, test, fixture, assert */
-    suite('basic', function() {
+    suite('selectoin test', function() {
       var raml;
       var element;
+      var selectedItem;
+      const SELECTED_PATH = 'resources.0';
 
       suiteSetup(function(done) {
         this.timeout(120000);
@@ -69,50 +71,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       setup(function() {
         element = fixture('basic');
         element.raml = raml;
+        element.selectedPath = SELECTED_PATH;
         TestHelpers.forceXIfStamp(element);
+        selectedItem = Polymer.dom(element.root).querySelector('raml-resource-tree-item');
       });
 
-      test('selected path is undefined', function() {
-        assert.isUndefined(element.selectedPath);
+      test('raml-resource-tree-item exists', function() {
+        assert.ok(selectedItem);
       });
 
-      test('hasDocumentation is undefined', function() {
-        assert.isUndefined(element.hasDocumentation);
+      test('selected item is opened', function() {
+        assert.isTrue(selectedItem.opened);
       });
 
-      test('hasTypes is undefined', function() {
-        assert.isUndefined(element.hasTypes);
+      test('selected class is computed', function() {
+        var item = selectedItem.$$('#resource');
+        assert.isTrue(item.classList.contains('selected'));
       });
 
-      test('hasResources is true', function() {
-        assert.isTrue(element.hasResources);
-      });
-
-      test('firstLevelOpened is undefined', function() {
-        assert.isUndefined(element.firstLevelOpened);
-      });
-
-      test('aware is undefined', function() {
-        assert.isUndefined(element.aware);
-      });
-
-      test('documentationOpened is undefined', function() {
-        assert.isUndefined(element.documentationOpened);
-      });
-
-      test('typesOpened is undefined', function() {
-        assert.isUndefined(element.typesOpened);
-      });
-
-      test('resourcesOpened is undefined', function() {
-        assert.isUndefined(element.resourcesOpened);
-      });
-
-      test('noink is undefined', function() {
-        assert.isUndefined(element.noink);
-      });
-
-      // Don't check narrow since it depends on test browser screen size.
     });
     </script>
 
