@@ -1,3 +1,22 @@
+<a name="1.0.25"></a>
+## [1.0.25](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.23...v1.0.25) (2017-06-15)
+
+
+### Update
+
+* Added tests ([edc14c4f7041fa971ef885f46e2a4a4766939358](https://github.com/advanced-rest-client/raml-path-selector/commit/edc14c4f7041fa971ef885f46e2a4a4766939358))
+* Finished anypoint styling ([ecbaad7772f701e823e5617c20cf75cd8b138636](https://github.com/advanced-rest-client/raml-path-selector/commit/ecbaad7772f701e823e5617c20cf75cd8b138636))
+* Optymized computations when initializing the element. Now default values aren't set and only computed when RAML object is set ([6f930e361a74f87d483e3953bbdac417222e1041](https://github.com/advanced-rest-client/raml-path-selector/commit/6f930e361a74f87d483e3953bbdac417222e1041))
+* Removed autoselection of the summary node from this element. Now hosting application must be responsible for similat behavior ([dee1376dae89953d21ef96d5c6159095687fbe63](https://github.com/advanced-rest-client/raml-path-selector/commit/dee1376dae89953d21ef96d5c6159095687fbe63))
+* Removed default values for properties that don't have to have values set on initialization time ([2f147f03a9a25f42f6011c17b1a2bd19637f3158](https://github.com/advanced-rest-client/raml-path-selector/commit/2f147f03a9a25f42f6011c17b1a2bd19637f3158))
+* Removed default values from element initialization ([66f1a126be181f153d77fafecd88ec8a62735647](https://github.com/advanced-rest-client/raml-path-selector/commit/66f1a126be181f153d77fafecd88ec8a62735647))
+* Returned to material styling and removed any reference to Anypoint styling ([34c8fd5dfb5769df0b29cc79e160e59e98add528](https://github.com/advanced-rest-client/raml-path-selector/commit/34c8fd5dfb5769df0b29cc79e160e59e98add528))
+* Updated styles to match Anypoint styling. TODO: Sub-resources indentation ([f16f7bbc0a598532bb13fdd4f433c5c31edc076c](https://github.com/advanced-rest-client/raml-path-selector/commit/f16f7bbc0a598532bb13fdd4f433c5c31edc076c))
+* Updated tests configuration: Added Safari 10 and Sauce Labs connect configuration ([759e830a0f12118c0c2fc067ba527f04a1dd645c](https://github.com/advanced-rest-client/raml-path-selector/commit/759e830a0f12118c0c2fc067ba527f04a1dd645c))
+* Updated title attribute for the method. Removed method name before the description ([e94c6c2d1ec91424e3bc27c03a42fcaccedb9227](https://github.com/advanced-rest-client/raml-path-selector/commit/e94c6c2d1ec91424e3bc27c03a42fcaccedb9227))
+
+
+
 <a name="1.0.24"></a>
 ## [1.0.24](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.23...v1.0.24) (2017-04-20)
 
