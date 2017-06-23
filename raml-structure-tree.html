@@ -156,6 +156,8 @@ See docs for `<raml-path-selector>` for element's documentation.
     _patchChanged: function(selectedPath) {
       this.fire('raml-selected-path-changed', {
         path: selectedPath
+      }, {
+        composed: true
       });
     },
 
