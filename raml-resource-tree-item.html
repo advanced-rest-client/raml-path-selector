@@ -199,7 +199,7 @@ Custom property | Description | Default
     _isSelectedChanged: function(isSelected, methodIsSelected, ready) {
       if ((isSelected || methodIsSelected) && ready) {
         this.setAttribute('tabindex', '0');
-        this.scrollElementIntoView();
+        // this.scrollElementIntoView();
         if (!this.opened) {
           this.set('opened', true);
         }
