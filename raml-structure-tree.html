@@ -145,7 +145,11 @@ See docs for `<raml-path-selector>` for element's documentation.
     // Sets the `selectedPath` value form the `raml-path-selected` event.
     _onPathSelected: function(e) {
       e.stopPropagation();
-      this.set('selectedPath', e.detail.path);
+      if (e.detail.path === this.selectedPath) {
+        this._patchChanged(e.detail.path);
+      } else {
+        this.set('selectedPath', e.detail.path);
+      }
     },
 
     // Fires the `raml-selected-path-changed` event when the path changes.
