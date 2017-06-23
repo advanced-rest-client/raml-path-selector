@@ -93,7 +93,7 @@ Custom property | Description | Default
       color: var(--raml-path-selector-toggle-icon-hover-color, rgba(0, 0, 0, 0.78));
     }
     </style>
-    <paper-item on-tap="_selectSummary" class$="[[_computeItemSelectedClass(selectedPath, 'summary')]]" title="API sumamry">API summary</paper-item>
+    <paper-item on-tap="_selectSummary" class$="[[_computeItemSelectedClass(selectedPath, 'summary')]]" title="API sumamry"><span class="ie-sizer"></span>API summary</paper-item>
     <template is="dom-if" if="[[hasDocumentation]]">
       <section class="documentation">
         <div class="section-title">
