@@ -1,3 +1,16 @@
+<a name="1.0.26"></a>
+## [1.0.26](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.25...v1.0.26) (2017-06-23)
+
+
+### Update
+
+* Removed scrillong into view behavior as unpredictable. ([3641099c8e33f0c610e734cc0545a83e25a7e2be](https://github.com/advanced-rest-client/raml-path-selector/commit/3641099c8e33f0c610e734cc0545a83e25a7e2be))
+* Removed sudo command from Travis configuration. ([6c231f0c4f4fbc27a7e84df62fffd7d4e5667f8c](https://github.com/advanced-rest-client/raml-path-selector/commit/6c231f0c4f4fbc27a7e84df62fffd7d4e5667f8c))
+* Updated bower components versions for test and demo page. ([be8a878089b46c13e596098a88ebc0755a74113f](https://github.com/advanced-rest-client/raml-path-selector/commit/be8a878089b46c13e596098a88ebc0755a74113f))
+* Updated polymer cli version and therefore test and linter commands and test configuration. ([f31f648177cc7626e1bac3957cbf511e6178c14d](https://github.com/advanced-rest-client/raml-path-selector/commit/f31f648177cc7626e1bac3957cbf511e6178c14d))
+
+
+
 <a name="1.0.25"></a>
 ## [1.0.25](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.23...v1.0.25) (2017-06-15)
 
