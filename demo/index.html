@@ -101,6 +101,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   });
 
   window.addEventListener('raml-selected-path-changed', function(e) {
+    console.log('Selected path: ', e.detail.path);
     $('#pathManual').value = e.detail.path;
   });
   </script>
