@@ -20,6 +20,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <link rel="import" href="../../raml-js-parser/raml-js-parser.html">
     <link rel="import" href="../../raml-json-enhance/raml-json-enhance.html">
+    <link rel="import" href="../../raml-aware/raml-aware.html">
     <link rel="import" href="../raml-path-selector.html">
   </head>
   <body>
@@ -38,15 +39,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <test-fixture id="basic">
       <template>
-        <raml-path-selector></raml-path-selector>
+        <raml-aware scope="test"></raml-aware>
+        <raml-path-selector aware="test"></raml-path-selector>
       </template>
     </test-fixture>
 
     <script>
     /* global suite, test, fixture, assert */
-    suite('basic', function() {
+    suite('raml aware', function() {
       var raml;
       var element;
+      var aware;
 
       suiteSetup(function(done) {
         this.timeout(120000);
@@ -67,52 +70,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       });
 
       setup(function() {
-        element = fixture('basic');
-        element.raml = raml;
+        var container = fixture('basic');
+        aware = container[0];
+        element = container[1];
+        aware.raml = raml;
         TestHelpers.forceXIfStamp(element);
       });
 
-      test('selected path is undefined', function() {
-        assert.isUndefined(element.selectedPath);
+      test('raml is set', function() {
+        assert.deepEqual(element.raml, aware.raml);
       });
-
-      test('hasDocumentation is undefined', function() {
-        assert.isUndefined(element.hasDocumentation);
-      });
-
-      test('hasTypes is undefined', function() {
-        assert.isUndefined(element.hasTypes);
-      });
-
-      test('hasResources is true', function() {
-        assert.isTrue(element.hasResources);
-      });
-
-      test('firstLevelOpened is undefined', function() {
-        assert.isUndefined(element.firstLevelOpened);
-      });
-
-      test('aware is undefined', function() {
-        assert.isUndefined(element.aware);
-      });
-
-      test('documentationOpened is undefined', function() {
-        assert.isUndefined(element.documentationOpened);
-      });
-
-      test('typesOpened is undefined', function() {
-        assert.isUndefined(element.typesOpened);
-      });
-
-      test('resourcesOpened is undefined', function() {
-        assert.isUndefined(element.resourcesOpened);
-      });
-
-      test('noink is undefined', function() {
-        assert.isUndefined(element.noink);
-      });
-
-      // Don't check narrow since it depends on test browser screen size.
     });
     </script>
 

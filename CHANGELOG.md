@@ -1,3 +1,225 @@
+<a name="1.0.25"></a>
+## [1.0.25](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.23...v1.0.25) (2017-06-15)
+
+
+### Update
+
+* Added tests ([edc14c4f7041fa971ef885f46e2a4a4766939358](https://github.com/advanced-rest-client/raml-path-selector/commit/edc14c4f7041fa971ef885f46e2a4a4766939358))
+* Finished anypoint styling ([ecbaad7772f701e823e5617c20cf75cd8b138636](https://github.com/advanced-rest-client/raml-path-selector/commit/ecbaad7772f701e823e5617c20cf75cd8b138636))
+* Optymized computations when initializing the element. Now default values aren't set and only computed when RAML object is set ([6f930e361a74f87d483e3953bbdac417222e1041](https://github.com/advanced-rest-client/raml-path-selector/commit/6f930e361a74f87d483e3953bbdac417222e1041))
+* Removed autoselection of the summary node from this element. Now hosting application must be responsible for similat behavior ([dee1376dae89953d21ef96d5c6159095687fbe63](https://github.com/advanced-rest-client/raml-path-selector/commit/dee1376dae89953d21ef96d5c6159095687fbe63))
+* Removed default values for properties that don't have to have values set on initialization time ([2f147f03a9a25f42f6011c17b1a2bd19637f3158](https://github.com/advanced-rest-client/raml-path-selector/commit/2f147f03a9a25f42f6011c17b1a2bd19637f3158))
+* Removed default values from element initialization ([66f1a126be181f153d77fafecd88ec8a62735647](https://github.com/advanced-rest-client/raml-path-selector/commit/66f1a126be181f153d77fafecd88ec8a62735647))
+* Returned to material styling and removed any reference to Anypoint styling ([34c8fd5dfb5769df0b29cc79e160e59e98add528](https://github.com/advanced-rest-client/raml-path-selector/commit/34c8fd5dfb5769df0b29cc79e160e59e98add528))
+* Updated styles to match Anypoint styling. TODO: Sub-resources indentation ([f16f7bbc0a598532bb13fdd4f433c5c31edc076c](https://github.com/advanced-rest-client/raml-path-selector/commit/f16f7bbc0a598532bb13fdd4f433c5c31edc076c))
+* Updated tests configuration: Added Safari 10 and Sauce Labs connect configuration ([759e830a0f12118c0c2fc067ba527f04a1dd645c](https://github.com/advanced-rest-client/raml-path-selector/commit/759e830a0f12118c0c2fc067ba527f04a1dd645c))
+* Updated title attribute for the method. Removed method name before the description ([e94c6c2d1ec91424e3bc27c03a42fcaccedb9227](https://github.com/advanced-rest-client/raml-path-selector/commit/e94c6c2d1ec91424e3bc27c03a42fcaccedb9227))
+
+
+
+<a name="1.0.24"></a>
+## [1.0.24](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.23...v1.0.24) (2017-04-20)
+
+
+<a name="1.0.23"></a>
+## [1.0.23](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.22...v1.0.23) (2017-04-12)
+
+
+
+
+<a name="1.0.22"></a>
+## [1.0.22](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.20...v1.0.22) (2017-04-12)
+
+
+### Update
+
+* Removed empty info message ([fb12d36c40f0d8370941f3dc5314433192252675](https://github.com/advanced-rest-client/raml-path-selector/commit/fb12d36c40f0d8370941f3dc5314433192252675))
+
+
+
+<a name="1.0.21"></a>
+## [1.0.21](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.20...v1.0.21) (2017-04-12)
+
+
+
+
+<a name="1.0.20"></a>
+## [1.0.20](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.19...v1.0.20) (2017-04-10)
+
+
+
+
+<a name="1.0.19"></a>
+## [1.0.19](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.17...v1.0.19) (2017-04-10)
+
+
+### Docs
+
+* Updated element documentation ([ba4bcb7eba50e9a5137c4f2e071a52b4c02d2ec0](https://github.com/advanced-rest-client/raml-path-selector/commit/ba4bcb7eba50e9a5137c4f2e071a52b4c02d2ec0))
+
+
+
+<a name="1.0.18"></a>
+## [1.0.18](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.17...v1.0.18) (2017-04-10)
+
+
+
+
+<a name="1.0.17"></a>
+## [1.0.17](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.15...v1.0.17) (2017-03-24)
+
+
+### Docs
+
+* Updated documentation for the main element ([d636c593107b223d8b6693911fae128b6ab6536b](https://github.com/advanced-rest-client/raml-path-selector/commit/d636c593107b223d8b6693911fae128b6ab6536b))
+
+### Fix
+
+* Fixed bower.json file ([19b98c9f565359e7a10f4d3f861d45fef31efebf](https://github.com/advanced-rest-client/raml-path-selector/commit/19b98c9f565359e7a10f4d3f861d45fef31efebf))
+
+### New
+
+* Added CSS variables for HTTP method label in selected item ([9001b70ef806aa0ecb00ca2d42c6479f2a7c4972](https://github.com/advanced-rest-client/raml-path-selector/commit/9001b70ef806aa0ecb00ca2d42c6479f2a7c4972))
+
+### Update
+
+* Added HTTP method label selected state CSS styling ([a0ea3ce967276382a07d0e549e4b16981764c58d](https://github.com/advanced-rest-client/raml-path-selector/commit/a0ea3ce967276382a07d0e549e4b16981764c58d))
+* Cleaned the code, optymized elements, added new behaviors and shared styles for new pages, updated documentation ([a96d478b98e6f6bb66049e7601b5eac8472fa7f0](https://github.com/advanced-rest-client/raml-path-selector/commit/a96d478b98e6f6bb66049e7601b5eac8472fa7f0))
+* Removed unused code ([8a8ee29c5f158daf4676bd5f8712b16cffc10116](https://github.com/advanced-rest-client/raml-path-selector/commit/8a8ee29c5f158daf4676bd5f8712b16cffc10116))
+
+
+
+<a name="1.0.16"></a>
+## [1.0.16](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.15...v1.0.16) (2017-03-15)
+
+
+
+
+<a name="1.0.15"></a>
+## [1.0.15](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.13...v1.0.15) (2017-03-15)
+
+
+### Update
+
+* HTTP method will be always displayed (with color code) and if displayName is defined then it will displayed next to method name ([a70406d0d8c389cc62f7b87ee6cf699acf3da4a5](https://github.com/advanced-rest-client/raml-path-selector/commit/a70406d0d8c389cc62f7b87ee6cf699acf3da4a5))
+* Updated headers style ([ab8d65ff3b080c4440052c1b972e0cc7459680b7](https://github.com/advanced-rest-client/raml-path-selector/commit/ab8d65ff3b080c4440052c1b972e0cc7459680b7))
+
+
+
+<a name="1.0.14"></a>
+## [1.0.14](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.13...v1.0.14) (2017-03-15)
+
+
+
+
+<a name="1.0.13"></a>
+## [1.0.13](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.11...v1.0.13) (2017-03-15)
+
+
+### Breaking
+
+* Created new mobile view that takes full screen. Now application has to listen for path change and when it does it should close the navigation to display the content ([93ebd6f6a8382296076685d8d5462a282ce18d96](https://github.com/advanced-rest-client/raml-path-selector/commit/93ebd6f6a8382296076685d8d5462a282ce18d96))
+
+### New
+
+* Added types browser. Added indentation of a tree item ([3b5e6f682423f3fdb21bb0b8ef31279e25dfee7a](https://github.com/advanced-rest-client/raml-path-selector/commit/3b5e6f682423f3fdb21bb0b8ef31279e25dfee7a))
+
+### Update
+
+* Added indentation support for the resource tree items ([f7482127dfa6ccd4640d34d8ced3eef7f0138912](https://github.com/advanced-rest-client/raml-path-selector/commit/f7482127dfa6ccd4640d34d8ced3eef7f0138912))
+* Added toggle button to nav sections. Now toggle sections can be collapsed to hide unused content ([9c73bf54b02ce7ae3498b87534f903a14325dfba](https://github.com/advanced-rest-client/raml-path-selector/commit/9c73bf54b02ce7ae3498b87534f903a14325dfba))
+* Removed sauce connection because tests are not ready ([9776ae25c1ec9c6eebd3c14a437f44298725d2f8](https://github.com/advanced-rest-client/raml-path-selector/commit/9776ae25c1ec9c6eebd3c14a437f44298725d2f8))
+* Updated lint command to match elements list ([17aee469af40b9c93244233d8b7e1921665ea5f9](https://github.com/advanced-rest-client/raml-path-selector/commit/17aee469af40b9c93244233d8b7e1921665ea5f9))
+
+
+
+<a name="1.0.12"></a>
+## [1.0.12](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.11...v1.0.12) (2017-03-13)
+
+
+### New
+
+* Added types browser. Added indentation of a tree item ([3b5e6f682423f3fdb21bb0b8ef31279e25dfee7a](https://github.com/advanced-rest-client/raml-path-selector/commit/3b5e6f682423f3fdb21bb0b8ef31279e25dfee7a))
+
+### Update
+
+* Removed sauce connection because tests are not ready ([9776ae25c1ec9c6eebd3c14a437f44298725d2f8](https://github.com/advanced-rest-client/raml-path-selector/commit/9776ae25c1ec9c6eebd3c14a437f44298725d2f8))
+* Updated lint command to match elements list ([17aee469af40b9c93244233d8b7e1921665ea5f9](https://github.com/advanced-rest-client/raml-path-selector/commit/17aee469af40b9c93244233d8b7e1921665ea5f9))
+
+
+
+<a name="1.0.11"></a>
+## [1.0.11](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.8...v1.0.11) (2016-12-22)
+
+
+### Update
+
+* Added the forceWideLayout property ([64b3b5c1b1c7e3c755d17556a601006212b7b8ed](https://github.com/advanced-rest-client/raml-path-selector/commit/64b3b5c1b1c7e3c755d17556a601006212b7b8ed))
+
+
+
+<a name="1.0.10"></a>
+## [1.0.10](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.8...v1.0.10) (2016-12-22)
+
+
+### Update
+
+* Added the forceWideLayout property ([64b3b5c1b1c7e3c755d17556a601006212b7b8ed](https://github.com/advanced-rest-client/raml-path-selector/commit/64b3b5c1b1c7e3c755d17556a601006212b7b8ed))
+
+
+
+<a name="1.0.9"></a>
+## [1.0.9](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.8...v1.0.9) (2016-12-21)
+
+
+### Update
+
+* Updated styles definition ([a30c8d62209210f93d19d621c97d2f7cd5c9b9e1](https://github.com/advanced-rest-client/raml-path-selector/commit/a30c8d62209210f93d19d621c97d2f7cd5c9b9e1))
+
+
+
+<a name="1.0.8"></a>
+## [1.0.8](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.7...v1.0.8) (2016-12-21)
+
+
+
+
+<a name="1.0.7"></a>
+## [1.0.7](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.5...v1.0.7) (2016-12-20)
+
+
+### Docs
+
+* updated docs for the property ([7bc2ad776ec96b85b0d5f334a6dd676c78bd0a94](https://github.com/advanced-rest-client/raml-path-selector/commit/7bc2ad776ec96b85b0d5f334a6dd676c78bd0a94))
+
+### Fix
+
+* Fixed error thrown by the scrollIntoViewIfNeeded function. Replaces it with a function that checks if appropiate function is available ([593892f09d593665304330c891ce50157ecf2f1d](https://github.com/advanced-rest-client/raml-path-selector/commit/593892f09d593665304330c891ce50157ecf2f1d))
+
+### New
+
+* Added noResourceSelection property ([50f3ea9750e9874c6304a9980f40d2a83c1c5d73](https://github.com/advanced-rest-client/raml-path-selector/commit/50f3ea9750e9874c6304a9980f40d2a83c1c5d73))
+
+
+
+<a name="1.0.6"></a>
+## [1.0.6](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.5...v1.0.6) (2016-12-16)
+
+
+### Docs
+
+* updated docs for the property ([7bc2ad776ec96b85b0d5f334a6dd676c78bd0a94](https://github.com/advanced-rest-client/raml-path-selector/commit/7bc2ad776ec96b85b0d5f334a6dd676c78bd0a94))
+
+### Fix
+
+* Fixed error thrown by the scrollIntoViewIfNeeded function. Replaces it with a function that checks if appropiate function is available ([593892f09d593665304330c891ce50157ecf2f1d](https://github.com/advanced-rest-client/raml-path-selector/commit/593892f09d593665304330c891ce50157ecf2f1d))
+
+### New
+
+* Added noResourceSelection property ([50f3ea9750e9874c6304a9980f40d2a83c1c5d73](https://github.com/advanced-rest-client/raml-path-selector/commit/50f3ea9750e9874c6304a9980f40d2a83c1c5d73))
+
+
+
 <a name="1.0.5"></a>
 ## [1.0.5](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.4...v1.0.5) (2016-12-12)
 
@@ -57,6 +279,3 @@
 ### Fix
 
 * Fixed issue with method name display - the view used invalid function that is for a resource name ([76a038339a6d5a514b14440663d648f13dff557f](https://github.com/advanced-rest-client/raml-path-selector/commit/76a038339a6d5a514b14440663d648f13dff557f))
-
-
-

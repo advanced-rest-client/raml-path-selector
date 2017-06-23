@@ -16,9 +16,7 @@ the License.
 <link rel="import" href="raml-tree-item-behavior.html">
 <link rel="import" href="raml-tree-item-styles.html">
 <!--
-The `<raml-documentation-tree-item>` is an element that displays a list of
-documentation part of the API structure tree.
-It contains titles of the documentation array.
+The `<raml-type-tree-item>` is an element that is a list item in types listing.
 
 This element is intended to work with `<raml-path-selector>`.
 
@@ -32,25 +30,33 @@ Custom property | Description | Default
 `--raml-docs-tree-item-selected-selector-color` | Selection color of the selected item | `rgba(3, 169, 244, 0.24)`
 `--raml-docs-tree-outline` | An outline of focused item | `none`
 
-@element raml-documentation-tree-item
+@element raml-type-tree-item
 @demo demo/index.html
 -->
-<dom-module id="raml-documentation-tree-item">
+<dom-module id="raml-type-tree-item">
   <template>
     <style include="raml-tree-item-styles"></style>
     <paper-item data-path$="[[path]]" on-tap="_selectPath" class$="[[_computeItemSelectableClass(selectedPath, path)]]">
-      <span class="indentable-content">[[doc.title]]</span>
+      <span class="indentable-content">[[_computeName(type.*)]]</span>
     </paper-item>
   </template>
   <script>
   Polymer({
-    is: 'raml-documentation-tree-item',
+    is: 'raml-type-tree-item',
 
     behaviors: [RamlBehaviors.RamlTreeItemBehavior],
 
     properties: {
       // A documentation item from the RAML's documentation node.
-      doc: Object
+      type: Object
+    },
+
+    _computeName: function(record) {
+      if (!record || !record.base) {
+        return;
+      }
+      var type = record.base;
+      return type.displayName || type.name || type.key;
     }
   });
   </script>

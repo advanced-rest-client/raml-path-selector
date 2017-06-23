@@ -24,42 +24,84 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <link rel="import" href="../raml-path-selector.html">
   <style is="custom-style" include="demo-pages-shared-styles">
-  .vertical-section-container {
-    max-width: 600px;
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  .container {
+    @apply(--layout-horizontal);
+
   }
 
-  raml-path-selector {
-    margin-top: 40px;
+  .container > div {
+    @apply(--layout-flex);
+  }
+
+  .selector {
+    padding: 20px;
+    background-color: #6B6C6D;
+  }
+
+  .parser {
+    padding: 20px;
+  }
+
+  .selector-settings {
+    padding: 16px;
+    background-color: #E8E9EA;
+    margin-bottom: 24px;
+  }
+
+  paper-checkbox {
+    display: block;
+    margin: 4px 0;
   }
   </style>
 </head>
 
 <body unresolved>
-  <div class="vertical-section-container centered">
-    <raml-docs-parser></raml-docs-parser>
-    <h3>The `raml-path-selector`</h3>
-    <section>
-      <paper-input id="pathManual" label="Selected path"></paper-input>
-    </section>
-    <div class="action">
-      <paper-checkbox>Render narrow view</paper-checkbox>
+  <div class="container">
+    <div class="parser">
+      <h3>The demo RAML parser</h3>
+      <raml-docs-parser></raml-docs-parser>
     </div>
-    <raml-path-selector opened></raml-path-selector>
+    <div class="selector">
+      <section class="selector-settings">
+        <h3>The raml-path-selector element</h3>
+        <paper-input id="pathManual" label="Selected path"></paper-input>
+        <div class="action">
+          <paper-checkbox id="narrow">Render narrow view</paper-checkbox>
+          <paper-checkbox id="noInk">No ripple effect</paper-checkbox>
+        </div>
+      </section>
+      <raml-path-selector first-level-opened resources-opened documentation-opened hidden></raml-path-selector>
+    </div>
   </div>
   <script>
   var $ = function(selector) {
     return document.querySelector(selector);
   };
+
   $('raml-docs-parser').addEventListener('raml-ready', function(e) {
-    $('raml-path-selector').raml = e.detail.raml;
+    var selector = $('raml-path-selector');
+    selector.removeAttribute('hidden');
+    selector.raml = e.detail.raml;
   });
+
   $('#pathManual').addEventListener('input', function(e) {
     $('raml-path-selector').selectedPath = e.target.value;
   });
-  $('paper-checkbox').addEventListener('change', function(e) {
+
+  $('#narrow').addEventListener('change', function(e) {
     $('raml-path-selector').narrow = e.target.checked;
   });
+
+  $('#noInk').addEventListener('change', function(e) {
+    $('raml-path-selector').noink = e.target.checked;
+  });
+
   window.addEventListener('raml-selected-path-changed', function(e) {
+    console.log('Selected path: ', e.detail.path);
     $('#pathManual').value = e.detail.path;
   });
   </script>
