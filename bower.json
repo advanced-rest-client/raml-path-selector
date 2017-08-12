@@ -53,7 +53,7 @@
     "paper-ripple": "PolymerElements/paper-ripple#^1.0.10",
     "iron-icon": "PolymerElements/iron-icon#^1.0.12",
     "raml-js-parser": "advanced-rest-client/raml-js-parser#^2.0.0",
-    "raml-json-enhance": "advanced-rest-client/raml-json-enhance#^0.1.7"
+    "raml-json-enhance": "advanced-rest-client/raml-json-enhance#^0.2.8"
   },
   "ignore": [
     "**/.*",
@@ -63,5 +63,5 @@
     "test",
     "tasks"
   ],
-  "version": "1.0.27"
+  "version": "1.0.28"
 }
