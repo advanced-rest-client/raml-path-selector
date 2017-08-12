@@ -1,3 +1,13 @@
+<a name="1.0.28"></a>
+## [1.0.28](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.27...1.0.28) (2017-08-12)
+
+
+### Update
+
+* Updated version of the enhancer. ([ec349cda3550e7a39cbbfe47d90a41f3199a56c6](https://github.com/advanced-rest-client/raml-path-selector/commit/ec349cda3550e7a39cbbfe47d90a41f3199a56c6))
+
+
+
 <a name="1.0.27"></a>
 ## [1.0.27](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.26...v1.0.27) (2017-06-23)
 
