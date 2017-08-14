@@ -1,3 +1,61 @@
+<a name="1.0.29"></a>
+## [1.0.29](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.28...1.0.29) (2017-08-12)
+
+
+
+
+<a name="1.0.28"></a>
+## [1.0.28](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.27...1.0.28) (2017-08-12)
+
+
+### Update
+
+* Updated version of the enhancer. ([ec349cda3550e7a39cbbfe47d90a41f3199a56c6](https://github.com/advanced-rest-client/raml-path-selector/commit/ec349cda3550e7a39cbbfe47d90a41f3199a56c6))
+
+
+
+<a name="1.0.27"></a>
+## [1.0.27](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.26...v1.0.27) (2017-06-23)
+
+
+
+
+<a name="1.0.26"></a>
+## [1.0.26](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.25...v1.0.26) (2017-06-23)
+
+
+### Update
+
+* Removed scrillong into view behavior as unpredictable. ([3641099c8e33f0c610e734cc0545a83e25a7e2be](https://github.com/advanced-rest-client/raml-path-selector/commit/3641099c8e33f0c610e734cc0545a83e25a7e2be))
+* Removed sudo command from Travis configuration. ([6c231f0c4f4fbc27a7e84df62fffd7d4e5667f8c](https://github.com/advanced-rest-client/raml-path-selector/commit/6c231f0c4f4fbc27a7e84df62fffd7d4e5667f8c))
+* Updated bower components versions for test and demo page. ([be8a878089b46c13e596098a88ebc0755a74113f](https://github.com/advanced-rest-client/raml-path-selector/commit/be8a878089b46c13e596098a88ebc0755a74113f))
+* Updated polymer cli version and therefore test and linter commands and test configuration. ([f31f648177cc7626e1bac3957cbf511e6178c14d](https://github.com/advanced-rest-client/raml-path-selector/commit/f31f648177cc7626e1bac3957cbf511e6178c14d))
+
+
+
+<a name="1.0.25"></a>
+## [1.0.25](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.23...v1.0.25) (2017-06-15)
+
+
+### Update
+
+* Added tests ([edc14c4f7041fa971ef885f46e2a4a4766939358](https://github.com/advanced-rest-client/raml-path-selector/commit/edc14c4f7041fa971ef885f46e2a4a4766939358))
+* Finished anypoint styling ([ecbaad7772f701e823e5617c20cf75cd8b138636](https://github.com/advanced-rest-client/raml-path-selector/commit/ecbaad7772f701e823e5617c20cf75cd8b138636))
+* Optymized computations when initializing the element. Now default values aren't set and only computed when RAML object is set ([6f930e361a74f87d483e3953bbdac417222e1041](https://github.com/advanced-rest-client/raml-path-selector/commit/6f930e361a74f87d483e3953bbdac417222e1041))
+* Removed autoselection of the summary node from this element. Now hosting application must be responsible for similat behavior ([dee1376dae89953d21ef96d5c6159095687fbe63](https://github.com/advanced-rest-client/raml-path-selector/commit/dee1376dae89953d21ef96d5c6159095687fbe63))
+* Removed default values for properties that don't have to have values set on initialization time ([2f147f03a9a25f42f6011c17b1a2bd19637f3158](https://github.com/advanced-rest-client/raml-path-selector/commit/2f147f03a9a25f42f6011c17b1a2bd19637f3158))
+* Removed default values from element initialization ([66f1a126be181f153d77fafecd88ec8a62735647](https://github.com/advanced-rest-client/raml-path-selector/commit/66f1a126be181f153d77fafecd88ec8a62735647))
+* Returned to material styling and removed any reference to Anypoint styling ([34c8fd5dfb5769df0b29cc79e160e59e98add528](https://github.com/advanced-rest-client/raml-path-selector/commit/34c8fd5dfb5769df0b29cc79e160e59e98add528))
+* Updated styles to match Anypoint styling. TODO: Sub-resources indentation ([f16f7bbc0a598532bb13fdd4f433c5c31edc076c](https://github.com/advanced-rest-client/raml-path-selector/commit/f16f7bbc0a598532bb13fdd4f433c5c31edc076c))
+* Updated tests configuration: Added Safari 10 and Sauce Labs connect configuration ([759e830a0f12118c0c2fc067ba527f04a1dd645c](https://github.com/advanced-rest-client/raml-path-selector/commit/759e830a0f12118c0c2fc067ba527f04a1dd645c))
+* Updated title attribute for the method. Removed method name before the description ([e94c6c2d1ec91424e3bc27c03a42fcaccedb9227](https://github.com/advanced-rest-client/raml-path-selector/commit/e94c6c2d1ec91424e3bc27c03a42fcaccedb9227))
+
+
+
+<a name="1.0.24"></a>
+## [1.0.24](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.23...v1.0.24) (2017-04-20)
+
+
 <a name="1.0.23"></a>
 ## [1.0.23](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.22...v1.0.23) (2017-04-12)
 
@@ -256,6 +314,3 @@
 ### Fix
 
 * Fixed issue with method name display - the view used invalid function that is for a resource name ([76a038339a6d5a514b14440663d648f13dff557f](https://github.com/advanced-rest-client/raml-path-selector/commit/76a038339a6d5a514b14440663d648f13dff557f))
-
-
-

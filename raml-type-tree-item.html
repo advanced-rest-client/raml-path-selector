@@ -37,7 +37,7 @@ Custom property | Description | Default
   <template>
     <style include="raml-tree-item-styles"></style>
     <paper-item data-path$="[[path]]" on-tap="_selectPath" class$="[[_computeItemSelectableClass(selectedPath, path)]]">
-      <span class="indentable-content">[[_computeName(type.*)]]</span>
+      <span class="ie-sizer"></span><span class="indentable-content">[[_computeName(type.*)]]</span>
     </paper-item>
   </template>
   <script>

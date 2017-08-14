@@ -78,8 +78,8 @@ Custom property | Description | Default
     }
 
     .toggle-button {
-      width: 32px;
-      height: 32px;
+      /*width: 32px;
+      height: 32px;*/
       color: var(--raml-path-selector-toggle-icon-color, rgba(0, 0, 0, 0.54));
       transform: rotateZ(-90deg);
       transition: color 0.25s linear, transform 0.3s linear;
@@ -92,50 +92,62 @@ Custom property | Description | Default
     .toggle-button:hover {
       color: var(--raml-path-selector-toggle-icon-hover-color, rgba(0, 0, 0, 0.78));
     }
+      
+    #summary-link {
+      @apply(--path-selector-summary-link);
+    }
     </style>
-    <paper-item on-tap="_selectSummary" class$="[[_computeItemSelectedClass(selectedPath, 'summary')]]" title="API sumamry">API summary</paper-item>
-    <section class="documentation" hidden$="[[!hasDocumentation]]">
-      <div class="section-title">
-        <paper-icon-button data-section="documentation" on-tap="_toggleSection" class$="toggle-button[[_computeToggleIconClass(documentationOpened)]]" icon="anypoint:arrow-down" noink="[[noink]]"></paper-icon-button>
-        <h3 data-section="documentation" on-tap="_toggleSection">Documentation</h3>
-        <paper-icon-button class="enter-button" icon="anypoint:arrow-down" hidden$="[[!narrow]]" data-section="documentation" on-tap="_enterSection" noink="[[noink]]"></paper-icon-button>
-      </div>
-      <iron-collapse opened="[[documentationOpened]]">
-        <div>
-          <template is="dom-repeat" items="[[raml.documentation]]">
-            <raml-documentation-tree-item indent="1" indent-size="24" selected-path="[[selectedPath]]" doc="[[item]]" path="documentation.[[index]]"></raml-documentation-tree-item>
-          </template>
+    <paper-item on-tap="_selectSummary" id="summary-link" class$="[[_computeItemSelectedClass(selectedPath, 'summary')]]" title="API sumamry"><span class="ie-sizer"></span>API summary</paper-item>
+    <template is="dom-if" if="[[hasDocumentation]]">
+      <section class="documentation">
+        <div class="section-title">
+          <paper-icon-button data-section="documentation" on-tap="_toggleSection" class$="toggle-button[[_computeToggleIconClass(documentationOpened)]]" icon="arc:keyboard-arrow-down" noink="[[noink]]"></paper-icon-button>
+          <h3 data-section="documentation" on-tap="_toggleSection">Documentation</h3>
+          <paper-icon-button class="enter-button" icon="arc:keyboard-arrow-down" hidden$="[[!narrow]]" data-section="documentation" on-tap="_enterSection" noink="[[noink]]"></paper-icon-button>
         </div>
-      </iron-collapse>
-    </section>
-    <section class="documentation" hidden$="[[!hasTypes]]">
-      <div class="section-title">
-        <paper-icon-button data-section="types" on-tap="_toggleSection" class$="toggle-button[[_computeToggleIconClass(typesOpened)]]" icon="anypoint:arrow-down" noink="[[noink]]"></paper-icon-button>
-        <h3 data-section="types" on-tap="_toggleSection">Types</h3>
-        <paper-icon-button class="enter-button" icon="anypoint:arrow-down" hidden$="[[!narrow]]" data-section="types" on-tap="_enterSection" noink="[[noink]]"></paper-icon-button>
-      </div>
-      <iron-collapse opened="[[typesOpened]]">
-        <div>
-          <template is="dom-repeat" items="[[_objectToArray(raml.types)]]">
-            <raml-type-tree-item indent="1" indent-size="24" selected-path="[[selectedPath]]" type="[[item]]" path="types.[[index]]"></raml-type-tree-item>
-          </template>
+        <iron-collapse opened="[[documentationOpened]]">
+          <div>
+            <template is="dom-repeat" items="[[raml.documentation]]">
+              <raml-documentation-tree-item indent="1" indent-size="24" selected-path="[[selectedPath]]" doc="[[item]]" path="documentation.[[index]]"></raml-documentation-tree-item>
+            </template>
+          </div>
+        </iron-collapse>
+      </section>
+    </template>
+
+    <template is="dom-if" if="[[hasTypes]]">
+      <section class="documentation">
+        <div class="section-title">
+          <paper-icon-button data-section="types" on-tap="_toggleSection" class$="toggle-button[[_computeToggleIconClass(typesOpened)]]" icon="arc:keyboard-arrow-down" noink="[[noink]]"></paper-icon-button>
+          <h3 data-section="types" on-tap="_toggleSection">Types</h3>
+          <paper-icon-button class="enter-button" icon="arc:keyboard-arrow-down" hidden$="[[!narrow]]" data-section="types" on-tap="_enterSection" noink="[[noink]]"></paper-icon-button>
         </div>
-      </iron-collapse>
-    </section>
-    <section class="documentation" hidden$="[[!hasResources]]">
-      <div class="section-title">
-        <paper-icon-button data-section="resources" on-tap="_toggleSection" class$="toggle-button[[_computeToggleIconClass(resourcesOpened)]]" icon="anypoint:arrow-down" noink="[[noink]]"></paper-icon-button>
-        <h3 data-section="resources" on-tap="_toggleSection">Resources</h3>
-        <paper-icon-button class="enter-button" icon="anypoint:arrow-down" hidden$="[[!narrow]]" data-section="resources" on-tap="_enterSection" noink="[[noink]]"></paper-icon-button>
-      </div>
-      <iron-collapse opened="[[resourcesOpened]]">
-        <div>
-          <template is="dom-repeat" items="[[raml.resources]]" resources>
-            <raml-resource-tree-item indent="1" indent-size="24" selected-path="[[selectedPath]]" resource="[[item]]" path="resources.[[index]]" opened="[[opened]]" narrow="[[narrow]]" noink="[[noink]]"></raml-resource-tree-item>
-          </template>
+        <iron-collapse opened="[[typesOpened]]">
+          <div>
+            <template is="dom-repeat" items="[[_objectToArray(raml.types)]]">
+              <raml-type-tree-item indent="1" indent-size="24" selected-path="[[selectedPath]]" type="[[item]]" path="types.[[index]]"></raml-type-tree-item>
+            </template>
+          </div>
+        </iron-collapse>
+      </section>
+    </template>
+
+    <template is="dom-if" if="[[hasResources]]">
+      <section class="documentation">
+        <div class="section-title">
+          <paper-icon-button data-section="resources" on-tap="_toggleSection" class$="toggle-button[[_computeToggleIconClass(resourcesOpened)]]" icon="arc:keyboard-arrow-down" noink="[[noink]]"></paper-icon-button>
+          <h3 data-section="resources" on-tap="_toggleSection">Resources</h3>
+          <paper-icon-button class="enter-button" icon="arc:keyboard-arrow-down" hidden$="[[!narrow]]" data-section="resources" on-tap="_enterSection" noink="[[noink]]"></paper-icon-button>
         </div>
-      </iron-collapse>
-    </section>
+        <iron-collapse opened="[[resourcesOpened]]">
+          <div>
+            <template is="dom-repeat" items="[[raml.resources]]" resources>
+              <raml-resource-tree-item indent="1" indent-size="24" selected-path="[[selectedPath]]" resource="[[item]]" path="resources.[[index]]" opened="[[opened]]" narrow="[[narrow]]" noink="[[noink]]"></raml-resource-tree-item>
+            </template>
+          </div>
+        </iron-collapse>
+      </section>
+    </template>
     <path-selector-documentation noink="[[noink]]" documentation="[[raml.documentation]]" selected-path="[[selectedPath]]"></path-selector-documentation>
     <path-selector-types noink="[[noink]]" types="[[_objectToArray(raml.types)]]" selected-path="[[selectedPath]]"></path-selector-types>
     <path-selector-resource noink="[[noink]]" resources="[[raml.resources]]" selected-path="[[selectedPath]]" items-opened="[[opened]]"></path-selector-resource>
@@ -160,8 +172,7 @@ Custom property | Description | Default
       },
       // If true then the first level of resources will be opened by default.
       opened: {
-        type: Boolean,
-        value: false
+        type: Boolean
       },
       // Is set to true when the RAML's `resources` array is not empty
       hasDocumentation: Boolean,
@@ -177,7 +188,6 @@ Custom property | Description | Default
        */
       narrow: {
         type: Boolean,
-        value: false,
         notify: true,
         reflectToAttribute: true
       },
@@ -226,13 +236,19 @@ Custom property | Description | Default
     // Sets the `selectedPath` value form the `raml-path-selected` event.
     _onPathSelected: function(e) {
       e.stopPropagation();
-      this.set('selectedPath', e.detail.path);
+      if (e.detail.path === this.selectedPath) {
+        this._patchChanged(e.detail.path);
+      } else {
+        this.set('selectedPath', e.detail.path);
+      }
     },
 
     // Fires the `raml-selected-path-changed` event when the path changes.
     _patchChanged: function(selectedPath) {
       this.fire('raml-selected-path-changed', {
         path: selectedPath
+      }, {
+        composed: true
       });
     },
 
@@ -241,9 +257,7 @@ Custom property | Description | Default
      */
     _ramlChanged: function(raml) {
       if (!raml) {
-        this.set('selectedPath', '');
-      } else {
-        this._selectSummary();
+        this.set('selectedPath', undefined);
       }
     },
 

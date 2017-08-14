@@ -6,6 +6,9 @@
       @apply(--raml-docs-tree-item-element);
       background-color: var(--raml-docs-tree-item-element-background, transparent);
 
+      --selection-color: var(--raml-path-selector-selection-color, #fafafa);
+      --selection-background-color: var(--raml-path-selector-selection-background-color, #00A2DF);
+
       --paper-item-focused-before: {
         background-color: transparent;
       };
@@ -23,29 +26,46 @@
         text-transform: uppercase;
       };
 
+      --method-display-box-hover: {
+        background: var(--method-display-background-color-hover, --selection-color);
+        color: var(--method-display-color-hover, --selection-background-color);
+        @apply(--raml-docs-tree-item-hover);
+      };
+
+      --method-display-box-selected: {
+        background: var(--method-display-background-color-hover, --selection-color);
+        color: var(--method-display-color-hover, --selection-background-color);
+        @apply(--raml-docs-tree-item-selected);
+      };
+
       --method-display-box-get: {
         background: var(--method-display-get-background-color, rgba(0, 128, 0, 0.12));
         color: var(--method-display-get-color, rgb(0, 128, 0));
+        @apply(--raml-docs-tree-item-get);
       };
 
       --method-display-box-post: {
         background: var(--method-display-post-background-color, rgba(33, 150, 243, 0.12));
         color: var(--method-display-post-color, rgb(33, 150, 243));
+        @apply(--raml-docs-tree-item-post);
       };
 
       --method-display-box-put: {
         background: var(--method-display-put-background-color, rgba(255, 165, 0, 0.12));
         color: var(--method-display-put-color, rgb(255, 165, 0));
+        @apply(--raml-docs-tree-item-put);
       };
 
       --method-display-box-delete: {
         background: var(--method-display-delete-background-color, rgba(244, 67, 54, 0.12));
         color: var(--method-display-delete-color, rgb(244, 67, 54));
+        @apply(--raml-docs-tree-item-delete);
       };
 
       --method-display-box-patch: {
         background: var(--method-display-patch-background-color, rgba(156, 39, 176, 0.12));
         color: var(--method-display-patch-color, rgb(156, 39, 176));
+        @apply(--raml-docs-tree-item-patch);
       };
     }
 
@@ -58,20 +78,22 @@
       min-height: 44px;
       padding: 0px 16px;
       cursor: pointer;
-      @apply(--raml-docs-tree-item);
       background-color: var(--raml-docs-tree-item-background, transparent);
       color: var(--raml-docs-tree-item-color, #6b6c6d);
       border-left: 4px transparent solid;
+      transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out;
+      @apply(--raml-docs-tree-item);
     }
 
-    paper-item:not(:focus):not(.selected):hover {
-      border-left-color: var(--raml-docs-tree-item-hover-selector-color, #00A2DF);
-      color: var(--raml-docs-tree-item-color-hovered, #121314);
+    paper-item:not(.selected):hover,
+    paper-item:not(.selected):active {
+      background-color: var(--raml-docs-tree-item-hover-selector-color, --selection-background-color);
+      color: var(--raml-docs-tree-item-color-hovered, --selection-color);
     }
 
     .selected {
-      border-left-color: var(--raml-docs-tree-item-selected-selector-color, #00A2DF);
-      color: var(--raml-docs-tree-item-color-selected, #121314);
+      background-color: var(--raml-docs-tree-item-selected-selector-color, --selection-background-color);
+      color: var(--raml-docs-tree-item-color-selected, --selection-color);
     }
 
     .indentable-content {
@@ -81,8 +103,55 @@
     .enter-button {
       color: var(--raml-path-selector-toggle-icon-color, rgba(0, 0, 0, 0.54));
       transform: rotateZ(-90deg);
-      width: 32px;
-      height: 32px;
+    }
+
+    .method-name-item {
+      padding-left: 24px;
+    }
+
+    .method {
+      @apply(--method-display-box);
+    }
+
+    .method.get {
+      @apply(--method-display-box-get);
+    }
+
+    .method.post {
+      @apply(--method-display-box-post);
+    }
+
+    .method.put {
+      @apply(--method-display-box-put);
+    }
+
+    .method.delete {
+      @apply(--method-display-box-delete);
+    }
+
+    .method.patch {
+      @apply(--method-display-box-patch);
+    }
+
+    paper-item:not(.selected):hover .method {
+      @apply(--method-display-box-hover);
+    }
+
+    paper-item.selected .method {
+      @apply(--method-display-box-selected);
+    }
+
+    .method-description {
+      @apply(--layout-horizontal);
+      @apply(--layout-center);
+    }
+
+    .method-display {
+      @apply(--layout-flex);
+    }
+
+    .ie-sizer {
+      min-height: 44px;
     }
     </style>
   </template>

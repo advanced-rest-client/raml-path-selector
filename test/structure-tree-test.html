@@ -20,7 +20,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <link rel="import" href="../../raml-js-parser/raml-js-parser.html">
     <link rel="import" href="../../raml-json-enhance/raml-json-enhance.html">
-    <link rel="import" href="../raml-path-selector.html">
+    <link rel="import" href="../raml-structure-tree.html">
   </head>
   <body>
 
@@ -38,13 +38,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <test-fixture id="basic">
       <template>
-        <raml-path-selector></raml-path-selector>
+        <raml-structure-tree has-resources></raml-structure-tree>
       </template>
     </test-fixture>
 
     <script>
-    /* global suite, test, fixture, assert */
-    suite('basic', function() {
+    /* global suite, test, fixture, assert, sinon */
+    suite('raml-structure-tree element', function() {
       var raml;
       var element;
 
@@ -72,47 +72,66 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         TestHelpers.forceXIfStamp(element);
       });
 
-      test('selected path is undefined', function() {
-        assert.isUndefined(element.selectedPath);
+      suite('basic', function() {
+        test('selected path is undefined', function() {
+          assert.isUndefined(element.selectedPath);
+        });
+
+        test('opened is undefined', function() {
+          assert.isUndefined(element.opened);
+        });
+
+        test('hasDocumentation is undefined', function() {
+          assert.isUndefined(element.hasDocumentation);
+        });
+
+        test('hasTypes is undefined', function() {
+          assert.isUndefined(element.hasTypes);
+        });
+
+        test('hasResources is true', function() {
+          assert.isTrue(element.hasResources);
+        });
+
+        test('documentationOpened is undefined', function() {
+          assert.isUndefined(element.documentationOpened);
+        });
+
+        test('typesOpened is undefined', function() {
+          assert.isUndefined(element.typesOpened);
+        });
+
+        test('resourcesOpened is undefined', function() {
+          assert.isUndefined(element.resourcesOpened);
+        });
+
+        test('noink is undefined', function() {
+          assert.isUndefined(element.noink);
+        });
       });
 
-      test('hasDocumentation is undefined', function() {
-        assert.isUndefined(element.hasDocumentation);
-      });
+      suite('events', function() {
+        const SELECTED_PATH = 'resources.0';
 
-      test('hasTypes is undefined', function() {
-        assert.isUndefined(element.hasTypes);
-      });
+        test('Fires raml-selected-path-changed event', function() {
+          var spy = sinon.stub();
+          element.addEventListener('raml-selected-path-changed', spy);
+          element.selectedPath = SELECTED_PATH;
+          assert.isTrue(spy.calledOnce);
+        });
 
-      test('hasResources is true', function() {
-        assert.isTrue(element.hasResources);
-      });
+        test('Handles raml-path-selected event', function() {
+          var ev = new CustomEvent('raml-path-selected', {
+            'detail': {
+              'path': SELECTED_PATH
+            },
+            bubbles: true
+          });
+          element.dispatchEvent(ev);
+          assert.equal(element.selectedPath, SELECTED_PATH);
+        });
 
-      test('firstLevelOpened is undefined', function() {
-        assert.isUndefined(element.firstLevelOpened);
       });
-
-      test('aware is undefined', function() {
-        assert.isUndefined(element.aware);
-      });
-
-      test('documentationOpened is undefined', function() {
-        assert.isUndefined(element.documentationOpened);
-      });
-
-      test('typesOpened is undefined', function() {
-        assert.isUndefined(element.typesOpened);
-      });
-
-      test('resourcesOpened is undefined', function() {
-        assert.isUndefined(element.resourcesOpened);
-      });
-
-      test('noink is undefined', function() {
-        assert.isUndefined(element.noink);
-      });
-
-      // Don't check narrow since it depends on test browser screen size.
     });
     </script>
 

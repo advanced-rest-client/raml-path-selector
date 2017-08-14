@@ -15,7 +15,7 @@ the License.
 <link rel="import" href="../paper-item/paper-item.html">
 <link rel="import" href="../iron-collapse/iron-collapse.html">
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../anypoint-icons/anypoint-icons.html">
+<link rel="import" href="../arc-icons/arc-icons.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
 <link rel="import" href="raml-tree-item-behavior.html">
@@ -63,15 +63,11 @@ Custom property | Description | Default
     }
 
     .toggle-button {
-      transition: all 0.4s ease;
-      padding: 0;
-      width: 16px;
-      height: 16px;
+      transition: transform 0.35s ease;
       transform: rotateZ(-90deg);
-      margin-right: 12px;
     }
-    /* In shaggy DOM there must be an exact path for recursive elements */
 
+    /* In shaggy DOM there must be an exact path for recursive elements */
     :host([opened])>paper-item>paper-icon-button.toggle-button {
       transform: rotateZ(0deg)
     }
@@ -84,56 +80,20 @@ Custom property | Description | Default
       white-space: nowrap;
     }
 
-    .method-name-item {
-      padding-left: 24px;
-    }
-
-    .method {
-      @apply(--method-display-box);
-    }
-
-    .method.get {
-      @apply(--method-display-box-get);
-    }
-
-    .method.post {
-      @apply(--method-display-box-post);
-    }
-
-    .method.put {
-      @apply(--method-display-box-put);
-    }
-
-    .method.delete {
-      @apply(--method-display-box-delete);
-    }
-
-    .method.patch {
-      @apply(--method-display-box-patch);
-    }
-
-    .method-description {
-      @apply(--layout-horizontal);
-      @apply(--layout-center);
-    }
-
-    .method-display {
-      @apply(--layout-flex);
-    }
-
     :host([narrow]) .resource-details-item {
       padding-right: 0;
     }
     </style>
     <paper-item data-path$="[[path]]" on-tap="_selectPath" class$="indentable-content resource-details-item [[_computeItemSelectableClass(selectedPath, path)]]" title$="[[resourceTitle]]" id="resource">
-      <paper-icon-button class="toggle-button" icon="anypoint:arrow-down" on-tap="toggle" noink="[[noink]]"></paper-icon-button>
+      <paper-icon-button class="toggle-button" icon="arc:keyboard-arrow-down" on-tap="toggle" noink="[[noink]]"></paper-icon-button>
       <span class="resource-name">[[_getName(resource)]]</span>
-      <paper-icon-button class="enter-button" icon="anypoint:arrow-down" hidden$="[[!narrow]]" on-tap="_enterResource" noink="[[noink]]"></paper-icon-button>
+      <paper-icon-button class="enter-button" icon="arc:keyboard-arrow-down" hidden$="[[!narrow]]" on-tap="_enterResource" noink="[[noink]]"></paper-icon-button>
     </paper-item>
     <iron-collapse id="collapse" opened="[[opened]]">
       <div class="children">
         <template is="dom-repeat" items="[[resource.methods]]">
-          <paper-item data-path$="[[path]].methods.[[index]]" on-tap="_selectPath" class$="method-name-item [[_computeItemSelectableClass(selectedPath, path, index)]]" title$="[[item.method]] [[item.description]]">
+          <paper-item data-path$="[[path]].methods.[[index]]" on-tap="_selectPath" class$="method-name-item [[_computeItemSelectableClass(selectedPath, path, index)]]" title$="[[item.description]]">
+            <span class="ie-sizer"></span>
             <span class="indentable-content method-description">
               <span class$="[[_computeMethodClass(item.method)]]">[[item.method]]</span>
             <span class="method-display">[[item.displayName]]</span>
@@ -239,7 +199,7 @@ Custom property | Description | Default
     _isSelectedChanged: function(isSelected, methodIsSelected, ready) {
       if ((isSelected || methodIsSelected) && ready) {
         this.setAttribute('tabindex', '0');
-        this.scrollElementIntoView();
+        // this.scrollElementIntoView();
         if (!this.opened) {
           this.set('opened', true);
         }

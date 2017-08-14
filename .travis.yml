@@ -1,20 +1,20 @@
 language: node_js
-sudo: required
 dist: trusty
 node_js: stable
 before_script:
 - npm install --silent bower polymer-cli
-- ./node_modules/.bin/bower install --silent
+- "./node_modules/.bin/bower install --silent"
 script:
 - npm run lint
-# - ./node_modules/.bin/polymer test --plugin sauce --job-name "docs-parameters-table:${TRAVIS_BRANCH}" --build-number=${TRAVIS_BUILD_NUMBER}
-cache:
-  directories:
-  - bower_components
-  - node_modules
+- ./node_modules/.bin/polymer test --plugin sauce --job-name "raml-path-selector:${TRAVIS_BRANCH}"
+  --build-number=${TRAVIS_BUILD_NUMBER}
 branches:
   only:
   - stage
   - develop
 after_success:
 - node tasks/ci.js
+env:
+  global:
+  - secure: rZge7Gi98JK2Ea+XmwfpgWB9v7kyqidYwiFZfFLjQJkTwOsj61qKmNxjLozOeQ8XEz9QTQ4NcmoKw9dc2tVZqSPT2GcboZO41aXA7UZcTVQDrhLWNTAWXvR7N6b0xoVV+2EBiNgDWYOjKQhexzy4J+s3vRVHYGrmQp6iEmof4kwJDKcfk+eZMtJRawV5TvdKmSfKYdgKo9DbGul1kMmPMCNguE/BeSSOq1A138ZxhV5C45V5c1QcIpje7OlvS+f9FxTqFf66IYOGXpg9lUiDhyyLlXk/qP0thjbNuhXrYa/F4kVG07uBsAjRJ43kRMjvJawZ66AMbCwvUkk4NKxKc/gXI8vVKnAl1Trd4qigIacO2rgbLlAX7FtWj7t2vdTeWwgzV9hKQM84qbv3Kd3F2dCHJfZoGZezA5pNoWfo0Kn7B9JNVkE7P4kmZhDBOelb+FBTPg1nQc2p8pUxMzBynZq1n4+W2C42gzF1kRrnxP0zXuXcOv1rutLJD0m1sCNVVM3VxxIQELVN85GGTn4JbjAE61T57yOiWrR/Qth+d67l2cVTDDjhb5MEFU9ONi0lPBH1VIfTuGUYtbP/YaH39pON8X9GZSneZ+dRPmKsJDkXXD9XOXV4ukXADj06PDI88d0U4dMHA/SkC9YUIGx+RlgJDGHCRahwsv44rGFJgpM=
+  - secure: ipJsUlXpnybIwhdaTk+oVqHsZ35uR7hPfSHtIimYpaACr0vILmbAwl7VTMY1sYkcVtHBlocRzx0WHDN1vqt0qHO0/3aWvZi+tIJ6rifOY8pec4XQsoTIzrATujwt7BJajrmke5FET/pEQ0rTNJvvKiicRGh4PuBl/iPnPcgs16c7FQjvvHTVqRI9uDRMl2SiEaMQK0eFl1uFYw1ii+pPQ2uZZ1LD3ysfySYTWY+2dzYCHj+BN3dPloqwRdoPBo0pIwDuQ4A8kCWx4hWv0q5XPmcrJ8GNu37dZTr4GgCO6eTiiWJgSr3IEbUrsSaCD5NOmKeQpiQxvUDuvKYxAQuU/hd5blyE2uleVL8YAFiLdwUdoEHr/NPbcqyh6URh3U2BRsInVmWv53f2LaJmiyyjMc3tKWVRNdUHt5xT1Vk1uaNc4rhdAd2RM2VLWIIpmoHf0n8CJ2zs4obo2dNqht+XXp6que7kWsGuvSmIDVP3dAyqy7Zo212lkl7QnCl8oONQMhIozIpEm3XxhO6tu61CbdMFgMuW77TlmT/ZEmEQzn7Uhlw3OxjXgZYv4nXbXfN5uoFyFxZzTXkkTFd6P3bgbwcKeEhYTnE1C/W91NgLxRVtUxAjIICRga3gcAoPtQ1xZ2hNZ1MRD6LGpYaIFY4CTFMKirSwB0dvtOMExphs2zg=
