@@ -35,7 +35,11 @@ Custom property | Description | Default
 -->
 <dom-module id="raml-type-tree-item">
   <template>
-    <style include="raml-tree-item-styles"></style>
+    <style include="raml-tree-item-styles">
+      .indentable-content {
+        @apply(--raml-tree-item-name);
+      }
+    </style>
     <paper-item data-path$="[[path]]" on-tap="_selectPath" class$="[[_computeItemSelectableClass(selectedPath, path)]]">
       <span class="indentable-content">[[_computeName(type.*)]]</span>
     </paper-item>
