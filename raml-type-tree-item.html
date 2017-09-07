@@ -37,7 +37,7 @@ Custom property | Description | Default
   <template>
     <style include="raml-tree-item-styles">
       .indentable-content {
-        @apply(--arc-font-common-base);
+        @apply(--raml-tree-item-name);
       }
     </style>
     <paper-item data-path$="[[path]]" on-tap="_selectPath" class$="[[_computeItemSelectableClass(selectedPath, path)]]">
