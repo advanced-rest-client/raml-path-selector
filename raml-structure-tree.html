@@ -92,7 +92,7 @@ Custom property | Description | Default
     .toggle-button:hover {
       color: var(--raml-path-selector-toggle-icon-hover-color, rgba(0, 0, 0, 0.78));
     }
-      
+
     #summary-link {
       @apply(--path-selector-summary-link);
     }
@@ -108,7 +108,7 @@ Custom property | Description | Default
         <iron-collapse opened="[[documentationOpened]]">
           <div>
             <template is="dom-repeat" items="[[raml.documentation]]">
-              <raml-documentation-tree-item indent="1" indent-size="24" selected-path="[[selectedPath]]" doc="[[item]]" path="documentation.[[index]]"></raml-documentation-tree-item>
+              <raml-documentation-tree-item indent="1" indent-size="[[indentSize]]" selected-path="[[selectedPath]]" doc="[[item]]" path="documentation.[[index]]"></raml-documentation-tree-item>
             </template>
           </div>
         </iron-collapse>
@@ -125,7 +125,7 @@ Custom property | Description | Default
         <iron-collapse opened="[[typesOpened]]">
           <div>
             <template is="dom-repeat" items="[[_objectToArray(raml.types)]]">
-              <raml-type-tree-item indent="1" indent-size="24" selected-path="[[selectedPath]]" type="[[item]]" path="types.[[index]]"></raml-type-tree-item>
+              <raml-type-tree-item indent="1" indent-size="[[indentSize]]" selected-path="[[selectedPath]]" type="[[item]]" path="types.[[index]]"></raml-type-tree-item>
             </template>
           </div>
         </iron-collapse>
@@ -142,15 +142,15 @@ Custom property | Description | Default
         <iron-collapse opened="[[resourcesOpened]]">
           <div>
             <template is="dom-repeat" items="[[raml.resources]]" resources>
-              <raml-resource-tree-item indent="1" indent-size="24" selected-path="[[selectedPath]]" resource="[[item]]" path="resources.[[index]]" opened="[[opened]]" narrow="[[narrow]]" noink="[[noink]]"></raml-resource-tree-item>
+              <raml-resource-tree-item indent="1" indent-size="[[indentSize]]" selected-path="[[selectedPath]]" resource="[[item]]" path="resources.[[index]]" opened="[[opened]]" narrow="[[narrow]]" noink="[[noink]]"></raml-resource-tree-item>
             </template>
           </div>
         </iron-collapse>
       </section>
     </template>
-    <path-selector-documentation noink="[[noink]]" documentation="[[raml.documentation]]" selected-path="[[selectedPath]]"></path-selector-documentation>
-    <path-selector-types noink="[[noink]]" types="[[_objectToArray(raml.types)]]" selected-path="[[selectedPath]]"></path-selector-types>
-    <path-selector-resource noink="[[noink]]" resources="[[raml.resources]]" selected-path="[[selectedPath]]" items-opened="[[opened]]"></path-selector-resource>
+    <path-selector-documentation noink="[[noink]]" documentation="[[raml.documentation]]" selected-path="[[selectedPath]]" indent-size="[[indentSize]]"></path-selector-documentation>
+    <path-selector-types noink="[[noink]]" types="[[_objectToArray(raml.types)]]" selected-path="[[selectedPath]]" indent-size="[[indentSize]]"></path-selector-types>
+    <path-selector-resource noink="[[noink]]" resources="[[raml.resources]]" selected-path="[[selectedPath]]" items-opened="[[opened]]" indent-size="[[indentSize]]"></path-selector-resource>
   </template>
   <script>
   Polymer({
@@ -215,7 +215,13 @@ Custom property | Description | Default
       /**
        * If true, the element will not produce a ripple effect when interacted with via the pointer.
        */
-      noink: Boolean
+      noink: Boolean,
+      /**
+       * A unit of indentation per deep lever.
+       * Fox example value `24` is multiplied by current level (eg. 2)
+       * givin 48 pixels margin.
+       */
+      indentSize: Number
     },
 
     hostAttributes: {

@@ -60,7 +60,7 @@ Custom property | Description | Default
         </paper-item>
       </template>
       <template is="dom-repeat" items="[[resources]]">
-        <raml-resource-tree-item indent="1" indent-size="12" selected-path="[[selectedPath]]" resource="[[item]]" path="[[_computeSubresourcePath(path, index)]]" path="" opened="[[itemsOpened]]" narrow></raml-resource-tree-item>
+        <raml-resource-tree-item indent="1" indent-size="[[indentSize]]" selected-path="[[selectedPath]]" resource="[[item]]" path="[[_computeSubresourcePath(path, index)]]" path="" opened="[[itemsOpened]]" narrow></raml-resource-tree-item>
       </template>
     </template>
   </template>
