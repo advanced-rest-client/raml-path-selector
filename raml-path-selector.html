@@ -196,7 +196,8 @@ See other elemets documentation more styling options.
       documentation-opened="[[documentationOpened]]"
       types-opened="[[typesOpened]]"
       resources-opened="[[resourcesOpened]]"
-      noink="[[noink]]"></raml-structure-tree>
+      noink="[[noink]]"
+      indent-size="[[indentSize]]"></raml-structure-tree>
     <template is="dom-if" if="[[aware]]" restamp="true">
       <raml-aware raml="{{raml}}" scope="[[aware]]"></raml-aware>
     </template>
@@ -290,7 +291,16 @@ See other elemets documentation more styling options.
       /**
        * If true, the element will not produce a ripple effect when interacted with via the pointer.
        */
-      noink: Boolean
+      noink: Boolean,
+      /**
+       * A unit of indentation per deep lever.
+       * Fox example value `24` is multiplied by current level (eg. 2)
+       * givin 48 pixels margin.
+       */
+      indentSize: {
+        type: Number,
+        value: 25
+      }
     },
 
     // Computes if given array has values.

@@ -42,7 +42,7 @@ Custom property | Description | Default
         <h3>Types</h3>
       </div>
       <template is="dom-repeat" items="[[types]]">
-        <raml-type-tree-item indent="1" indent-size="24" selected-path="[[selectedPath]]" type="[[item]]" path="types.[[index]]"></raml-type-tree-item>
+        <raml-type-tree-item indent="1" indent-size="[[indentSize]]" selected-path="[[selectedPath]]" type="[[item]]" path="types.[[index]]" noink="[[noink]]"></raml-type-tree-item>
       </template>
     </template>
   </template>

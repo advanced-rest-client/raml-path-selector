@@ -74,8 +74,58 @@
       color: var(--raml-docs-tree-item-color-selected, #121314);
     }
 
-    .indentable-content {
+    /*.indentable-content {
       padding-left: var(--indent-size-padding);
+    }*/
+
+    :host > paper-item.indentable-content,
+    :host > paper-item > .indentable-content,
+    :host > iron-collapse > .children > paper-item > .indentable-content {
+      padding-left: var(--indent-size-padding);
+    }
+
+    paper-item {
+      white-space: nowrap;
+    }
+
+    .method-name-item {
+      padding-left: 24px;
+    }
+
+    .method {
+      @apply(--method-display-box);
+      margin-left: 2px;
+    }
+
+    .method.get {
+      @apply(--method-display-box-get);
+    }
+
+    .method.post {
+      @apply(--method-display-box-post);
+    }
+
+    .method.put {
+      @apply(--method-display-box-put);
+    }
+
+    .method.delete {
+      @apply(--method-display-box-delete);
+    }
+
+    .method.patch {
+      @apply(--method-display-box-patch);
+    }
+
+    .method-description {
+      @apply(--layout-horizontal);
+      @apply(--layout-center);
+      @apply(--raml-resource-tree-item-resource-description);
+    }
+
+    .method-display {
+      @apply(--layout-flex);
+      @apply(--raml-resource-tree-item-resource-name);
     }
 
     .enter-button {

@@ -41,7 +41,7 @@ Custom property | Description | Default
         <h3>Documentation</h3>
       </div>
       <template is="dom-repeat" items="[[documentation]]">
-        <raml-documentation-tree-item indent="1" indent-size="24" selected-path="[[selectedPath]]" doc="[[item]]" path="documentation.[[index]]"></raml-documentation-tree-item>
+        <raml-documentation-tree-item indent="1" indent-size="[[indentSize]]" selected-path="[[selectedPath]]" doc="[[item]]" path="documentation.[[index]]" noink="[[noink]]"></raml-documentation-tree-item>
       </template>
     </template>
   </template>

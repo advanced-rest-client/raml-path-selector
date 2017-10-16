@@ -41,48 +41,6 @@ Custom property | Description | Default
   <template>
     <style include="raml-tree-item-styles"></style>
     <style include="path-selector-styles"></style>
-    <style>
-    paper-item {
-      white-space: nowrap;
-    }
-
-    .method-name-item {
-      padding-left: 24px;
-    }
-
-    .method {
-      @apply(--method-display-box);
-    }
-
-    .method.get {
-      @apply(--method-display-box-get);
-    }
-
-    .method.post {
-      @apply(--method-display-box-post);
-    }
-
-    .method.put {
-      @apply(--method-display-box-put);
-    }
-
-    .method.delete {
-      @apply(--method-display-box-delete);
-    }
-
-    .method.patch {
-      @apply(--method-display-box-patch);
-    }
-
-    .method-description {
-      @apply(--layout-horizontal);
-      @apply(--layout-center);
-    }
-
-    .method-display {
-      @apply(--layout-flex);
-    }
-    </style>
     <template is="dom-if" if="[[opened]]">
       <div class="section-title">
         <paper-icon-button on-tap="back" class="back-button" icon="anypoint:back" noink="[[noink]]"></paper-icon-button>
@@ -92,12 +50,12 @@ Custom property | Description | Default
         <paper-item data-path$="[[path]].methods.[[index]]" on-tap="_selectPath" class$="method-name-item [[_computeItemSelectableClass(selectedPath, path, index)]]" title$="[[item.method]] [[item.description]]">
           <span class="indentable-content method-description">
             <span class$="[[_computeMethodClass(item.method)]]">[[item.method]]</span>
-          <span class="method-display">[[item.displayName]]</span>
+            <span class="method-display">[[item.displayName]]</span>
           </span>
         </paper-item>
       </template>
       <template is="dom-repeat" items="[[resources]]">
-        <raml-resource-tree-item indent="1" indent-size="12" selected-path="[[selectedPath]]" resource="[[item]]" path="[[_computeSubresourcePath(path, index)]]" path="" opened="[[itemsOpened]]" narrow></raml-resource-tree-item>
+        <raml-resource-tree-item indent="1" indent-size="[[indentSize]]" selected-path="[[selectedPath]]" resource="[[item]]" path="[[_computeSubresourcePath(path, index)]]" path="" opened="[[itemsOpened]]" narrow noink="noink"></raml-resource-tree-item>
       </template>
     </template>
   </template>

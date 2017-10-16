@@ -81,49 +81,6 @@ Custom property | Description | Default
       @apply(--raml-resource-tree-item-resource-name);
     }
 
-    paper-item {
-      white-space: nowrap;
-    }
-
-    .method-name-item {
-      padding-left: 24px;
-    }
-
-    .method {
-      @apply(--method-display-box);
-    }
-
-    .method.get {
-      @apply(--method-display-box-get);
-    }
-
-    .method.post {
-      @apply(--method-display-box-post);
-    }
-
-    .method.put {
-      @apply(--method-display-box-put);
-    }
-
-    .method.delete {
-      @apply(--method-display-box-delete);
-    }
-
-    .method.patch {
-      @apply(--method-display-box-patch);
-    }
-
-    .method-description {
-      @apply(--layout-horizontal);
-      @apply(--layout-center);
-      @apply(--raml-resource-tree-item-resource-description);
-    }
-
-    .method-display {
-      @apply(--layout-flex);
-      @apply(--raml-resource-tree-item-resource-name);
-    }
-
     :host([narrow]) .resource-details-item {
       padding-right: 0;
     }
@@ -144,7 +101,7 @@ Custom property | Description | Default
           </paper-item>
         </template>
         <template is="dom-repeat" items="[[resource.resources]]">
-          <raml-resource-tree-item indent="[[_computeIndent(indent)]]" indent-size="24" selected-path="[[selectedPath]]" resource="[[item]]" path="[[path]].resources.[[index]]" narrow="[[narrow]]" noink="[[noink]]"></raml-resource-tree-item>
+          <raml-resource-tree-item indent="[[_computeIndent(indent)]]" indent-size="[[indentSize]]" selected-path="[[selectedPath]]" resource="[[item]]" path="[[path]].resources.[[index]]" narrow="[[narrow]]" noink="[[noink]]"></raml-resource-tree-item>
         </template>
       </div>
     </iron-collapse>
