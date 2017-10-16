@@ -93,7 +93,7 @@ Custom property | Description | Default
     <iron-collapse id="collapse" opened="[[opened]]">
       <div class="children">
         <template is="dom-repeat" items="[[resource.methods]]">
-          <paper-item data-path$="[[path]].methods.[[index]]" on-tap="_selectPath" class$="method-name-item [[_computeItemSelectableClass(selectedPath, path, index)]]" title$="[[item.method]] [[item.description]]">
+          <paper-item data-path$="[[path]].methods.[[index]]" on-tap="_selectPath" class$="method-name-item [[_computeItemSelectableClass(selectedPath, path, index)]]" title$="[[item.method]]: [[item.displayName]] [[item.description]]">
             <span class="indentable-content method-description">
               <span class$="[[_computeMethodClass(item.method)]]">[[item.method]]</span>
             <span class="method-display">[[item.displayName]]</span>
