@@ -1,3 +1,13 @@
+<a name="1.0.30"></a>
+## [1.0.30](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.28...1.0.30) (2017-10-16)
+
+
+### Fix
+
+* Fixes #10  - indentation of the resources. ([6d2d7239af1b17f30b72389d09a1ea293a185779](https://github.com/advanced-rest-client/raml-path-selector/commit/6d2d7239af1b17f30b72389d09a1ea293a185779)), closes [#10](https://github.com/advanced-rest-client/raml-path-selector/issues/10)
+
+
+
 <a name="1.0.29"></a>
 ## [1.0.29](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.28...1.0.29) (2017-08-12)
 
