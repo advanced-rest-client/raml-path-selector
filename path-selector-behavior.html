@@ -14,7 +14,7 @@ the License.
 <script>
 (function(g) {
   'use strict';
-  
+
   g.RamlBehaviors = g.RamlBehaviors || {};
   /**
    * Common properties and methods narrow full screen panels.
@@ -34,7 +34,9 @@ the License.
       opened: {
         type: Boolean,
         observer: '_openedChanged'
-      }
+      },
+      // Number of pixels to indent the content.
+      indentSize: Number
     },
 
     // Fires the `raml-path-selector-nav-back` event.

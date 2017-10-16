@@ -89,7 +89,13 @@
       color: var(--raml-docs-tree-item-color-selected, --selection-color);
     }
 
-    .indentable-content {
+    /*.indentable-content {
+      padding-left: var(--indent-size-padding);
+    }*/
+
+    :host > paper-item.indentable-content,
+    :host > paper-item > .indentable-content,
+    :host > iron-collapse > .children > paper-item > .indentable-content {
       padding-left: var(--indent-size-padding);
     }
 
@@ -104,6 +110,7 @@
 
     .method {
       @apply(--method-display-box);
+      margin-left: 16px;
     }
 
     .method.get {

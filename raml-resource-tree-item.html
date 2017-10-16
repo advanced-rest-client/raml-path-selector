@@ -101,7 +101,7 @@ Custom property | Description | Default
           </paper-item>
         </template>
         <template is="dom-repeat" items="[[resource.resources]]">
-          <raml-resource-tree-item indent="[[_computeIndent(indent)]]" indent-size="24" selected-path="[[selectedPath]]" resource="[[item]]" path="[[path]].resources.[[index]]" narrow="[[narrow]]" noink="[[noink]]"></raml-resource-tree-item>
+          <raml-resource-tree-item indent="[[_computeIndent(indent)]]" indent-size="[[indentSize]]" selected-path="[[selectedPath]]" resource="[[item]]" path="[[path]].resources.[[index]]" narrow="[[narrow]]" noink="[[noink]]"></raml-resource-tree-item>
         </template>
       </div>
     </iron-collapse>
