@@ -38,6 +38,8 @@ Custom property | Description | Default
 `--raml-path-selector-headers` | Mixin applied to the tree section headers. This will ovveride all other values. | `{}`
 `--raml-path-selector-toggle-icon-color` | Color of the toggle icon. | `rgba(0, 0, 0, 0.54)`
 `--raml-path-selector-toggle-icon-hover-color` | Color of the toggle icon when hovered. | `rgba(0, 0, 0, 0.78)`
+`--raml-path-selector-summary-item` | Mixin applied to a summary item in the tree selector | `{}`
+`--raml-path-selector-simple-item` | Mixin applied to a tree item that doesn't have icon or method description (only text label) | `{}`
 
 @element raml-structure-tree
 @demo demo/index.html
@@ -93,8 +95,13 @@ Custom property | Description | Default
     .toggle-button:hover {
       color: var(--raml-path-selector-toggle-icon-hover-color, rgba(0, 0, 0, 0.78));
     }
+
+    .summary {
+      padding-left: 8px;
+      @apply --raml-path-selector-summary-item;
+    }
     </style>
-    <paper-item on-tap="_selectSummary" class$="[[_computeItemSelectedClass(selectedPath, 'summary')]]" title="API sumamry">API summary</paper-item>
+    <paper-item on-tap="_selectSummary" class$="summary [[_computeItemSelectedClass(selectedPath, 'summary')]]" title="API sumamry">API summary</paper-item>
     <section class="documentation" hidden$="[[!hasDocumentation]]">
       <div class="section-title">
         <paper-icon-button data-section="documentation" on-tap="_toggleSection" class$="toggle-button[[_computeToggleIconClass(documentationOpened)]]" icon="anypoint:arrow-down" noink="[[noink]]"></paper-icon-button>
