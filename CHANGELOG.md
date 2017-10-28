@@ -1,3 +1,13 @@
+<a name="1.0.31"></a>
+## [1.0.31](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.30...1.0.31) (2017-10-28)
+
+
+### Fix
+
+* Fixes #1 - hidden attribute do not hide the element. ([4ab109afe91ab19507595eb4a0e845c01d60c27d](https://github.com/advanced-rest-client/raml-path-selector/commit/4ab109afe91ab19507595eb4a0e845c01d60c27d)), closes [#1](https://github.com/advanced-rest-client/raml-path-selector/issues/1)
+
+
+
 <a name="1.0.30"></a>
 ## [1.0.30](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.28...1.0.30) (2017-10-16)
 
