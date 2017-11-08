@@ -1,3 +1,13 @@
+<a name="1.0.34"></a>
+## [1.0.34](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.33...1.0.34) (2017-11-08)
+
+
+### Fix
+
+* Fixing function declaration so IE will understand it. ([6ea7f69e16ef896e1e218aa972e41aa560f6be90](https://github.com/advanced-rest-client/raml-path-selector/commit/6ea7f69e16ef896e1e218aa972e41aa560f6be90))
+
+
+
 <a name="1.0.33"></a>
 ## [1.0.33](https://github.com/advanced-rest-client/raml-path-selector/compare/1.0.32...1.0.33) (2017-10-28)
 
